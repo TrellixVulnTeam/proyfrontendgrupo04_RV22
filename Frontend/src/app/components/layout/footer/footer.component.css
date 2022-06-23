@@ -1,0 +1,9 @@
+#centro{
+    margin-top: 50px;
+}
+#centro div {
+    
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+}

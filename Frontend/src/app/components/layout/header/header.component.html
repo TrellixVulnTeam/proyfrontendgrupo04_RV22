@@ -14,7 +14,8 @@
       </ul>
       <div class="text-end">
 
-        <a *ngIf="!loginService.userLoggedIn()" [routerLink]="['login']">
+        <!-- una ves que tengamos todos los component activaremos el login -->
+     <!--    <a *ngIf="!loginService.userLoggedIn()" [routerLink]="['login']">
           <button type="button" class="btn btn-outline-light me-2" value="(Login)">Login</button>
         </a>
 
@@ -26,7 +27,7 @@
             
           </svg> 
           {{loginService.userLogged()}}
-          <button type="button" class="btn btn-warning" value="(logout)">Sign-up</button>
+          <button type="button" class="btn btn-warning" value="(logout)">Sign-up</button> -->
         </a>   
       </div>
     </div>

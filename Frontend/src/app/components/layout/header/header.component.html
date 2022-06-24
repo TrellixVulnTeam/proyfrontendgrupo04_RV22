@@ -7,8 +7,10 @@
 
       <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
         <li><a href="#" class="nav-link px-2 text-secondary">inicio</a></li>
+        <li><a href="/empleado.html" class="nav-link px-2 text-white"[routerLink]="['empleadosRegistrados']">Lista de empleados</a></li>
         <li><a href="#" class="nav-link px-2 text-white" [routerLink]="['2']">2</a></li>
         <li><a href="#" class="nav-link px-2 text-white"[routerLink]="['1']">1</a></li>
+        
         <li><a href="#" class="nav-link px-2 text-white">FAQs</a></li>
         <li><a href="#" class="nav-link px-2 text-white">About</a></li>
       </ul>
@@ -28,7 +30,7 @@
           </svg> 
           {{loginService.userLogged()}}
           <button type="button" class="btn btn-warning" value="(logout)">Sign-up</button> 
-        </a>  --> 
+
       </div>
     </div>
   </div>

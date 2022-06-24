@@ -1,1 +1,18 @@
 <p>grafica-torta works!</p>
+<div>
+    <div>
+        <div class="chart">
+            <canvas baseChart [data]="pieChartData" [type]="pieChartType" [options]="pieChartOptions"
+                [plugins]="pieChartPlugins">
+            </canvas>
+        </div>
+    </div>
+</div>
+<div class="button-row">
+    <button class="btn btn-primary" (click)="toggleLegend()">Toggle Legend</button>
+    <button class="btn btn-primary" (click)="changeLabels()">Change Labels</button>
+    <button class="btn btn-primary" (click)="addSlice()">Add Slice</button>
+    <button class="btn btn-primary" (click)="removeSlice()">Remove Slice</button>
+    <button class="btn btn-primary" (click)="changeLegendPosition()">Change Legend
+        Position</button>
+</div>

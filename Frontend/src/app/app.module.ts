@@ -24,6 +24,7 @@ import { EstadisticaReunionParticipanteComponent } from './components/estadistic
 import { EstadisticaFormOficinaComponent } from './components/estadistica/estadistica-form-oficina/estadistica-form-oficina.component';
 import { EstadisticaFormTiempoComponent } from './components/estadistica/estadistica-form-tiempo/estadistica-form-tiempo.component';
 import { EstadisticaFormParticipanteComponent } from './components/estadistica/estadistica-form-participante/estadistica-form-participante.component';
+import { NgChartsModule } from 'ng2-charts';
 
 @NgModule({
   declarations: [
@@ -52,6 +53,7 @@ import { EstadisticaFormParticipanteComponent } from './components/estadistica/e
     AppRoutingModule,
     HttpClientModule, // cliente
     FormsModule, //para los formularios
+    NgChartsModule, //graficos
   ],
   providers: [LoginService],
   bootstrap: [AppComponent],

@@ -14,6 +14,16 @@ import { AltaEmpleadoComponent } from './components/form/alta-empleado/alta-empl
 import { AltaReunionComponent } from './components/form/alta-reunion/alta-reunion.component';
 import { FormRecursosComponent } from './components/form/form-recursos/form-recursos.component';
 import { FormParticipantesComponent } from './components/form/form-participantes/form-participantes.component';
+import { EstadisticaComponent } from './components/estadistica/estadistica.component';
+import { GraficaBarraComponent } from './components/grafica/grafica-barra/grafica-barra.component';
+import { GraficaTortaComponent } from './components/grafica/grafica-torta/grafica-torta.component';
+import { EstadisticaMenuComponent } from './components/estadistica/estadistica-menu/estadistica-menu.component';
+import { EstadisticaReunionTiempoComponent } from './components/estadistica/estadistica-reunion-tiempo/estadistica-reunion-tiempo.component';
+import { EstadisticaReunionOficinaComponent } from './components/estadistica/estadistica-reunion-oficina/estadistica-reunion-oficina.component';
+import { EstadisticaReunionParticipanteComponent } from './components/estadistica/estadistica-reunion-participante/estadistica-reunion-participante.component';
+import { EstadisticaFormOficinaComponent } from './components/estadistica/estadistica-form-oficina/estadistica-form-oficina.component';
+import { EstadisticaFormTiempoComponent } from './components/estadistica/estadistica-form-tiempo/estadistica-form-tiempo.component';
+import { EstadisticaFormParticipanteComponent } from './components/estadistica/estadistica-form-participante/estadistica-form-participante.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +36,16 @@ import { FormParticipantesComponent } from './components/form/form-participantes
     AltaReunionComponent,
     FormRecursosComponent,
     FormParticipantesComponent,
+    EstadisticaComponent,
+    GraficaBarraComponent,
+    GraficaTortaComponent,
+    EstadisticaMenuComponent,
+    EstadisticaReunionTiempoComponent,
+    EstadisticaReunionOficinaComponent,
+    EstadisticaReunionParticipanteComponent,
+    EstadisticaFormOficinaComponent,
+    EstadisticaFormTiempoComponent,
+    EstadisticaFormParticipanteComponent,
   ],
   imports: [
     BrowserModule,

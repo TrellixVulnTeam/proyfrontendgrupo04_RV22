@@ -4,6 +4,7 @@ import { AltaEmpleadoComponent } from './components/form/alta-empleado/alta-empl
 import { AltaReunionComponent } from './components/form/alta-reunion/alta-reunion.component';
 import { EmpleadoComponent } from './components/empleado/empleado.component';
 import { LoginComponent } from './components/login/login.component';
+import { EstadisticaComponent } from './components/estadistica/estadistica.component';
 
 const routes: Routes = [
   //cuando no ingrese nada va al login
@@ -12,9 +13,11 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'empleadosRegistrados', component: EmpleadoComponent },
   //cuando se ingresa cualquier otra ruta volvera al login
-  { path: '**', redirectTo: 'login', pathMatch: 'full' },
+  //{ path: '**', redirectTo: 'login', pathMatch: 'full' },
   { path: 'alta-empleado', component: AltaEmpleadoComponent },
   { path: 'alta-reunion', component: AltaReunionComponent },
+  { path: 'estadisticas', component: EstadisticaComponent },
+  { path: '**', redirectTo: 'login', pathMatch: 'full' },
 ];
 
 @NgModule({

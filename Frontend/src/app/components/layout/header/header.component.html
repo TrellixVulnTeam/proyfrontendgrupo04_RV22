@@ -6,22 +6,19 @@
       </a>
 
       <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-        <li><a href="#" class="nav-link px-2 text-secondary">inicio</a></li>
-        <li><a href="/empleado.html" class="nav-link px-2 text-white"[routerLink]="['empleadosRegistrados']">Lista de empleados</a></li>
-        <li><a href="#" class="nav-link px-2 text-white" [routerLink]="['2']">2</a></li>
-        <li><a href="#" class="nav-link px-2 text-white"[routerLink]="['1']">1</a></li>
-        
+        <li><a href="#" class="nav-link px-2 text-secondary">Home</a></li>
+        <li><a href="#" class="nav-link px-2 text-white" [routerLink]="['1']">part1</a></li>
+        <li><a href="#" class="nav-link px-2 text-white"[routerLink]="['2']">part2</a></li>
         <li><a href="#" class="nav-link px-2 text-white">FAQs</a></li>
         <li><a href="#" class="nav-link px-2 text-white">About</a></li>
       </ul>
-      <div class="text-end">
 
-        <!-- una ves que tengamos todos los component activaremos el login -->
-     <!--    <a *ngIf="!loginService.userLoggedIn()" [routerLink]="['login']">
+
+
+<!--       <div class="text-end">
+         <a *ngIf="!loginService.userLoggedIn()" [routerLink]="['login']">
           <button type="button" class="btn btn-outline-light me-2" value="(Login)">Login</button>
         </a>
-
-
         <a *ngIf="loginService.userLoggedIn()" [routerLink]="['login']" (click)="logout()">
           <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" class="bi bi-person-workspace" viewBox="0 0 16 16">
             <path d="M4 16s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H4Zm4-5.95a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z"/>
@@ -29,9 +26,9 @@
             
           </svg> 
           {{loginService.userLogged()}}
-          <button type="button" class="btn btn-warning" value="(logout)">Sign-up</button> 
-
-      </div>
+          <button type="button" class="btn btn-warning" value="(logout)">Sign-up</button>
+        </a> 
+      </div> -->
     </div>
   </div>
 </header>

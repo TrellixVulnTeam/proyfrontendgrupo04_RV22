@@ -11,6 +11,7 @@ import {HttpClientModule} from '@angular/common/http';
 import { LoginService } from './services/login.service';
 import { EmpleadoComponent } from './components/empleado/empleado.component';
 import { ReunionComponent } from './components/reunion/reunion.component';
+import { AltaReunionComponent } from './components/alta-reunion/alta-reunion.component';
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import { ReunionComponent } from './components/reunion/reunion.component';
     HeaderComponent,
     LoginComponent,
     EmpleadoComponent,
-    ReunionComponent
+    ReunionComponent,
+    AltaReunionComponent
   ],
   imports: [
     BrowserModule,

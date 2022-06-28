@@ -1,8 +1,18 @@
-.col-10{
+#formulario{
     margin-right: auto;
     margin-left: auto;
+
 }
 
-.col-5{
+#izq{
     float: left;
+}
+
+#der{
+    float: right;
+}
+
+
+form{
+    margin-top: 50px;
 }

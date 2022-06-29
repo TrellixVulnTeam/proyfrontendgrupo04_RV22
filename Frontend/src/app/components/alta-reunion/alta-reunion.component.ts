@@ -1,7 +1,5 @@
 import { Time } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { CheckboxControlValueAccessor } from '@angular/forms';
-import { EVENT_MANAGER_PLUGINS } from '@angular/platform-browser';
 import { Empleado } from 'src/app/models/empleado';
 import { Reunion } from 'src/app/models/reunion';
 import { EmpleadoService } from 'src/app/services/empleado.service';
@@ -15,8 +13,8 @@ import { ReunionService } from 'src/app/services/reunion.service';
 export class AltaReunionComponent implements OnInit {
 
   fecha!:Date;
-  horaInicio!:Time;
-  horaFinal!:Time;
+  horaInicio!:String;
+  horaFinal!:String;
   empleado!:Empleado;
   participante!:Empleado;
   empleados!:Array<Empleado>;
@@ -30,6 +28,9 @@ ngOnInit(): void {
     this.fecha = new Date();
     this.getEmpleados();
 }
+
+
+// ******************************** Implementacion de servicios ********************************
 
 getEmpleados()
 {
@@ -48,9 +49,14 @@ getEmpleados()
 
 altaReunion()
 {
-  
   this.manejoDeFechaHora()
   console.log(this.reunion);
+  this.reunionService.postReunion(this.reunion).subscribe(
+    (result) => {
+        console.log("56 "+ result);
+    },
+  )
+  
 }
 
 
@@ -60,14 +66,16 @@ altaReunion()
 
 manejoDeFechaHora()
 {  
-     
-  this.reunion.dia= this.fecha.getUTCDay().toString();
-  this.reunion.mes= this.fecha.getUTCMonth().toString();
-  this.reunion.anio= this.fecha.getUTCFullYear().toString();
+  
+  this.reunion.dia= this.fecha.getDate().toString();
+  this.reunion.mes= this.fecha.getMonth().toString();
+  this.reunion.anio= this.fecha.getFullYear().toString(); 
 
-/* 
-  this.reunion.horaComienzo= this.horaInicio.hours.toString()+":"+ this.horaInicio.minutes.toString();
-  this.reunion.horaFinal= this.horaFinal.hours.toString()+":"+ this.horaFinal.minutes.toString(); */
+  this.reunion.horaComienzo= this.horaInicio;
+  this.reunion.horaFinal= this.horaFinal;
+
+  this.reunion.participantes = this.participantes;
+  this.reunion.estado = "Pendiente";
 }
 
 

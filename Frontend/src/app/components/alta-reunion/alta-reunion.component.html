@@ -19,7 +19,7 @@
             <div class="col-6" id="izq">
                 <div class="mb-3" >
                     <label for="fecha" class="form-label" >Fecha</label>
-                    <input type="date" class="form-control" id="fecha" [(ngModel)]="fecha" name="fecha">
+                    <input type="date" class="form-control" id="fecha" [ngModel]="fecha | date: 'yyyy-MM-dd'" name="fecha" [value]="fecha">
                 </div>
             </div>
             <div class="col-6" id="der">
@@ -63,7 +63,6 @@
             </div>
             
             <button type="button" class="btn btn-success" (click)="altaReunion()">Guardar</button>
-            {{fecha}}
         </form>
     </div>
 </div>

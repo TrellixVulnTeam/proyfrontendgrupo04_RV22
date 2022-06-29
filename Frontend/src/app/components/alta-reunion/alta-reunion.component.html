@@ -51,15 +51,19 @@
                 </div>
             </div>
         
-            <div></div>
 
             <div class="col-12">
-                <p>Participantes</p>  
+                <p>Participantes</p>  <!-- 
                 <div class="form-check form-switch" *ngFor="let emp of empleados" >
-                    <input class="form-check-input" type="checkbox" role="switch" [id]="emp._id" [name]="emp._id" [value]="emp._id" (change)="onChangeParticipante($event)" >
+                  <input class="form-check-input" type="checkbox" role="switch" [id]="emp._id" [name]="emp._id" [value]="emp._id" (change)="onChangeParticipante($event)" >
                     <label class="form-check-label" [for]="emp._id" >{{emp.apellido}}, {{emp.nombre}}</label>
-                    
-                </div>
+                </div> -->
+
+                
+                <div class="form-check form-switch" *ngFor="let emp of empleados" >
+                    <label class="form-check-label" for="empleado" >{{emp.apellido}}, {{emp.nombre}}</label>
+                    <input class="form-check-input" type="checkbox" role="switch" id="empleado" name="emp" value="emp._id" (change)="onChangeParticipante($event)" >
+                  </div>
 
             </div>
            

@@ -26,8 +26,7 @@ export class AltaReunionComponent implements OnInit {
 
   ngOnInit(): void {
     this.reunion = new Reunion();
-    this.fecha = new Date();
-    console.log(this.fecha.toString());
+   // this.fecha = new Date();
     this.getEmpleados();
   }
 
@@ -46,18 +45,20 @@ export class AltaReunionComponent implements OnInit {
   }
 
   onChangeParticipante($event:any){
-      
+    console.log(this.participantes);
     this.participantes = new Array<Empleado>();
+    
     const id = $event.target.value;
     const isChecked = $event.target.checked;
-    
+
     this.empleados.map((emp) => {
-      if(emp._id == id && isChecked==true)
+      if(isChecked==true)
+      
         this.participante = new Empleado();
         Object.assign(this.participante,emp);
         this.participantes.push(this.participante);
     })
-    console.log(this.participantes);
+  //  console.log(this.participantes);
 
   }
 }

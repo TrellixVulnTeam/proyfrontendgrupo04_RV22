@@ -5,6 +5,7 @@ import { Reunion } from 'src/app/models/reunion';
 import { EmpleadoService } from 'src/app/services/empleado.service';
 import { ReunionService } from 'src/app/services/reunion.service';
 
+
 @Component({
   selector: 'app-alta-reunion',
   templateUrl: './alta-reunion.component.html',
@@ -49,7 +50,7 @@ getEmpleados()
 
 altaReunion()
 {
-  this.manejoDeFechaHora()
+  this.manejoDeDatos()
   console.log(this.reunion);
   this.reunionService.postReunion(this.reunion).subscribe(
     (result) => {
@@ -60,11 +61,9 @@ altaReunion()
 }
 
 
-
-
 // ******************************** Gestion de fecha y hora ********************************
 
-manejoDeFechaHora()
+manejoDeDatos()
 {  
   
   this.reunion.dia= this.fecha.getDate().toString();

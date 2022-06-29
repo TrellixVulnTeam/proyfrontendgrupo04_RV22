@@ -3,11 +3,11 @@ import { Empleado } from "./empleado";
 export class Reunion {
 
     _id!:String;
-    dia!:String;
-    mes!:String;
-    anio!:String;
-    horaComienzo!:Date;
-    horaFinal!:Date;
+    dia!:string;
+    mes!:string;
+    anio!:string;
+    horaComienzo!:String;
+    horaFinal!:String;
     participantes!:Array<Empleado>;
     nroOficina!:String;
     //recursos!:Array<any> // cambiar por clase recurso

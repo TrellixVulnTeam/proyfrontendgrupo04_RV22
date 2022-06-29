@@ -10,6 +10,8 @@ import { FormsModule } from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import { LoginService } from './services/login.service';
 import { EmpleadoComponent } from './components/empleado/empleado.component';
+import { ReunionComponent } from './components/reunion/reunion.component';
+import { AltaReunionComponent } from './components/alta-reunion/alta-reunion.component';
 
 
 @NgModule({
@@ -18,7 +20,9 @@ import { EmpleadoComponent } from './components/empleado/empleado.component';
     FooterComponent,
     HeaderComponent,
     LoginComponent,
-    EmpleadoComponent
+    EmpleadoComponent,
+    ReunionComponent,
+    AltaReunionComponent
   ],
   imports: [
     BrowserModule,

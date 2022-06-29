@@ -1,0 +1,18 @@
+#formulario{
+    margin-right: auto;
+    margin-left: auto;
+
+}
+
+#izq{
+    float: left;
+}
+
+#der{
+    float: right;
+}
+
+
+form{
+    margin-top: 50px;
+}

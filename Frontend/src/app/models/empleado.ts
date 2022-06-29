@@ -1,4 +1,5 @@
 export class Empleado {
+    _id!:string;
     user!:string;
     apellido!: string;
     nombre!: string;

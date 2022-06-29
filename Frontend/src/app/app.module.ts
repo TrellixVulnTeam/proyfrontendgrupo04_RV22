@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FooterComponent } from './components/layout/footer/footer.component';
@@ -10,12 +9,8 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { LoginService } from './services/login.service';
 import { EmpleadoComponent } from './components/empleado/empleado.component';
-
 import { ReunionComponent } from './components/reunion/reunion.component';
 import { AltaReunionComponent } from './components/alta-reunion/alta-reunion.component';
-
-import { AltaEmpleadoComponent } from './components/form/alta-empleado/alta-empleado.component';
-
 import { FormRecursosComponent } from './components/form/form-recursos/form-recursos.component';
 import { FormParticipantesComponent } from './components/form/form-participantes/form-participantes.component';
 import { EstadisticaComponent } from './components/estadistica/estadistica.component';
@@ -29,6 +24,7 @@ import { EstadisticaFormOficinaComponent } from './components/estadistica/estadi
 import { EstadisticaFormTiempoComponent } from './components/estadistica/estadistica-form-tiempo/estadistica-form-tiempo.component';
 import { EstadisticaFormParticipanteComponent } from './components/estadistica/estadistica-form-participante/estadistica-form-participante.component';
 import { NgChartsModule } from 'ng2-charts';
+import { AltaEmpleadoComponent } from './components/form/alta-empleado/alta-empleado.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +36,7 @@ import { NgChartsModule } from 'ng2-charts';
 
     ReunionComponent,
     AltaReunionComponent,
-
+    AltaEmpleadoComponent,
     FormRecursosComponent,
     FormParticipantesComponent,
     EstadisticaComponent,

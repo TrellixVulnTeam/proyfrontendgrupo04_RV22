@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AltaReunionComponent } from './components/alta-reunion/alta-reunion.component';
 import { EmpleadoComponent } from './components/empleado/empleado.component';
+import { EstadisticaComponent } from './components/estadistica/estadistica.component';
 import { LoginComponent } from './components/login/login.component';
 import { ReunionComponent } from './components/reunion/reunion.component';
 
@@ -13,7 +14,7 @@ const routes: Routes = [
   { path: 'listarReunion', component: ReunionComponent },
   { path: 'login', component: LoginComponent },
   { path: 'empleadosRegistrados', component: EmpleadoComponent },
-
+  { path: 'estadisticas', component: EstadisticaComponent },
   //cuando se ingresa cualquier otra ruta volvera al login
   //{path: '**', redirectTo:'login',pathMatch:'full'},
 ];

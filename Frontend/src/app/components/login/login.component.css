@@ -1,4 +1,4 @@
-
+/* 
 div{
    
     display: flex;
@@ -7,18 +7,27 @@ div{
     align-items: center;
 }
 
-input{
-    margin: 10px;
-}
+
 form div {
     display: flex;
     justify-content: center;
     height: 100%;
     align-items: center;
-}
+} 
 form h2{
     display: flex;
     justify-content: center;
     height: 100%;
     align-items: center;
+}
+*/
+
+.col{
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+input{
+    margin: 10px;
 }

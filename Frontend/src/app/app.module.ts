@@ -25,6 +25,7 @@ import { EstadisticaFormTiempoComponent } from './components/estadistica/estadis
 import { EstadisticaFormParticipanteComponent } from './components/estadistica/estadistica-form-participante/estadistica-form-participante.component';
 import { NgChartsModule } from 'ng2-charts';
 import { AltaEmpleadoComponent } from './components/form/alta-empleado/alta-empleado.component';
+import { CalendarGoogleComponent } from './components/calendar-google/calendar-google.component';
 
 @NgModule({
   declarations: [
@@ -49,6 +50,7 @@ import { AltaEmpleadoComponent } from './components/form/alta-empleado/alta-empl
     EstadisticaFormOficinaComponent,
     EstadisticaFormTiempoComponent,
     EstadisticaFormParticipanteComponent,
+    CalendarGoogleComponent,
   ],
   imports: [
     BrowserModule,

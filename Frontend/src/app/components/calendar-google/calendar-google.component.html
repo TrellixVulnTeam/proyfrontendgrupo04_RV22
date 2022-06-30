@@ -1,0 +1,14 @@
+<form>
+    <div class="form-group">
+        <label for="my-input">Event Title</label>
+        <input id="sumary" class="form-control" type="text" [(ngModel)]="event.summary" name="sumary" />
+
+        <label for="my-input">Event From</label>
+        <input id="from" class="form-control" type="datetime-local" [(ngModel)]="fromDate" name="from" />
+
+        <label for="my-input">Event to</label>
+        <input id="to" class="form-control" type="datetime-local" [(ngModel)]="toDate" name="to" />
+    </div>
+    <button class="btn btn-primary" (click)="postEvent()">Agregar Evento</button>
+</form>
+<iframe src="" style="border: 0" width="800" height="600" frameborder="0" scrolling="no"></iframe>

@@ -25,7 +25,7 @@ import { EstadisticaFormTiempoComponent } from './components/estadistica/estadis
 import { EstadisticaFormParticipanteComponent } from './components/estadistica/estadistica-form-participante/estadistica-form-participante.component';
 import { NgChartsModule } from 'ng2-charts';
 import { AltaEmpleadoComponent } from './components/form/alta-empleado/alta-empleado.component';
-
+import { NgxQRCodeModule } from '@techiediaries/ngx-qrcode';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptorService } from './services/token-interceptor.service';
 
@@ -62,6 +62,7 @@ import { TokenInterceptorService } from './services/token-interceptor.service';
     HttpClientModule, // cliente
     FormsModule, //para los formularios
     NgChartsModule, //graficos
+    NgxQRCodeModule //para el QR
   ],
   providers: [LoginService,
     {

@@ -14,6 +14,12 @@ import { ReunionComponent } from './components/reunion/reunion.component';
 import { AltaReunionComponent } from './components/alta-reunion/alta-reunion.component';
 
 
+import {HTTP_INTERCEPTORS} from '@angular/common/http';
+import { TokenInterceptorService } from './services/token-interceptor.service';
+
+
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -31,7 +37,14 @@ import { AltaReunionComponent } from './components/alta-reunion/alta-reunion.com
     FormsModule,  //para los formularios
 
   ],
-  providers: [LoginService],
+  providers: [
+    LoginService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptorService,
+      multi: true
+     }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

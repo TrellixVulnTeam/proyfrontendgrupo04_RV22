@@ -12,6 +12,12 @@ import { LoginService } from './services/login.service';
 import { EmpleadoComponent } from './components/empleado/empleado.component';
 import { ReunionComponent } from './components/reunion/reunion.component';
 import { AltaReunionComponent } from './components/alta-reunion/alta-reunion.component';
+import { NgxQRCodeModule} from '@techiediaries/ngx-qrcode';
+
+import {HTTP_INTERCEPTORS} from '@angular/common/http';
+import { TokenInterceptorService } from './services/token-interceptor.service';
+
+
 
 
 @NgModule({
@@ -29,9 +35,17 @@ import { AltaReunionComponent } from './components/alta-reunion/alta-reunion.com
     AppRoutingModule,
     HttpClientModule, // cliente
     FormsModule,  //para los formularios
+    NgxQRCodeModule //para el QR
 
   ],
-  providers: [LoginService],
+  providers: [
+    LoginService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptorService,
+      multi: true
+     }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Reunion } from 'src/app/models/reunion';
 import { ReunionService } from 'src/app/services/reunion.service';
+import { NgxQrcodeElementTypes, NgxQrcodeErrorCorrectionLevels } from '@techiediaries/ngx-qrcode';
 import * as printJS from 'print-js';
+
 
 
 @Component({
@@ -15,10 +17,19 @@ export class ReunionComponent implements OnInit {
   reunion!:Reunion;
   constructor(private reunionService:ReunionService, private router:Router) { }
 
+  
+
   ngOnInit(): void {
     this.getReuniones();
   }
+   //******************************** Generar QR ********************************
+   title = 'qr-code';
 
+   ulr='https://www.youtube.com/watch?v=_9zKifzw6Hg';
+   profile='routeToMyProfile';
+   elementType=NgxQrcodeElementTypes.URL;
+   errorCorrectionLevel=NgxQrcodeErrorCorrectionLevels.HIGH;
+   value=this.ulr+this.profile;
   // ******************************** Generar PDF ********************************
 imprimir(reunion:Reunion){
   alert("Imprimiendo Reunion");

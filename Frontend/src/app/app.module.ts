@@ -16,6 +16,7 @@ import { AltaReunionComponent } from './components/alta-reunion/alta-reunion.com
 
 import {HTTP_INTERCEPTORS} from '@angular/common/http';
 import { TokenInterceptorService } from './services/token-interceptor.service';
+import { EmpleadoFormComponent } from './components/empleado-form/empleado-form.component';
 
 
 
@@ -28,7 +29,8 @@ import { TokenInterceptorService } from './services/token-interceptor.service';
     LoginComponent,
     EmpleadoComponent,
     ReunionComponent,
-    AltaReunionComponent
+    AltaReunionComponent,
+    EmpleadoFormComponent
   ],
   imports: [
     BrowserModule,

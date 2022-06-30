@@ -1,0 +1,22 @@
+<div class="container">
+    <div class="col-md-8 offset-md-2 bg-danger" style="border-color: aqua; border-style: groove; text-align: center;">
+        <h2>Registrar Empleado</h2>
+        <form>
+            Apellido: 
+            <input type="text" [(ngModel)]="empleado.apellido" name="apellido"><br><br>
+            Nombre: 
+            <input type="text" [(ngModel)]="empleado.nombre" name="nombre"><br><br>
+            Legajo: 
+            <input type="text" [(ngModel)]="empleado.legajo" name="legajo"><br><br>
+            Correo: 
+            <input type="email"[(ngModel)]="empleado.correo" name="correo"><br><br>
+            Dependencia:
+            <input type="text" [(ngModel)]="empleado.dependencia" name="dependencia"> <br><br>
+            <div>
+                <button *ngIf="accion=='new'" type="button" class="btn btn-primary" (click)="guardarEmpleado()">Guardar</button>              
+                <button *ngIf="accion=='update'" type="button" class="btn btn-primary" (click)="actualizarEmpleado()">Actualizar</button> 
+                <button type="button" class="btn btn-primary" (click)="cerrar()">Cerrar</button> 
+            </div>
+        </form>
+    </div>
+</div>

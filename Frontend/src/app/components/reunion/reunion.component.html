@@ -33,5 +33,17 @@
                 </tr>
               </tbody>
         </table>
+        <!-- QR #TU_MACHO -->
+        <div>
+          <!-- <span class="mb-2"><fa-icon [icon]="faAt">ifs@gmail.com</span> -->
+          <ngx-qrcode
+          [elementType]="elementType"
+          [value]="value"
+          CssClass="aclass"
+          [errorCorrectionLevel]="errorCorrectionLevel">
+          </ngx-qrcode>
+        </div>
+
+
     </div>
 </div>

@@ -12,7 +12,7 @@ import { LoginService } from './services/login.service';
 import { EmpleadoComponent } from './components/empleado/empleado.component';
 import { ReunionComponent } from './components/reunion/reunion.component';
 import { AltaReunionComponent } from './components/alta-reunion/alta-reunion.component';
-
+import { NgxQRCodeModule} from '@techiediaries/ngx-qrcode';
 
 import {HTTP_INTERCEPTORS} from '@angular/common/http';
 import { TokenInterceptorService } from './services/token-interceptor.service';
@@ -35,6 +35,7 @@ import { TokenInterceptorService } from './services/token-interceptor.service';
     AppRoutingModule,
     HttpClientModule, // cliente
     FormsModule,  //para los formularios
+    NgxQRCodeModule //para el QR
 
   ],
   providers: [

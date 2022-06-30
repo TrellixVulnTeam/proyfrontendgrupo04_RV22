@@ -30,4 +30,22 @@ form h2{
 
 input{
     margin: 10px;
+    background: transparent;
+    border-bottom: 1px solid olive;
+    border-top:none;
+    border-right:none;
+    border-left: none;
+    color: rgb(22, 21, 21);
+    font-family: cursive;
 }
+
+form {
+    margin-top: 10px;
+    margin-block-end: 20px;
+   
+    opacity: 1.3;
+    background:linear-gradient(to top, rgba(0,0,0,0.8)50%,rgba(0,0,0,0.8)50%),ulr(1);
+    color: rgb(24, 22, 22);
+    font-family: cursive;
+    border-radius: 10px;
+} 

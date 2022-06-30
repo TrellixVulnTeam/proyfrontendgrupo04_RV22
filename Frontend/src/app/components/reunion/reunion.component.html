@@ -1,5 +1,5 @@
 <div class="row">
-    <div><button type="button" class="btn btn-success"><i class="bi bi-plus-lg" (click)="altaReunion()"></i>Success</button></div>
+    <div><button type="button" class="btn btn-success" (click)="altaReunion()"><i class="bi bi-plus" ></i><i class="bi bi-calendar-event"></i></button></div>
     <div class="col-10">
         <table class="table table-dark table-hover">
             <thead>
@@ -11,6 +11,7 @@
                   <th scope="col">Fecha</th>
                   <th scope="col">Participantes</th>
                   <th scope="col">Horario</th>
+                  <th scope="col">Acciones</th>
                 </tr>
               </thead>
               <tbody>
@@ -22,6 +23,13 @@
                   <td>{{r.dia}}/{{r.mes}}</td>
                   <td><p *ngFor="let p of r.participantes" >{{p.apellido}}, {{p.nombre}}</p></td>
                   <td> <p>{{r.horaComienzo}}</p> <p> {{r.horaFinal}}</p> </td>
+                  <td>
+                    <button type="button" class="btn btn-primary" (click)="imprimir(r)"> <i class="bi bi-file-earmark-pdf"></i></button>
+                    <button type="button" class="btn btn-warning" (click)="modificarReunion()"><i class="bi bi-pen"></i></button>
+                    <button type="button" class="btn btn-danger" (click)="borrarReunion(r)"><i class="bi bi-trash"></i></button>
+                    
+                    
+                  </td>
                 </tr>
               </tbody>
         </table>

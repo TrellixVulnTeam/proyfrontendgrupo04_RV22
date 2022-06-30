@@ -1,11 +1,12 @@
 import { Time } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { CheckboxControlValueAccessor } from '@angular/forms';
-import { EVENT_MANAGER_PLUGINS } from '@angular/platform-browser';
 import { Empleado } from 'src/app/models/empleado';
+import { Recurso } from 'src/app/models/recurso';
 import { Reunion } from 'src/app/models/reunion';
 import { EmpleadoService } from 'src/app/services/empleado.service';
+import { RecursoService } from 'src/app/services/recurso.service';
 import { ReunionService } from 'src/app/services/reunion.service';
+
 
 @Component({
   selector: 'app-alta-reunion',
@@ -14,24 +15,33 @@ import { ReunionService } from 'src/app/services/reunion.service';
 })
 export class AltaReunionComponent implements OnInit {
 
-  fecha!:Date
-  horaInicio!:Time;
-  horaFinal!:Time;
+  fecha!:Date;
+  horaInicio!:String;
+  horaFinal!:String;
   empleado!:Empleado;
   participante!:Empleado;
   empleados!:Array<Empleado>;
   participantes!:Array<Empleado>;
   reunion!:Reunion;
-  constructor(private reunionService:ReunionService, private empleadoService:EmpleadoService) { }
 
-  ngOnInit(): void {
+  recursos!:Array<Recurso>;
+  recurso!:Recurso;
+
+  constructor(private reunionService:ReunionService, private empleadoService:EmpleadoService, private recursoService:RecursoService) { }
+
+ngOnInit(): void {
+    this.participantes = new Array<Empleado>();
     this.reunion = new Reunion();
-   // this.fecha = new Date();
+    this.fecha = new Date();
     this.getEmpleados();
-  }
+    this.getRecursos();
+}
 
-  getEmpleados()
-  {
+
+// ******************************** Implementacion de servicios ********************************
+
+getEmpleados()
+{
     this.empleadoService.getEmpleados().subscribe(
       (result) => {
         this.empleados = new Array<Empleado>();
@@ -42,23 +52,85 @@ export class AltaReunionComponent implements OnInit {
         })
       },
     )
+}
+
+getRecursos(){
+  this.recursoService.getRecursos().subscribe(
+    (result) => {
+        this.recursos = new Array<Recurso>();
+        result.forEach((element:any)=> {
+          this.recurso = new Recurso();
+          Object.assign(this.recurso,element);
+          this.recursos.push(this.recurso);
+        });
+    }
+  )
+}
+
+altaReunion()
+{
+  this.manejoDeDatos()
+  console.log(this.reunion);
+  this.reunionService.postReunion(this.reunion).subscribe(
+    (result) => {
+        console.log("56 "+ result);
+    },
+  )
+  
+}
+
+
+// ******************************** Gestion de fecha y hora ********************************
+
+manejoDeDatos()
+{  
+  
+  this.reunion.dia= this.fecha.getDate().toString();
+  this.reunion.mes= this.fecha.getMonth().toString();
+  this.reunion.anio= this.fecha.getFullYear().toString(); 
+
+  this.reunion.horaComienzo= this.horaInicio;
+  this.reunion.horaFinal= this.horaFinal;
+
+  this.reunion.participantes = this.participantes;
+  this.reunion.estado = "Pendiente";
+}
+
+
+
+
+// ******************************** Control de los participantes ********************************
+
+addRemoveEmpleado(emp:Empleado, $event:any)
+{
+    if ( $event.checked ==true){
+        this.addEmpleado(emp);
+    }else {
+        this.removeEmpleado(emp);
+    }
+    console.log ("Participantes: ", this.participantes);
+}
+  
+addEmpleado(empleado:Empleado): void {
+  if (!this.UserExists(empleado)){
+      this.participantes.push(empleado);
   }
-
-  onChangeParticipante($event:any){
-    console.log(this.participantes);
-    this.participantes = new Array<Empleado>();
-    
-    const id = $event.target.value;
-    const isChecked = $event.target.checked;
-
-    this.empleados.map((emp) => {
-      if(isChecked==true)
-      
-        this.participante = new Empleado();
-        Object.assign(this.participante,emp);
-        this.participantes.push(this.participante);
-    })
-  //  console.log(this.participantes);
-
+}
+removeEmpleado(empleado:Empleado): void {
+  for (var _i = 0; _i < this.participantes.length; _i++) {
+      if (this.participantes[_i]._id==empleado._id){
+          this.participantes.splice( _i, 1 )
+      }
   }
+}
+UserExists (empleado:Empleado): boolean {
+  let exists = false;
+  for (var _i = 0; _i < this.participantes.length; _i++) {
+      if (this.participantes[_i]._id==empleado._id){
+          exists = true;
+      }
+  }
+  return exists;
+}
+
 }

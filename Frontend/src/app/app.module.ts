@@ -26,6 +26,12 @@ import { EstadisticaFormParticipanteComponent } from './components/estadistica/e
 import { NgChartsModule } from 'ng2-charts';
 import { AltaEmpleadoComponent } from './components/form/alta-empleado/alta-empleado.component';
 
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { TokenInterceptorService } from './services/token-interceptor.service';
+
+
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -57,7 +63,12 @@ import { AltaEmpleadoComponent } from './components/form/alta-empleado/alta-empl
     FormsModule, //para los formularios
     NgChartsModule, //graficos
   ],
-  providers: [LoginService],
+  providers: [LoginService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptorService,
+      multi: true
+    }],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }

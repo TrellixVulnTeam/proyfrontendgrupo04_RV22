@@ -1,4 +1,5 @@
 import { Empleado } from "./empleado";
+import { Recurso } from "./recurso";
 
 export class Reunion {
 
@@ -10,7 +11,7 @@ export class Reunion {
     horaFinal!:String;
     participantes!:Array<Empleado>;
     nroOficina!:String;
-    //recursos!:Array<any> // cambiar por clase recurso
+    recursos!:Array<Recurso> // cambiar por clase recurso
     tipoReunion!:String;
     temaReunion!:String;
     estado!:String;

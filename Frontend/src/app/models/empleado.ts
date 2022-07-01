@@ -1,3 +1,5 @@
+import { Usuario } from "./usuario";
+
 export class Empleado {
     _id!:string;
     apellido!: string;
@@ -5,5 +7,5 @@ export class Empleado {
     legajo!: string;
     correo!: string;
     dependencia!: string;
-    user!:string;
+    user!:Usuario;
 }

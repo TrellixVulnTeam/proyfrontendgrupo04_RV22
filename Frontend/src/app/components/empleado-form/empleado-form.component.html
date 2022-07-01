@@ -12,6 +12,12 @@
             <input type="email"[(ngModel)]="empleado.correo" name="correo"><br><br>
             Dependencia:
             <input type="text" [(ngModel)]="empleado.dependencia" name="dependencia"> <br><br>
+            <div class="mb-3">
+                <label for="idusuario" class="form-label">User:</label>
+                <select class="form-select" name="user" [(ngModel)]="empleado.user">
+                  <option *ngFor="let usuario of usuarios" [ngValue]="usuario" >{{usuario.username}}</option>
+                </select>
+              </div>
             <div>
                 <button *ngIf="accion=='new'" type="button" class="btn btn-primary" (click)="guardarEmpleado()">Guardar</button>              
                 <button *ngIf="accion=='update'" type="button" class="btn btn-primary" (click)="actualizarEmpleado()">Actualizar</button> 

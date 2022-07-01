@@ -47,6 +47,7 @@ export class LoginComponent implements OnInit {
         Swal.fire({
           title: '¡BIENVENIDO!',
           width: 600,
+          timer: 3000,
           padding: '3em',
           color: '#716add',
           background: '#fff url(/assets/img/pollo-man.gif)',
@@ -57,7 +58,8 @@ export class LoginComponent implements OnInit {
             no-repeat
           `
         })
-   //     this.router.navigate(['1'])
+        //una vez logueado nos dirigira a.
+        this.router.navigate(['listarReunion'])
       } else {
           //usuario no encontrado muestro mensaje en la vista
           this.msglogin="Credenciales incorrectas..";

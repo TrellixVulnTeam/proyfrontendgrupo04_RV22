@@ -28,6 +28,8 @@ import { AltaEmpleadoComponent } from './components/form/alta-empleado/alta-empl
 import { NgxQRCodeModule } from '@techiediaries/ngx-qrcode';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptorService } from './services/token-interceptor.service';
+import { EmpleadoFormComponent } from './components/empleado-form/empleado-form.component';
+import { HomeComponent } from './components/home/home.component';
 
 
 
@@ -55,6 +57,8 @@ import { TokenInterceptorService } from './services/token-interceptor.service';
     EstadisticaFormOficinaComponent,
     EstadisticaFormTiempoComponent,
     EstadisticaFormParticipanteComponent,
+    EmpleadoFormComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,

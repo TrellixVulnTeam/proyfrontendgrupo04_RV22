@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Usuario } from '../models/usuario';
@@ -22,7 +22,18 @@ export class LoginService {
    console.log(body);
   return this._http.post(this.hostBase + 'login', body, httpOption);
   }
- 
+  //obtener usuarios
+  getUsuarios():Observable<any>{
+    const httpOptions = {  
+      headers: new HttpHeaders({
+        
+      }),
+      params: new HttpParams({
+
+      })
+  };
+    return this._http.get("http://localhost:3000/api/usuario",httpOptions); 
+  }
   public logout() {
      //borro el vble almacenado mediante el storage
       sessionStorage.removeItem("user");

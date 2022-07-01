@@ -1,28 +1,35 @@
 <form>
-    <div>
-      <h3>Tabla de Empleados Registrados</h3>
-      <table class="table bg-info">
-          <thead>
-            <tr>
-              <th scope="col">Usuario</th>
-              <th scope="col">Apellido</th>
-              <th scope="col">Nombre</th>
-              <th scope="col">Legajo</th>
-              <th scope="col">Correo</th>
-              <th scope="col">Dependencia</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let item of empleados">
-              <td>{{item.user}}</td>
-              <td>{{item.apellido}}</td>
-              <td>{{item.nombre}}</td>
-              <td>{{item.legajo}}</td>
-              <td>{{item.correo}}</td>
-              <td>{{item.dependencia}}</td>
-            </tr>
-          </tbody>
-        </table>
+  <div>
+    <h3>Tabla de Empleados</h3>
+    <div class="d-grid gap-2">
+      <button class="btn btn-primary" style="padding:20px ; font-size: 22px;" type="button" (click)="agregarEmpleado()">Agregar Empleado</button>
     </div>
-  </form>
-  
+    <table class="table bg-info">
+        <thead>
+          <tr>
+            <th scope="col">Apellido</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Legajo</th>
+            <th scope="col">Correo</th>
+            <th scope="col">Dependencia</th>
+            <th scope="col">User</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of empleados">
+            <td>{{item.apellido}}</td>
+            <td>{{item.nombre}}</td>
+            <td>{{item.legajo}}</td>
+            <td>{{item.correo}}</td>
+            <td>{{item.dependencia}}</td>
+            <td>{{item.user}}</td>
+            <td>
+              <button (click)="modificarEmpleado(item)" class="btn btn-success">Modificar</button>
+              <button (click)="borrarEmpleado(item)" class="btn btn-danger">Borrar</button>
+            </td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+  </div>
+</form>

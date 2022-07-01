@@ -9,7 +9,7 @@ import { EmpleadoService } from 'src/app/services/empleado.service';
   styleUrls: ['./empleado.component.css']
 })
 export class EmpleadoComponent implements OnInit {
-  empleados!:Array<Empleado>;
+  empleados!:Array<Empleado>
   constructor(private empleadoService:EmpleadoService, private router:Router) {
     this.cargarEmpleados();
    }

@@ -47,6 +47,7 @@ export class LoginComponent implements OnInit {
         Swal.fire({
           title: '¡BIENVENIDO!',
           width: 600,
+          timer: 3000,
           padding: '3em',
           color: '#716add',
           background: '#fff url(/assets/img/pollo-man.gif)',

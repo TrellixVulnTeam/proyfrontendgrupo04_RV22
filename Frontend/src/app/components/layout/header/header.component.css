@@ -1,0 +1,12 @@
+ul li a{
+    text-decoration: none;
+    color: white;
+    font-family: Arial;
+    font-weight: bold;
+    transition: 0.4 ease-in-out;
+}
+
+ul li a:hover{
+    color: #716add;
+    transform:scale(1.2);
+}

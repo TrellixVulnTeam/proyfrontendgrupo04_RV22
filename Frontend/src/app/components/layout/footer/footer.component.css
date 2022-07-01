@@ -1,5 +1,5 @@
 #body{
-    margin-top: 90px;
+    margin-top: 0px;
 }
 #centro{
     margin-top: 50px;
@@ -10,7 +10,18 @@
     text-align: center;
     align-items: center;
 }
+.imgRedonda {
+    width:140px;
+     height:140px;
+    border-radius:150px;
+}
 
+label:hover{
+    border-radius:10px;
+    background: #716add;
+    color: white;
+    transform:scale(1.2);
+}
 
 
 
@@ -32,7 +43,7 @@ input[id^="spoiler"]{
     color: rgb(245, 245, 245);
     background: rgb(25, 64, 116);
     }
-    /* Estilo caja SPOILER (inicialmente oculto) */
+    /* Estilo caja DESARROLLADORES (inicialmente oculto) */
     input[id^="spoiler"] ~ .spoiler {
     width: 90%;
     height: 0;
@@ -40,7 +51,7 @@ input[id^="spoiler"]{
     opacity: 0;
     margin: 10px auto 0;
     }
-    /* Estilo caja SPOILER cuando su INPUT está seleccionado */
+    /* Estilo caja  DESARROLLADORES cuando su INPUT está seleccionado */
     input[id^="spoiler"]:checked + label + .spoiler{
     height: auto;
     opacity: 1;

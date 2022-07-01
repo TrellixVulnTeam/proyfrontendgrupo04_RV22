@@ -58,7 +58,8 @@ export class LoginComponent implements OnInit {
             no-repeat
           `
         })
-   //     this.router.navigate(['1'])
+        //una vez logueado nos dirigira a.
+        this.router.navigate(['listarReunion'])
       } else {
           //usuario no encontrado muestro mensaje en la vista
           this.msglogin="Credenciales incorrectas..";

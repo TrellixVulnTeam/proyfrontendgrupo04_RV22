@@ -44,7 +44,7 @@
       <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"></use></svg>
   
       <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-        <li><a href="#" class="nav-link px-2 text-secondary">Home</a></li>
+        <li><a href="#" class="nav-link px-2 " [routerLink]="['home']">Home</a></li>
        
        <!--    
           <div *ngIf="loginService.userLoggedIn()">
@@ -54,10 +54,10 @@
             <li><a href="#" class="nav-link px-2 text-white"[routerLink]="['2']">parte2</a></li>
           </div> -->
           <div *ngIf="loginService.userLoggedIn()">
-            <li><a href="#" class="nav-link px-2 text-white"[routerLink]="['empleadosRegistrados']">Empleado</a></li>
+            <li><a href="#" class="nav-link px-2 "[routerLink]="['empleadosRegistrados']">Empleado</a></li>
           </div>
-          <li><a href="#" class="nav-link px-2 text-white"[routerLink]="['listarReunion']">listarReunion</a></li>
-          <li><a href="#" class="nav-link px-2 text-white">Muestra2</a></li>
+          <li><a href="#" class="nav-link px-2 "[routerLink]="['listarReunion']">listarReunion</a></li>
+          <li><a href="#" class="nav-link px-2 ">Muestra2</a></li>
       </ul>
 
       <div class="text-end">

@@ -1,27 +1,3 @@
-/* 
-div{
-   
-    display: flex;
-    justify-content: center;
-    height: 100%;
-    align-items: center;
-}
-
-
-form div {
-    display: flex;
-    justify-content: center;
-    height: 100%;
-    align-items: center;
-} 
-form h2{
-    display: flex;
-    justify-content: center;
-    height: 100%;
-    align-items: center;
-}
-*/
-
 .col{
     margin-left: auto;
     margin-right: auto;
@@ -31,7 +7,7 @@ form h2{
 input{
     margin: 10px;
     background: transparent;
-    border-bottom: 1px solid olive;
+    border-bottom: 1px solid #716add;
     border-top:none;
     border-right:none;
     border-left: none;
@@ -49,3 +25,23 @@ form {
     font-family: cursive;
     border-radius: 10px;
 } 
+
+.btnn{
+    
+    text-decoration: none;
+    background: #1c1c1d;
+    border: none;
+    margin-top: 30px;
+    font-size:28px ;
+    border-radius: 10px;
+    cursor: pointer;
+    color: white;
+    font-family: cursive;
+    transition: 0.4 ease-in-out;
+    
+}
+.btnn:hover{
+    background: #716add;
+    color: #e9e9e9;
+    transform:scale(1.2);
+}

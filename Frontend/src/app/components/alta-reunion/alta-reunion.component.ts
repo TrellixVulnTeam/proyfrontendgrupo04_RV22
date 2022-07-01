@@ -1,8 +1,10 @@
 import { Time } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Empleado } from 'src/app/models/empleado';
+import { Recurso } from 'src/app/models/recurso';
 import { Reunion } from 'src/app/models/reunion';
 import { EmpleadoService } from 'src/app/services/empleado.service';
+import { RecursoService } from 'src/app/services/recurso.service';
 import { ReunionService } from 'src/app/services/reunion.service';
 
 
@@ -21,13 +23,18 @@ export class AltaReunionComponent implements OnInit {
   empleados!:Array<Empleado>;
   participantes!:Array<Empleado>;
   reunion!:Reunion;
-  constructor(private reunionService:ReunionService, private empleadoService:EmpleadoService) { }
+
+  recursos!:Array<Recurso>;
+  recurso!:Recurso;
+
+  constructor(private reunionService:ReunionService, private empleadoService:EmpleadoService, private recursoService:RecursoService) { }
 
 ngOnInit(): void {
     this.participantes = new Array<Empleado>();
     this.reunion = new Reunion();
     this.fecha = new Date();
     this.getEmpleados();
+    this.getRecursos();
 }
 
 
@@ -47,6 +54,18 @@ getEmpleados()
     )
 }
 
+getRecursos(){
+  this.recursoService.getRecursos().subscribe(
+    (result) => {
+        this.recursos = new Array<Recurso>();
+        result.forEach((element:any)=> {
+          this.recurso = new Recurso();
+          Object.assign(this.recurso,element);
+          this.recursos.push(this.recurso);
+        });
+    }
+  )
+}
 
 altaReunion()
 {

@@ -2,7 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Reunion } from 'src/app/models/reunion';
 import { ReunionService } from 'src/app/services/reunion.service';
+import { NgxQrcodeElementTypes, NgxQrcodeErrorCorrectionLevels } from '@techiediaries/ngx-qrcode';
 import * as printJS from 'print-js';
+
+
 
 @Component({
   selector: 'app-reunion',
@@ -14,32 +17,49 @@ export class ReunionComponent implements OnInit {
   reunion!:Reunion;
   constructor(private reunionService:ReunionService, private router:Router) { }
 
+  
+
   ngOnInit(): void {
     this.getReuniones();
   }
+   //******************************** Generar QR ********************************
+   title = 'qr-code';
 
+   ulr='https://www.youtube.com/watch?v=_9zKifzw6Hg';
+   profile='routeToMyProfile';
+   elementType=NgxQrcodeElementTypes.URL;
+   errorCorrectionLevel=NgxQrcodeErrorCorrectionLevels.HIGH;
+   value=this.ulr+this.profile;
   // ******************************** Generar PDF ********************************
 imprimir(reunion:Reunion){
   alert("Imprimiendo Reunion");
-  let reunionPrint:any  = this.procesarListado(reunion);
-  printJS({printable:reunionPrint, properties:['Tema','Tipo','horaComienzo','horaFinal','Estado'], type:'json'})
-}
-
-procesarListado(reunion:Reunion):Array<any>{
-  let reunionProcess:Array<any> = Array<any>();
-    
-      let reunionTemp = {
+  console.log(reunion);
+  let reunionTemp = [{
         Tema:reunion.temaReunion,
         Tipo:reunion.tipoReunion,
-        horaComienzo: reunion.horaComienzo,
-        horaFinal: reunion.horaFinal,
+        Dia: reunion.dia,
+        Mes: reunion.mes,
+        Comienzo: reunion.horaComienzo,
+        Final: reunion.horaFinal,
         Estado:reunion.estado
-      }
-      reunionProcess.push(reunionTemp);
-      console.log(reunionTemp);
-    
-    return reunionProcess;
+  }]
+  printJS(
+    {
+      header:'-Nombre de Empresa-',
+      imageStyle:'../../../assets/img/iniciar-sesion.png',
+      printable:reunionTemp, 
+      type:'json',
+      properties:['Tema','Tipo','Dia','Mes','Comienzo','Final','Estado'],
+      font: 'TimesNewRoman',
+      font_size: '14pt',
+      gridHeaderStyle: 'font-weight: bold; padding: 5px; border: 1px solid #dddddd;',
+      gridStyle: 'border: 1px solid lightgray; margin-bottom: -1px;',
+      modalMessage: 'Retrieving Document...',
+    }
+  )
 }
+
+
 
 // ******************************** Implementacion de servicios ********************************
 

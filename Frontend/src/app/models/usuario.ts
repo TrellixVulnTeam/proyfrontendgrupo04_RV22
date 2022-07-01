@@ -11,4 +11,5 @@ export class Usuario {
 
         this.perfil = perfil;
     }
+    
 }

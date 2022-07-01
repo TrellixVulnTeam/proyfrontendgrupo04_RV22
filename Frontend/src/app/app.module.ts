@@ -16,6 +16,7 @@ import { NgxQRCodeModule} from '@techiediaries/ngx-qrcode';
 
 import {HTTP_INTERCEPTORS} from '@angular/common/http';
 import { TokenInterceptorService } from './services/token-interceptor.service';
+import { EmpleadoFormComponent } from './components/empleado-form/empleado-form.component';
 import { HomeComponent } from './components/home/home.component';
 
 
@@ -30,6 +31,7 @@ import { HomeComponent } from './components/home/home.component';
     EmpleadoComponent,
     ReunionComponent,
     AltaReunionComponent,
+    EmpleadoFormComponent,
     HomeComponent
   ],
   imports: [

@@ -9,9 +9,8 @@ import { EmpleadoService } from 'src/app/services/empleado.service';
   styleUrls: ['./empleado.component.css']
 })
 export class EmpleadoComponent implements OnInit {
-  empleados!:Array<Empleado>;
-  constructor(private empleadoService:EmpleadoService, 
-    private router:Router) {
+  empleados!:Array<Empleado>
+  constructor(private empleadoService:EmpleadoService, private router:Router) {
     this.cargarEmpleados();
    }
 
@@ -27,7 +26,7 @@ export class EmpleadoComponent implements OnInit {
           Object.assign(unEmpleado,element);
           this.empleados.push(unEmpleado);
           unEmpleado = new Empleado();
-        });
+        }); 
         console.log(this.empleados);
       },
       error=>{
@@ -36,4 +35,30 @@ export class EmpleadoComponent implements OnInit {
     )
    }
 
+   agregarEmpleado(){
+    this.router.navigate(['empleado-form',0])
+   }
+
+   modificarEmpleado(empleado:Empleado){
+    this.router.navigate(['empleado-form',empleado._id])
+   }
+
+   borrarEmpleado(empleado:Empleado){
+    this.empleadoService.deleteEmpleado(empleado._id).subscribe(
+      result=>{
+        if(result.status=="1")
+        {
+          //toast
+          alert(result.msg);
+          this.cargarEmpleados();
+        }
+      },
+      error=>{
+        if(error.status=="0")
+        {
+          alert(error.msg);
+        }
+      }
+    )
+   }
 }

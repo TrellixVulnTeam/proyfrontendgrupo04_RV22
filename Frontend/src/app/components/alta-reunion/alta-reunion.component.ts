@@ -1,11 +1,12 @@
 import { Time } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { CheckboxControlValueAccessor } from '@angular/forms';
-import { EVENT_MANAGER_PLUGINS } from '@angular/platform-browser';
 import { Empleado } from 'src/app/models/empleado';
+import { Recurso } from 'src/app/models/recurso';
 import { Reunion } from 'src/app/models/reunion';
 import { EmpleadoService } from 'src/app/services/empleado.service';
+import { RecursoService } from 'src/app/services/recurso.service';
 import { ReunionService } from 'src/app/services/reunion.service';
+
 
 @Component({
   selector: 'app-alta-reunion',
@@ -15,21 +16,31 @@ import { ReunionService } from 'src/app/services/reunion.service';
 export class AltaReunionComponent implements OnInit {
 
   fecha!:Date;
-  horaInicio!:Time;
-  horaFinal!:Time;
+  horaInicio!:String;
+  horaFinal!:String;
   empleado!:Empleado;
   participante!:Empleado;
   empleados!:Array<Empleado>;
   participantes!:Array<Empleado>;
   reunion!:Reunion;
-  constructor(private reunionService:ReunionService, private empleadoService:EmpleadoService) { }
+
+  recursos!:Array<Recurso>;
+  recurso!:Recurso;
+
+  recursosReunion!:Array<Recurso>;
+  constructor(private reunionService:ReunionService, private empleadoService:EmpleadoService, private recursoService:RecursoService) { }
 
 ngOnInit(): void {
+    this.recursosReunion = new Array<Recurso>();
     this.participantes = new Array<Empleado>();
     this.reunion = new Reunion();
     this.fecha = new Date();
     this.getEmpleados();
+    this.getRecursos();
 }
+
+
+// ******************************** Implementacion de servicios ********************************
 
 getEmpleados()
 {
@@ -45,29 +56,48 @@ getEmpleados()
     )
 }
 
+getRecursos(){
+  this.recursoService.getRecursos().subscribe(
+    (result) => {
+        this.recursos = new Array<Recurso>();
+        result.forEach((element:any)=> {
+          this.recurso = new Recurso();
+          Object.assign(this.recurso,element);
+          this.recursos.push(this.recurso);
+        });
+    }
+  )
+}
 
 altaReunion()
 {
-  
-  this.manejoDeFechaHora()
+  this.manejoDeDatos()
   console.log(this.reunion);
+  this.reunionService.postReunion(this.reunion).subscribe(
+    (result) => {
+        console.log("56 "+ result);
+    },
+  )
+  
 }
-
-
 
 
 // ******************************** Gestion de fecha y hora ********************************
 
-manejoDeFechaHora()
+manejoDeDatos()
 {  
-     
-  this.reunion.dia= this.fecha.getUTCDay().toString();
-  this.reunion.mes= this.fecha.getUTCMonth().toString();
-  this.reunion.anio= this.fecha.getUTCFullYear().toString();
+  
+  this.reunion.dia= this.fecha.getDate().toString();
+  this.reunion.mes= this.fecha.getMonth().toString();
+  this.reunion.anio= this.fecha.getFullYear().toString(); 
 
-/* 
-  this.reunion.horaComienzo= this.horaInicio.hours.toString()+":"+ this.horaInicio.minutes.toString();
-  this.reunion.horaFinal= this.horaFinal.hours.toString()+":"+ this.horaFinal.minutes.toString(); */
+  this.reunion.horaComienzo= this.horaInicio;
+  this.reunion.horaFinal= this.horaFinal;
+
+  this.reunion.participantes = this.participantes;
+  this.reunion.estado = "Pendiente";
+  this.reunion.recursos = this.recursosReunion;
+  
 }
 
 
@@ -101,6 +131,40 @@ UserExists (empleado:Empleado): boolean {
   let exists = false;
   for (var _i = 0; _i < this.participantes.length; _i++) {
       if (this.participantes[_i]._id==empleado._id){
+          exists = true;
+      }
+  }
+  return exists;
+}
+
+// ******************************** Control de los recursos ********************************
+
+addRemoveRecursos(rec:Recurso, $event:any)
+{
+    if ( $event.checked ==true){
+        this.addRecursos(rec);
+    }else {
+        this.removeRecursos(rec);
+    }
+    console.log ("Recursos: ", this.recursosReunion);
+}
+  
+addRecursos(recurso:Recurso): void {
+  if (!this.recursoExists(recurso)){
+      this.recursosReunion.push(recurso);
+  }
+}
+removeRecursos(recurso:Recurso): void {
+  for (var _i = 0; _i < this.recursosReunion.length; _i++) {
+      if (this.recursosReunion[_i]._id==recurso._id){
+        this.recursosReunion.splice( _i, 1 )
+      }
+  }
+}
+recursoExists (recurso:Recurso): boolean {
+  let exists = false;
+  for (var _i = 0; _i < this.recursosReunion.length; _i++) {
+      if (this.recursosReunion[_i]._id==recurso._id){
           exists = true;
       }
   }

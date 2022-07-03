@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Usuario } from 'src/app/models/usuario';
 import { LoginService } from 'src/app/services/login.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-login',
@@ -41,8 +42,24 @@ export class LoginComponent implements OnInit {
         sessionStorage.setItem("perfil", user.perfil);
         //redirigimos a home o a pagina que llamo
         this.router.navigateByUrl(this.returnUrl);
-    //    alert("¡BIENVENIDO!");
-   //     this.router.navigate(['1'])
+      //  alert("¡BIENVENIDO!");
+        //alertas
+        Swal.fire({
+          title: '¡BIENVENIDO!',
+          width: 600,
+          timer: 3000,
+          padding: '3em',
+          color: '#716add',
+          background: '#fff url(/assets/img/pollo-man.gif)',
+          backdrop: `
+            rgba(0,0,123,0.4)
+            url("/images/nyan-cat.gif")
+            left top
+            no-repeat
+          `
+        })
+        //una vez logueado nos dirigira a.
+        this.router.navigate(['listarReunion'])
       } else {
           //usuario no encontrado muestro mensaje en la vista
           this.msglogin="Credenciales incorrectas..";

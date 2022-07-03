@@ -1,24 +1,47 @@
-
-div{
-   
-    display: flex;
-    justify-content: center;
-    height: 100%;
-    align-items: center;
+.col{
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
 }
 
 input{
     margin: 10px;
+    background: transparent;
+    border-bottom: 1px solid #716add;
+    border-top:none;
+    border-right:none;
+    border-left: none;
+    color: rgb(22, 21, 21);
+    font-family: cursive;
 }
-form div {
-    display: flex;
-    justify-content: center;
-    height: 100%;
-    align-items: center;
+
+form {
+    margin-top: 10px;
+    margin-block-end: 20px;
+   
+    opacity: 1.3;
+    background:linear-gradient(to top, rgba(0,0,0,0.8)50%,rgba(0,0,0,0.8)50%),ulr(1);
+    color: rgb(24, 22, 22);
+    font-family: cursive;
+    border-radius: 10px;
+} 
+
+.btnn{
+    
+    text-decoration: none;
+    background: #1c1c1d;
+    border: none;
+    margin-top: 30px;
+    font-size:28px ;
+    border-radius: 10px;
+    cursor: pointer;
+    color: white;
+    font-family: cursive;
+    transition: 0.4 ease-in-out;
+    
 }
-form h2{
-    display: flex;
-    justify-content: center;
-    height: 100%;
-    align-items: center;
+.btnn:hover{
+    background: #716add;
+    color: #e9e9e9;
+    transform:scale(1.2);
 }

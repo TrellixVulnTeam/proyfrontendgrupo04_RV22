@@ -1,6 +1,6 @@
 
-<div>
-    <div class="col-md-6 col-md-offset-4">
+<div class="row">
+    <div class="col col-8">
         
         <form #loginForm="ngForm">
             <h2>Login</h2>
@@ -12,20 +12,19 @@
             
             <div class="form-group">
                 <input placeholder="Usuario" required maxlength="10" minlength="1" type="text" class="formcontrol" name="username" [(ngModel)]="userform.username"   #user="ngModel"/> <!-- [(ngModel)]="userform.username" -->
-                <div *ngIf="user.invalid && (user.dirty || user.touched)"
-                    class="alert alert-danger">
-                    error complete el campo USUARIO
+                <div *ngIf="user.invalid && (user.dirty || user.touched)" class="alert alert-danger">
+                     Debe ingresar un nombre de usuario 
                </div>
             </div>
             <div class="form-group">
                 <input placeholder="Contraseña" required maxlength="10" minlength="3" type="password" class="formcontrol" name="password"  [(ngModel)]="userform.password"  #password="ngModel"/> <!-- [(ngModel)]="userform.password" -->
-                <div *ngIf="password.invalid && (password.dirty || password.touched)"
-                    class="alert alert-danger">
-                    error complete el campo Contraseña
-              </div>
-            </div><br>
+                
+                <div *ngIf="password.invalid && (password.dirty || password.touched)" class="alert alert-danger">
+                    Debe ingresar una contraseña
+                </div>
+            </div>
             <div class="form-group">
-                <button  [disabled]="!loginForm.form.valid" class="btn btn-primary" (click)="login()">Ingresar</button>
+                <button  [disabled]="!loginForm.form.valid" class="btnn " (click)="login()">Ingresar</button>
             </div>
             <div class="alert-danger">{{msglogin}}</div>
         </form>

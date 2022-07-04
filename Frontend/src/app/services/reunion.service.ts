@@ -66,5 +66,48 @@ export class ReunionService {
     return this._http.delete(this.urlBase+"reunion/"+reunion._id , httpOptions);
   }
 
+    //Recuperar reuniones por fecha
+    public getReunionFecha(fecha:string){
+      const httpOptions = {
+        headers: new HttpHeaders({
+          'Content-Type':'application/json',
+        })
+      };
+      return this._http.get(this.urlBase+"reunion/dias/dia/"+fecha , httpOptions);
+    }
+  
+    //Recuperar reunion por oficina
+    public getReunionOficina(nroOficina:string ){
+      const httpOptions = {
+        headers: new HttpHeaders({
+          'Content-Type':'application/json',
+        }),
+        params: new HttpParams({
+        })
+      };
+      return this._http.get(this.urlBase+"reunion/oficina/nroOficina/?nroOficina=A1" , httpOptions);
+    }
+  
+    //Recuperar reunion por participantes
+    public getReunionParticipante(id:string){
+      const httpOptions = {  
+        headers: new HttpHeaders({
+          'Content-Type': 'application/json'
+        }),
+        params: new HttpParams({
+            
+        })
+     };
+      return this._http.get(this.urlBase+"reunion/participante/"+id , httpOptions);
+    }
+  //Recuperar reunion por empleado NO presente
+    public getReunionNoParticipante(id:string){
+      const httpOptions = {
+        headers: new HttpHeaders({
+          'Content-Type':'application/json',
+        })
+      };
+      return this._http.get(this.urlBase+"reunion/noparticipante/"+id , httpOptions);
+    } 
 
 }

@@ -7,6 +7,7 @@ import { EmpleadoFormComponent } from './components/empleado-form/empleado-form.
 import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
 import { ReunionComponent } from './components/reunion/reunion.component';
+import { ReunionPdfComponent } from './components/reunion-pdf/reunion-pdf.component';
 
 const routes: Routes = [
     //cuando no ingrese nada va al login
@@ -16,7 +17,7 @@ const routes: Routes = [
     {path: 'altaReunion', component:AltaReunionComponent},
     {path: 'listarReunion', component:ReunionComponent},
     {path: 'login', component: LoginComponent}, 
-
+    {path: 'reunionpdf/:id', component:ReunionPdfComponent},
     {path:"empleado",component:EmpleadoComponent},
     {path:"empleado-form/:id",component:EmpleadoFormComponent}
 

@@ -5,7 +5,7 @@ import { AppComponent } from './app.component';
 import { FooterComponent } from './components/layout/footer/footer.component';
 import { HeaderComponent } from './components/layout/header/header.component';
 import { LoginComponent } from './components/login/login.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { LoginService } from './services/login.service';
 import { EmpleadoComponent } from './components/empleado/empleado.component';
@@ -30,6 +30,7 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptorService } from './services/token-interceptor.service';
 import { EmpleadoFormComponent } from './components/empleado-form/empleado-form.component';
 import { HomeComponent } from './components/home/home.component';
+import { ReunionPdfComponent } from './components/reunion-pdf/reunion-pdf.component';
 
 
 
@@ -58,7 +59,8 @@ import { HomeComponent } from './components/home/home.component';
     EstadisticaFormTiempoComponent,
     EstadisticaFormParticipanteComponent,
     EmpleadoFormComponent,
-    HomeComponent
+    HomeComponent,
+    ReunionPdfComponent
   ],
   imports: [
     BrowserModule,
@@ -66,7 +68,8 @@ import { HomeComponent } from './components/home/home.component';
     HttpClientModule, // cliente
     FormsModule, //para los formularios
     NgChartsModule, //graficos
-    NgxQRCodeModule //para el QR
+    NgxQRCodeModule, //para el QR
+    ReactiveFormsModule
   ],
   providers: [LoginService,
     {

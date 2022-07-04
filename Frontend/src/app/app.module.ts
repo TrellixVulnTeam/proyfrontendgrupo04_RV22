@@ -30,6 +30,7 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptorService } from './services/token-interceptor.service';
 import { EmpleadoFormComponent } from './components/empleado-form/empleado-form.component';
 import { HomeComponent } from './components/home/home.component';
+import { CalendarioComponent } from './components/calendario/calendario.component';
 
 
 
@@ -58,7 +59,8 @@ import { HomeComponent } from './components/home/home.component';
     EstadisticaFormTiempoComponent,
     EstadisticaFormParticipanteComponent,
     EmpleadoFormComponent,
-    HomeComponent
+    HomeComponent,
+    CalendarioComponent
   ],
   imports: [
     BrowserModule,

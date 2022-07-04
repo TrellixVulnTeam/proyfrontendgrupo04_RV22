@@ -31,7 +31,8 @@ import { TokenInterceptorService } from './services/token-interceptor.service';
 import { EmpleadoFormComponent } from './components/empleado-form/empleado-form.component';
 import { HomeComponent } from './components/home/home.component';
 import { CalendarioComponent } from './components/calendario/calendario.component';
-
+import { CalendarModule, DateAdapter } from 'angular-calendar';
+import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 
 
 
@@ -68,7 +69,11 @@ import { CalendarioComponent } from './components/calendario/calendario.componen
     HttpClientModule, // cliente
     FormsModule, //para los formularios
     NgChartsModule, //graficos
-    NgxQRCodeModule //para el QR
+    NgxQRCodeModule, //para el QR
+    CalendarModule.forRoot({
+      provide: DateAdapter,
+      useFactory: adapterFactory,
+    })
   ],
   providers: [LoginService,
     {

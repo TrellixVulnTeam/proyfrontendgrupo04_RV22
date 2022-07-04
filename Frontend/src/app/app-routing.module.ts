@@ -7,6 +7,7 @@ import { EmpleadoFormComponent } from './components/empleado-form/empleado-form.
 import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
 import { ReunionComponent } from './components/reunion/reunion.component';
+import { CalendarioComponent } from './components/calendario/calendario.component';
 
 const routes: Routes = [
     //cuando no ingrese nada va al login
@@ -16,9 +17,9 @@ const routes: Routes = [
     {path: 'altaReunion', component:AltaReunionComponent},
     {path: 'listarReunion', component:ReunionComponent},
     {path: 'login', component: LoginComponent}, 
-
+    {path:"calendario",component:CalendarioComponent},
     {path:"empleado",component:EmpleadoComponent},
-    {path:"empleado-form/:id",component:EmpleadoFormComponent}
+    {path:"empleado-form/:id",component:EmpleadoFormComponent }
 
     //cuando se ingresa cualquier otra ruta volvera al login
     //{path: '**', redirectTo:'login',pathMatch:'full'},

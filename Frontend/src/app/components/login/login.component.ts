@@ -35,35 +35,79 @@ export class LoginComponent implements OnInit {
       if (user.status == 1){
         //guardamos el tokek localmente
         sessionStorage.setItem("token", user.token);
-
         //guardamos el user en cookies en el cliente
         sessionStorage.setItem("user", user.username);
         sessionStorage.setItem("userid", user.userid);
         sessionStorage.setItem("perfil", user.perfil);
         //redirigimos a home o a pagina que llamo
-        this.router.navigateByUrl(this.returnUrl);
-      //  alert("¡BIENVENIDO!");
-        //alertas
-        Swal.fire({
-          title: '¡BIENVENIDO!',
-          width: 600,
-          timer: 3000,
-          padding: '3em',
-          color: '#716add',
-          background: '#fff url(/assets/img/pollo-man.gif)',
-          backdrop: `
-            rgba(0,0,123,0.4)
-            url("/images/nyan-cat.gif")
-            left top
-            no-repeat
-          `
-        })
-        //una vez logueado nos dirigira a.
-        this.router.navigate(['listarReunion'])
-      } else {
-          //usuario no encontrado muestro mensaje en la vista
-          this.msglogin="Credenciales incorrectas..";
-      }
+        if(user.perfil=="administrador"){
+          this.router.navigateByUrl(this.returnUrl);
+          //  alert("¡BIENVENIDO!");
+            //alertas
+            Swal.fire({
+              title: '¡BIENVENIDO ADMIN!',
+              width: 600,
+              timer: 3000,
+              padding: '3em',
+              color: '#716add',
+              background: '#fff url(/assets/img/pollo-man.gif)',
+              backdrop: `
+                rgba(0,0,123,0.4)
+                url("/images/nyan-cat.gif")
+                left top
+                no-repeat
+              `
+            })
+            //una vez logueado nos dirigira a.
+            this.router.navigate(['listarReunion'])
+          } else {
+              //usuario no encontrado muestro mensaje en la vista
+             /*  this.msglogin="Credenciales incorrectas.."; */
+              Swal.fire({
+                icon: 'error',
+                title: 'Credenciales incorrectas..',
+                text: 'intente de nuevo',
+               
+              })
+          }
+
+      }else{
+        if(user.perfil=="participante"){
+
+          this.router.navigateByUrl(this.returnUrl);
+          //  alert("¡BIENVENIDO!");
+            //alertas
+            Swal.fire({
+              title: '¡BIENVENIDO USUARIO COMUN Y SILVESTRE!',
+              width: 600,
+              timer: 3000,
+              padding: '3em',
+              color: '#716add',
+              background: '#fff url(/assets/img/pollo-man.gif)',
+              backdrop: `
+                rgba(0,0,123,0.4)
+                url("/images/nyan-cat.gif")
+                left top
+                no-repeat
+              `
+            })
+            //una vez logueado nos dirigira a.
+            this.router.navigate(['listarReunion'])
+          } else {
+              //usuario no encontrado muestro mensaje en la vista
+              /* this.msglogin="Credenciales incorrectas.."; */
+
+              Swal.fire({
+                icon: 'error',
+                title: 'Credenciales incorrectas..',
+                text: 'intente de nuevo',
+                
+              })
+          }
+          
+        }
+      
+
     },
      error => {
        alert("Error de conexion");

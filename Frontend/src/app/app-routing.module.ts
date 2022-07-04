@@ -19,6 +19,7 @@ const routes: Routes = [
     {path: 'login', component: LoginComponent}, 
     {path:"calendario",component:CalendarioComponent},
     {path:"empleado",component:EmpleadoComponent},
+    {path:"calendario",component:CalendarioComponent},
     {path:"empleado-form/:id",component:EmpleadoFormComponent }
 
     //cuando se ingresa cualquier otra ruta volvera al login

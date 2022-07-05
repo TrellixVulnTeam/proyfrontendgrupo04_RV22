@@ -120,12 +120,12 @@ altaReunion()
 }
 // ******************************** Manejo de recursos ********************************
   //Permite gestionar ver la cantidad de recursos disponibles
-  restarRecursos(reunion:Reunion){
-    reunion.recursos.forEach(element => {
+  restarRecursos(recursos:Array<Recurso>){
+    recursos.forEach(element => {
         if(element.tipo == "Fisico")
         {
           element.cantidad -=1; 
-          this.recursoService.updateRecurso(reunion).subscribe(
+          this.recursoService.updateRecurso(element).subscribe(
             result => {
               console.log("Cantidad de recursos: "+ result)
             }
@@ -176,7 +176,7 @@ manejoDeDatos()
   this.reunion.estado = "Pendiente";
   this.reunion.recursos = this.recursosReunion;
   this.reunion.fechaCompleta = this.fecha;
-  this.restarRecursos(this.reunion);
+  this.restarRecursos(this.reunion.recursos);
 
 }
 

@@ -1,5 +1,6 @@
 import { Time } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Empleado } from 'src/app/models/empleado';
 import { Recurso } from 'src/app/models/recurso';
 import { Reunion } from 'src/app/models/reunion';
@@ -15,9 +16,11 @@ import { ReunionService } from 'src/app/services/reunion.service';
 })
 export class AltaReunionComponent implements OnInit {
 
+  formReunion:FormGroup;
+
   fecha!:Date;
-  horaInicio!:String;
-  horaFinal!:String;
+  hInicio!:String;
+  hFinal!:String;
   empleado!:Empleado;
   participante!:Empleado;
   empleados!:Array<Empleado>;
@@ -26,9 +29,23 @@ export class AltaReunionComponent implements OnInit {
 
   recursos!:Array<Recurso>;
   recurso!:Recurso;
-
   recursosReunion!:Array<Recurso>;
-  constructor(private reunionService:ReunionService, private empleadoService:EmpleadoService, private recursoService:RecursoService) { }
+
+  reunionesGuardadas!:Array<Reunion>;
+
+  constructor(private reunionService:ReunionService, private empleadoService:EmpleadoService, private recursoService:RecursoService,private fb:FormBuilder) 
+  { 
+    this.formReunion = this.fb.group({
+        temaReunion : ['', Validators.required],
+        tipoReunion : ['', Validators.required],
+        fechaReunion : ['', Validators.required],
+        oficinaReunion : ['', Validators.required],
+        horaInicio: ['', Validators.required],
+        horaFinal: ['', Validators.required] 
+   /* */
+        
+    })
+  }
 
 ngOnInit(): void {
     this.recursosReunion = new Array<Recurso>();
@@ -37,12 +54,13 @@ ngOnInit(): void {
     this.fecha = new Date();
     this.getEmpleados();
     this.getRecursos();
+  //  this.getReuniones()  Para hacer comprobaciones
 }
 
 
 // ******************************** Implementacion de servicios ********************************
 
-getEmpleados()
+async getEmpleados()
 {
     this.empleadoService.getEmpleados().subscribe(
       (result) => {
@@ -56,16 +74,36 @@ getEmpleados()
     )
 }
 
-getRecursos(){
+async getRecursos(){
+  await this.getEmpleados()
   this.recursoService.getRecursos().subscribe(
     (result) => {
         this.recursos = new Array<Recurso>();
         result.forEach((element:any)=> {
           this.recurso = new Recurso();
-          Object.assign(this.recurso,element);
-          this.recursos.push(this.recurso);
+          if(element.cantidad>0)
+          {
+            Object.assign(this.recurso,element);
+            this.recursos.push(this.recurso);
+          }
+          
         });
     }
+  )
+}
+
+async getReuniones(){
+  await this.getRecursos();
+  this.reunionService.getReuniones().subscribe(
+    (result) => {
+      console.log(result);
+      this.reunionesGuardadas = new Array<Reunion>();
+      result.forEach((element: any) => {
+        this.reunion = new Reunion();
+        Object.assign(this.reunion, element);
+        this.reunionesGuardadas.push(this.reunion);
+      })
+    },
   )
 }
 
@@ -80,9 +118,51 @@ altaReunion()
   )
   
 }
+// ******************************** Manejo de recursos ********************************
+  //Permite gestionar ver la cantidad de recursos disponibles
+  restarRecursos(reunion:Reunion){
+    reunion.recursos.forEach(element => {
+        if(element.tipo == "Fisico")
+        {
+          element.cantidad -=1; 
+          this.recursoService.updateRecurso(reunion).subscribe(
+            result => {
+              console.log("Cantidad de recursos: "+ result)
+            }
+          )
+
+        }
+          
+    });
+  }
 
 
-// ******************************** Gestion de fecha y hora ********************************
+// ******************************** Manejo de datos ********************************
+
+controlColisionOficinas(reunion:Reunion):Boolean{
+    let guardar=true;
+
+    for (let i = 0; i < this.reunionesGuardadas.length && guardar==true; i++) {
+      if(this.reunionesGuardadas[i].nroOficina == reunion.nroOficina){
+        if(this.reunionesGuardadas[i].dia == reunion.dia && this.reunionesGuardadas[i].mes== reunion.mes){
+          if(this.reunionesGuardadas[i].horaComienzo == reunion.horaComienzo){
+              guardar=false;
+              console.log("No guardar");
+          }
+        }
+      }
+    }
+     
+      return guardar;
+}
+
+controlColisionParticipantes(){
+
+}
+
+controlColisionRecursosFisicos(){
+
+}
 
 manejoDeDatos()
 {  
@@ -91,13 +171,13 @@ manejoDeDatos()
   this.reunion.mes= this.fecha.getMonth().toString();
   this.reunion.anio= this.fecha.getFullYear().toString(); 
 
-  this.reunion.horaComienzo= this.horaInicio;
-  this.reunion.horaFinal= this.horaFinal;
 
   this.reunion.participantes = this.participantes;
   this.reunion.estado = "Pendiente";
   this.reunion.recursos = this.recursosReunion;
-  
+  this.reunion.fechaCompleta = this.fecha;
+  this.restarRecursos(this.reunion);
+
 }
 
 

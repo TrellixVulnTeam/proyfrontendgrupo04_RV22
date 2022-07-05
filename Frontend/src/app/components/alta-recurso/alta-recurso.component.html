@@ -1,0 +1,32 @@
+<div class="row">
+    <div class="col-10">
+
+        <form >
+ 
+            <div class="mb-3">
+                <label for="tipoRecurso" class="form-label">Tipo</label>
+                <select class="form-select" aria-label="Default select example" required [(ngModel)]="tipo" name="tipoRecurso" >
+                    <option value="Digital">Digital</option>
+                    <option value="Fisico">Fisico</option>
+                </select>
+            </div>
+           
+            <div class="mb-3">
+                <label for="nombreRecurso" class="form-label">Nombre</label>
+                <input type="text" class="form-control" id="nombreRecurso" aria-describedby="temaReunion" required [(ngModel)]="nombre" name="nombreRecurso" >
+            </div>
+
+            <div class="mb-3">
+                <label for="stockRecurso" class="form-label">Cantidad</label>
+                <input type="number" class="form-control" id="temaReunion" aria-describedby="stockRecurso" required [(ngModel)]="stock" name="stockRecurso" >
+            </div>
+
+            <button class="btn btn-primary" (click)="postRecurso()">Guardar</button>
+
+        </form>
+
+           
+           
+
+    </div>
+</div>

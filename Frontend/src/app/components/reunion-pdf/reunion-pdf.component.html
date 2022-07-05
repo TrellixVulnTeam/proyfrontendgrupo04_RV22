@@ -1,6 +1,4 @@
 
-<!--The content below is only a placeholder and can be replaced.-->
-
 <div>
     <button type="button" class="btn btn-success" (click)="convetToPDF()">imprimir</button>
 </div>
@@ -27,7 +25,6 @@
                     <p *ngFor="let rec of reunion.recursos">{{rec.nombre}}</p>
                       <!--QR  -->
                     <div>
-                    <!--  <span class="mb-2"><fa-icon [icon]="faAt">ifs@gmail.com</span>  -->
                         <ngx-qrcode
                         [elementType]="elementType"
                         [value]="url"

@@ -1,5 +1,50 @@
 <div class="row">
-    <div><button type="button" class="btn btn-success" (click)="altaReunion()"><i class="bi bi-plus" ></i><i class="bi bi-calendar-event"></i></button></div>
+  <div><button type="button" class="btn btn-success" (click)="altaReunion()"><i class="bi bi-plus" ></i><i class="bi bi-calendar-event"></i></button></div>
+  <div class="col-10">
+        <form action="">
+              <div class="col-6">
+                <div class="mb-3">
+                  <label for="temaReunion" class="form-label">Legajo</label> <label for="" (mouseover)="mostrarInfo()"><i class="bi bi-info-circle"></i></label>
+                  <input type="text" class="form-control" id="temaReunion" [(ngModel)]="legajoEmpleado" name="tema">
+                </div>
+                <button type="button" class="btn btn-success" (click)="buscarxLegajo()">Buscar</button>
+              </div>
+              <div class="col-6">
+                <div class="input-group">
+                  <span class="input-group-text">Dia | Mes</span>
+                  <input type="text" aria-label="First name" class="form-control" [(ngModel)]="dia" name="dia">
+                  <input type="text" aria-label="Last name" class="form-control" [(ngModel)]="mes" name="mes">
+                </div>
+                <button type="button" class="btn btn-success" (click)="buscarxdiaMes()">Buscar</button>
+              </div>
+              
+              <div class="col-6">
+                  <label for="empleado" class="form-label">Participante </label>
+                  <select class="form-select" id="empleado" name="empleado" [(ngModel)]="idEmpleado" >
+                    <option *ngFor="let emp of empleados" [value]="emp._id" >{{emp.apellido}},{{emp.nombre}}</option>
+                  </select>
+                  <button class="btn btn-success" type="button" (click)="buscarxEmpleado()">Button</button>                
+              </div> 
+              
+
+              <div class="col-6">
+                <label for="temaReunion" class="form-label">Oficina</label>
+                  <select class="form-select" id="inputGroupSelect04" aria-label="Example select with button addon" name="oficina" [(ngModel)]="nroOficina">
+                        <option value="A1">A1</option>
+                        <option value="B2">B2</option>
+                        <option value="C3">C3</option>
+                        <option value="D5">D5</option>
+                        <option value="E6">E6</option>
+                        <option value="F4">F4</option>
+                  </select>
+                  <button type="button" class="btn btn-success" (click)="buscarxOficina()">Buscar</button>
+              </div>
+        </form>
+
+        <button type="button" class="btn btn-success" (click)="getReuniones()">Limpiar Filtros</button>
+
+    </div>
+
     <div class="col-10">
         <table class="table table-dark table-hover">
             <thead>
@@ -22,30 +67,17 @@
                   <td>{{r.tipoReunion}}</td>
                   <td>{{r.temaReunion}}</td>
                   <td>{{r.nroOficina}}</td>
-                  <td>{{r.dia}}/{{r.mes}}</td>
+                  <td>{{r.fechaCompleta}}</td>
                   <td><p *ngFor="let p of r.participantes" >{{p.apellido}}, {{p.nombre}}</p></td>
                   <td><p *ngFor="let rec of r.recursos">{{rec.nombre}}</p></td>
                   <td>
-                    <button type="button" class="btn btn-primary" (click)="imprimir(r)"> <i class="bi bi-file-earmark-pdf"></i></button>
-                    <button type="button" class="btn btn-warning" (click)="modificarReunion()"><i class="bi bi-pen"></i></button>
-                    <button type="button" class="btn btn-danger" (click)="borrarReunion(r)"><i class="bi bi-trash"></i></button>
-                    
-                    
+                    <button type="button" class="btn btn-primary" (click)="pdfReunion(r)"> <i class="bi bi-file-earmark-pdf"></i></button>
+                    <button type="button" class="btn btn-warning" (click)="modificarReunion(r._id)"><i class="bi bi-pen"></i></button>
+                    <button type="button" class="btn btn-danger" (click)="borrarReunion(r)"><i class="bi bi-trash"></i></button>                  
                   </td>
                 </tr>
               </tbody>
         </table>
-        <!-- QR #TU_MACHO -->
-        <div>
-          <!-- <span class="mb-2"><fa-icon [icon]="faAt">ifs@gmail.com</span> -->
-          <ngx-qrcode
-          [elementType]="elementType"
-          [value]="value"
-          CssClass="aclass"
-          [errorCorrectionLevel]="errorCorrectionLevel">
-          </ngx-qrcode>
-        </div>
-
 
     </div>
 </div>

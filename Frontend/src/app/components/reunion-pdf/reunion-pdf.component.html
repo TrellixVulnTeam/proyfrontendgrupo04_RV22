@@ -1,0 +1,39 @@
+
+<div>
+    <button type="button" class="btn btn-success" (click)="convetToPDF()">imprimir</button>
+</div>
+<div style="background: white;">
+
+    <div id="contentToConvert">
+        <div id="posicion">
+            <img src="/assets/img/icono-sistema/evento-planeado.png" alt="" style="width:68px; height:68px">
+            <h1>Tecno Adictos</h1>
+        </div>
+        <div class="row">
+            <div class="col-10">
+                <h1>Reunion {{reunion.estado}}</h1>
+                Tema: {{reunion.temaReunion}}
+                Tipo: {{reunion.tipoReunion}}
+                Fecha:{{reunion.dia}}/{{reunion.mes}}/{{reunion.anio}}
+                Horario:
+                <p>{{reunion.horaComienzo}} - {{reunion.horaFinal}}</p>
+                Oficina: {{reunion.nroOficina}}
+    
+                Participante:
+                    <p *ngFor="let p of reunion.participantes">{{p.apellido}}, {{p.nombre}}</p>
+                Recursos:
+                    <p *ngFor="let rec of reunion.recursos">{{rec.nombre}}</p>
+                      <!--QR  -->
+                    <div>
+                        <ngx-qrcode
+                        [elementType]="elementType"
+                        [value]="url"
+                        CssClass="aclass"
+                        [errorCorrectionLevel]="errorCorrectionLevel">
+                        </ngx-qrcode>
+                    </div>
+          </div>  
+      </div>
+    </div>
+    
+</div>

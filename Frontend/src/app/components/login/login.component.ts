@@ -42,21 +42,14 @@ export class LoginComponent implements OnInit {
         //redirigimos a home o a pagina que llamo
         if(user.perfil=="administrador"){
           this.router.navigateByUrl(this.returnUrl);
-          //  alert("¡BIENVENIDO!");
-            //alertas
+          // alert de bienvenida del Administrador 
             Swal.fire({
               title: '¡BIENVENIDO ADMIN!',
-              width: 600,
+              width: 900,
               timer: 3000,
-              padding: '3em',
-              color: '#716add',
-              background: '#fff url(/assets/img/pollo-man.gif)',
-              backdrop: `
-                rgba(0,0,123,0.4)
-                url("/images/nyan-cat.gif")
-                left top
-                no-repeat
-              `
+              padding: '10em',
+              color: '#000000',
+              background: '#37D66C url(/assets/img/icono-sistema/candado.gif)', 
             })
             //una vez logueado nos dirigira a.
             this.router.navigate(['listarReunion'])
@@ -64,31 +57,25 @@ export class LoginComponent implements OnInit {
             if(user.perfil=="participante"){
 
               this.router.navigateByUrl(this.returnUrl);
-              //  alert("¡BIENVENIDO!");
-                //alertas
+                // alert de bienvenida del Participante  
                 Swal.fire({
                   title: '¡BIENVENIDO PARTICIPANTE!',
-                  width: 600,
+                  width: 900,
                   timer: 3000,
-                  padding: '3em',
-                  color: '#716add',
-                  background: '#fff url(/assets/img/pollo-man.gif)',
-                  backdrop: `
-                    rgba(0,0,123,0.4)
-                    url("/images/nyan-cat.gif")
-                    left top
-                    no-repeat
-                  `
+                  padding: '10em',
+                  color: '#000000',
+                  background: '#37D66C url(/assets/img/icono-sistema/candado.gif)', 
                 })
                 //una vez logueado nos dirigira a.
-                this.router.navigate(['listarReunion'])
+                this.router.navigate(['historial-participante'])
               } 
           }
 
       }else{
+        // alert de Credenciales incorrectas..
         Swal.fire({
           icon: 'error',
-          title: 'Credenciales incorrectas..',
+          title: 'Credenciales incorrectas...',
           text: 'intente de nuevo',     
         })
       }

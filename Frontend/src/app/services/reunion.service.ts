@@ -66,5 +66,61 @@ export class ReunionService {
     return this._http.delete(this.urlBase+"reunion/"+reunion._id , httpOptions);
   }
 
+    //Recuperar reuniones por fecha
+    public getReunionFecha(dia:string, mes:string){
+      const httpOptions = {
+        params: {dia: dia , mes: mes},
+        headers: new HttpHeaders({
+          'Content-Type':'application/json',
+        })
+       
+      };
 
+      
+
+      return this._http.get(this.urlBase+"reunion/dias/dia/", httpOptions);
+    }
+  
+    //Recuperar reunion por oficina
+    public getReunionOficina(nroOficina:string ){
+      const httpOptions = {
+        headers: new HttpHeaders({
+          'Content-Type':'application/json',
+        }),
+
+      };
+      return this._http.get(this.urlBase+"reunion/oficina/nroOficina/?nroOficina="+nroOficina , httpOptions);
+    }
+  
+    //Recuperar reunion por participantes
+    public getReunionParticipante(id:string){
+      const httpOptions = {  
+        headers: new HttpHeaders({
+          'Content-Type': 'application/json'
+        }),
+        params: new HttpParams({
+            
+        })
+     };
+      return this._http.get(this.urlBase+"reunion/participante/"+id , httpOptions);
+    }
+  //Recuperar reunion por empleado NO presente
+    public getReunionNoParticipante(id:string){
+      const httpOptions = {
+        headers: new HttpHeaders({
+          'Content-Type':'application/json',
+        })
+      };
+      return this._http.get(this.urlBase+"reunion/noparticipante/"+id , httpOptions);
+    } 
+
+    public getReunionPorLegajo(legajo:string)
+    {
+      const httpOptions = {
+        headers: new HttpHeaders({
+          'Content-Type':'application/json',
+        })
+      };
+      return this._http.get(this.urlBase+"reunion/participantes/legajo/"+legajo , httpOptions);
+    }
 }

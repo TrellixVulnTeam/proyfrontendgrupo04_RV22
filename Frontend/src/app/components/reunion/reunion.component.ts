@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Reunion } from 'src/app/models/reunion';
 import { ReunionService } from 'src/app/services/reunion.service';
-import { NgxQrcodeElementTypes, NgxQrcodeErrorCorrectionLevels } from '@techiediaries/ngx-qrcode';
-import * as printJS from 'print-js';
+import { EmpleadoService } from 'src/app/services/empleado.service';
+import { Empleado } from 'src/app/models/empleado';
 
 
 
@@ -13,86 +13,137 @@ import * as printJS from 'print-js';
   styleUrls: ['./reunion.component.css']
 })
 export class ReunionComponent implements OnInit {
-  reuniones!:Array<Reunion>;
-  reunion!:Reunion;
-  constructor(private reunionService:ReunionService, private router:Router) { }
+  reuniones!: Array<Reunion>;
+  reunion!: Reunion;
+  empleado!: Empleado;
+  empleados!: Array<Empleado>;
 
-  
+  idEmpleado!:string;
+  temaReunion!:string;
+  fechaReunion!:string;
+  legajoEmpleado!:string;
+  nroOficina!:string;
+
+  dia!:string;
+  mes!:string
+  constructor(private reunionService: ReunionService, private router: Router, private empleadoService: EmpleadoService) { }
+
+
 
   ngOnInit(): void {
     this.getReuniones();
+    this.getEmpleados();
   }
-   //******************************** Generar QR ********************************
-   title = 'qr-code';
-
-   ulr='https://www.youtube.com/watch?v=_9zKifzw6Hg';
-   profile='routeToMyProfile';
-   elementType=NgxQrcodeElementTypes.URL;
-   errorCorrectionLevel=NgxQrcodeErrorCorrectionLevels.HIGH;
-   value=this.ulr+this.profile;
-  // ******************************** Generar PDF ********************************
-imprimir(reunion:Reunion){
-  alert("Imprimiendo Reunion");
-  console.log(reunion);
-  let reunionTemp = [{
-        Tema:reunion.temaReunion,
-        Tipo:reunion.tipoReunion,
-        Dia: reunion.dia,
-        Mes: reunion.mes,
-        Comienzo: reunion.horaComienzo,
-        Final: reunion.horaFinal,
-        Estado:reunion.estado
-  }]
-  printJS(
-    {
-      header:'-Nombre de Empresa-',
-      imageStyle:'../../../assets/img/iniciar-sesion.png',
-      printable:reunionTemp, 
-      type:'json',
-      properties:['Tema','Tipo','Dia','Mes','Comienzo','Final','Estado'],
-      font: 'TimesNewRoman',
-      font_size: '14pt',
-      gridHeaderStyle: 'font-weight: bold; padding: 5px; border: 1px solid #dddddd;',
-      gridStyle: 'border: 1px solid lightgray; margin-bottom: -1px;',
-      modalMessage: 'Retrieving Document...',
-    }
-  )
-}
 
 
 
-// ******************************** Implementacion de servicios ********************************
+  // ******************************** Implementacion de servicios ********************************
+  async getEmpleados() {
+    await this.getReuniones();
+    this.empleadoService.getEmpleados().subscribe(
+      (result) => {
+        this.empleados = new Array<Empleado>();
+        result.forEach((element: any) => {
+          this.empleado = new Empleado();
+          Object.assign(this.empleado, element);
+          this.empleados.push(this.empleado);
+        })
+      },
+    )
+  }
 
-  getReuniones()
-  {
+  async getReuniones() {
     this.reunionService.getReuniones().subscribe(
       (result) => {
         console.log(result);
         this.reuniones = new Array<Reunion>();
-        result.forEach((element:any )=>{
+        result.forEach((element: any) => {
           this.reunion = new Reunion();
-          Object.assign(this.reunion,element);
+          Object.assign(this.reunion, element);
           this.reuniones.push(this.reunion);
         })
       },
     )
   }
 
-  altaReunion(){
-    this.router.navigate(['altaReunion']);
+  altaReunion() {
+    this.router.navigate(['altaReunion/0']);
   }
 
-  borrarReunion(reunion:Reunion){
+  modificarReunion(id:String) {
+    this.router.navigate(['altaReunion/'+id]);
+  }
 
-     this.reunionService.deleteReunion(reunion).subscribe(
+  borrarReunion(reunion: Reunion) {
+
+    this.reunionService.deleteReunion(reunion).subscribe(
       (result) => {
         console.log("Reunion eliminada");
       },
     )
-    this.getReuniones(); 
+    this.getReuniones();
   }
 
-  modificarReunion(){
+
+  pdfReunion(reunion: Reunion) {
+    this.router.navigate(['reunionpdf', reunion._id]);
+  }
+
+  mostrarInfo() {
 
   }
+
+  // ******************************** Filtros ********************************
+  buscarxLegajo(){
+    this.reunionService.getReunionPorLegajo(this.legajoEmpleado).subscribe(
+      result => {
+        console.log(result);
+            /*this.reuniones = new Array<Reunion>();
+             result.forEach((element: any) => {
+              this.reunion = new Reunion();
+              Object.assign(this.reunion, element);
+              this.reuniones.push(this.reunion);
+            }) */
+          },
+        )
+    }
+    
+
+
+  buscarxEmpleado(){
+
+    console.log(this.idEmpleado);
+
+    this.reunionService.getReunionParticipante(this.idEmpleado).subscribe(
+      result => {
+        console.log(result);
+          this.reuniones = new Array<Reunion>();
+          Object.assign(this.reuniones, result);
+      }) 
+  }
+
+  buscarxOficina(){
+    console.log(this.nroOficina);
+    this.reunionService.getReunionOficina(this.nroOficina).subscribe(
+      (result) => {
+          this.reuniones = new Array<Reunion>();
+          Object.assign(this.reuniones,result);
+          console.log("133"+this.reuniones);
+      },
+    )
+  }
+
+  buscarxdiaMes(){
+    console.log(this.dia);
+    console.log(this.mes);
+    this.reunionService.getReunionFecha(this.dia,this.mes).subscribe(
+      (result) => {
+        console.log(result);
+          this.reuniones = new Array<Reunion>();
+          Object.assign(this.reuniones, result);
+         
+      },
+    )
+  }
+
 }

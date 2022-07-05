@@ -8,6 +8,11 @@ button{
 }
 
 table{
+    margin-top: 30px;
     vertical-align: middle;
     text-align: center;
+}
+
+label{
+    color: white;
 }

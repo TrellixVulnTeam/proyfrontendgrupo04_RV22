@@ -90,12 +90,12 @@ import { NoParticipanteComponent } from './components/no-participante/no-partici
     NgChartsModule, //graficos
     NgxQRCodeModule, //para el QR
     ReactiveFormsModule,
-
+    
     CalendarModule.forRoot({
       provide: DateAdapter,
       useFactory: adapterFactory,
     })
-
+  
   ],
   providers: [LoginService,
     {

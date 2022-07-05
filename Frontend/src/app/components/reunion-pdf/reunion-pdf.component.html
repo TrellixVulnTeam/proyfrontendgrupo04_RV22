@@ -1,0 +1,31 @@
+<div class="row">
+    <div class="col-10">
+        <button (click)="imprimir()">Volver</button>
+        
+        <h1>Reunion {{reunion.estado}}</h1>
+        Tema: {{reunion.temaReunion}}
+        Tipo: {{reunion.tipoReunion}}
+        Fecha:{{reunion.dia}}/{{reunion.mes}}/{{reunion.anio}}
+        Horario:
+            <p>{{reunion.horaComienzo}} - {{reunion.horaFinal}}</p>
+        Oficina: {{reunion.nroOficina}}
+
+        Participante:
+            <p *ngFor="let p of reunion.participantes">{{p.apellido}}, {{p.nombre}}</p>
+
+        Recursos:
+            <p *ngFor="let rec of reunion.recursos">{{rec.nombre}}</p>
+
+
+            <!-- QR #TU_MACHO -->
+            <div>
+                <!-- <span class="mb-2"><fa-icon [icon]="faAt">ifs@gmail.com</span> -->
+                <ngx-qrcode
+                [elementType]="elementType"
+                [value]="value"
+                CssClass="aclass"
+                [errorCorrectionLevel]="errorCorrectionLevel">
+                </ngx-qrcode>
+            </div>
+    </div>
+</div>

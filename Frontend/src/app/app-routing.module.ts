@@ -8,6 +8,8 @@ import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
 import { ReunionComponent } from './components/reunion/reunion.component';
 import { ReunionPdfComponent } from './components/reunion-pdf/reunion-pdf.component';
+import { ListarRecursoComponent } from './components/listar-recurso/listar-recurso.component';
+import { AltaRecursoComponent } from './components/alta-recurso/alta-recurso.component';
 
 const routes: Routes = [
     //cuando no ingrese nada va al login
@@ -19,8 +21,9 @@ const routes: Routes = [
     {path: 'login', component: LoginComponent}, 
     {path: 'reunionpdf/:id', component:ReunionPdfComponent},
     {path:"empleado",component:EmpleadoComponent},
-    {path:"empleado-form/:id",component:EmpleadoFormComponent}
-
+    {path:"empleado-form/:id",component:EmpleadoFormComponent},
+    {path:"listarRecurso",component:ListarRecursoComponent},
+    {path:"altaRecurso",component:AltaRecursoComponent}
     //cuando se ingresa cualquier otra ruta volvera al login
     //{path: '**', redirectTo:'login',pathMatch:'full'},
 ];

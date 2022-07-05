@@ -31,6 +31,8 @@ import { TokenInterceptorService } from './services/token-interceptor.service';
 import { EmpleadoFormComponent } from './components/empleado-form/empleado-form.component';
 import { HomeComponent } from './components/home/home.component';
 import { ReunionPdfComponent } from './components/reunion-pdf/reunion-pdf.component';
+import { AltaRecursoComponent } from './components/alta-recurso/alta-recurso.component';
+import { ListarRecursoComponent } from './components/listar-recurso/listar-recurso.component';
 
 
 
@@ -60,7 +62,9 @@ import { ReunionPdfComponent } from './components/reunion-pdf/reunion-pdf.compon
     EstadisticaFormParticipanteComponent,
     EmpleadoFormComponent,
     HomeComponent,
-    ReunionPdfComponent
+    ReunionPdfComponent,
+    AltaRecursoComponent,
+    ListarRecursoComponent
   ],
   imports: [
     BrowserModule,

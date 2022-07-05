@@ -62,7 +62,7 @@
             <div class="col-6" id="izq">
                 <div class="mb-3" >
                     <label for="horaInicio" class="form-label" >Hora inicio</label>
-                    <input type="time" class="form-control" step="60" id="horaInicio" required [(ngModel)]="hInicio" name="horaInicio" #horaInicio="ngModel" >
+                    <input type="time" class="form-control" step="60" id="horaInicio" required [(ngModel)]="reunion.horaComienzo" name="horaInicio" #horaInicio="ngModel" >
                 </div>
                 <div *ngIf="horaInicio.invalid && (horaInicio.dirty || horaInicio.touched)" class="alert alert-danger" >
                     <div class="row">
@@ -73,7 +73,7 @@
             <div class="col-6" id="der">
                 <div class="mb-3" >
                     <label for="horaFinal" class="form-label"  >Hora finalizacion</label>
-                    <input type="time" class="form-control" id="horaFinal" required [(ngModel)]="hFinal" name="horaFinal" #horaFinal="ngModel">
+                    <input type="time" class="form-control" id="horaFinal" required [(ngModel)]="reunion.horaFinal" name="horaFinal" #horaFinal="ngModel">
                 </div>
                 <div *ngIf="horaFinal.invalid && (horaFinal.dirty || horaFinal.touched)" class="alert alert-danger" >
                     <div class="row">

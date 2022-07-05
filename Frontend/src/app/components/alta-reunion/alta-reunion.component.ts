@@ -54,7 +54,7 @@ ngOnInit(): void {
     this.fecha = new Date();
     this.getEmpleados();
     this.getRecursos();
-    this.getReuniones() // Para hacer comprobaciones
+  //  this.getReuniones()  Para hacer comprobaciones
 }
 
 
@@ -150,14 +150,11 @@ manejoDeDatos()
   this.reunion.mes= this.fecha.getMonth().toString();
   this.reunion.anio= this.fecha.getFullYear().toString(); 
 
-  this.reunion.horaComienzo= this.hInicio;
-  this.reunion.horaFinal= this.hFinal;
 
   this.reunion.participantes = this.participantes;
   this.reunion.estado = "Pendiente";
   this.reunion.recursos = this.recursosReunion;
-
-  this.controlColisionOficinas(this.reunion);
+  this.reunion.fechaCompleta = this.fecha;
   
 }
 

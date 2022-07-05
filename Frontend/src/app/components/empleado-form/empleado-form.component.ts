@@ -1,3 +1,4 @@
+
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Empleado } from 'src/app/models/empleado';
@@ -11,6 +12,7 @@ import { LoginService } from 'src/app/services/login.service';
   styleUrls: ['./empleado-form.component.css']
 })
 export class EmpleadoFormComponent implements OnInit {
+  valido!:boolean;
 
   accion="";
   empleado!:Empleado;
@@ -27,6 +29,12 @@ export class EmpleadoFormComponent implements OnInit {
         this.accion = "new";
         this.cargarUsuarios();
         this.iniciarEmpleado();
+        this.valido = false;
+        this.empleado.apellido = "";
+        this.empleado.nombre = "";
+        this.empleado.legajo = "";
+        this.empleado.correo = "";
+        this.empleado.dependencia = "";
       }
       else
       {
@@ -70,7 +78,7 @@ export class EmpleadoFormComponent implements OnInit {
       error=>{
  
       }
-    )
+    ) 
   }
 
   cerrar(){
@@ -78,25 +86,37 @@ export class EmpleadoFormComponent implements OnInit {
   }
 
   guardarEmpleado(){
-    this.empleadoService.createEmpleado(this.empleado).subscribe(
-      result=>{
-        if(result.status=="1")
-        {
-          //toast
-          alert(result.msg);
-          this.router.navigate(['empleado']);
+    this.valido=true;
+    if(this.empleado.apellido !='' && this.empleado.nombre !='' && this.empleado.legajo != '' && this.empleado.correo !='' && this.empleado.dependencia !='' && this.empleado.user.username !='')
+    {
+      this.empleadoService.createEmpleado(this.empleado).subscribe(
+        result=>{
+          if(result.status=="1")
+          {
+            //toast
+            alert(result.msg);
+            this.router.navigate(['empleado']);
+          }
+        },
+        error=>{
+          if(error.status=="0")
+          {
+            alert(error.msg);
+          }
         }
-      },
-      error=>{
-        if(error.status=="0")
-        {
-          alert(error.msg);
-        }
-      }
-    )
+      )
+    }
+    else
+    {
+      console.log("error");
+    }
   }
 
   actualizarEmpleado(){
+    this.valido=true;
+    if(this.empleado.apellido !='' && this.empleado.nombre !='' && this.empleado.legajo != ''
+      && this.empleado.correo !='' && this.empleado.dependencia !='' && this.empleado.user.username !='')
+    {
     this.empleadoService.updateEmpleado(this.empleado).subscribe(
       result=>{
         if(result.status=="1")
@@ -114,5 +134,9 @@ export class EmpleadoFormComponent implements OnInit {
       }
     )
   }
-
+  else
+    {
+      console.log("error");
+    }
+  }
 }

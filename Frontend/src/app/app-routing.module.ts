@@ -4,6 +4,8 @@ import { AltaReunionComponent } from './components/alta-reunion/alta-reunion.com
 
 import { EmpleadoComponent } from './components/empleado/empleado.component';
 import { EmpleadoFormComponent } from './components/empleado-form/empleado-form.component';
+import { UsuarioFormComponent } from './components/usuario-form/usuario-form.component';
+
 import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
 import { ReunionComponent } from './components/reunion/reunion.component';
@@ -19,6 +21,9 @@ const routes: Routes = [
     {path: 'login', component: LoginComponent}, 
     {path:"calendario",component:CalendarioComponent},
     {path:"empleado",component:EmpleadoComponent},
+    {path:"empleado-form/:id",component:EmpleadoFormComponent},
+    {path:"usuario-form/:id",component:UsuarioFormComponent}
+    
     {path:"calendario",component:CalendarioComponent},
     {path:"empleado-form/:id",component:EmpleadoFormComponent }
 

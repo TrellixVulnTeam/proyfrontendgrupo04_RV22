@@ -30,6 +30,8 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptorService } from './services/token-interceptor.service';
 import { EmpleadoFormComponent } from './components/empleado-form/empleado-form.component';
 import { HomeComponent } from './components/home/home.component';
+import { UsuarioFormComponent } from './components/usuario-form/usuario-form.component';
+
 import { CalendarioComponent } from './components/calendario/calendario.component';
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
@@ -61,7 +63,8 @@ import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
     EstadisticaFormParticipanteComponent,
     EmpleadoFormComponent,
     HomeComponent,
-    CalendarioComponent
+    UsuarioFormComponent,
+    CalendarioComponent,
   ],
   imports: [
     BrowserModule,

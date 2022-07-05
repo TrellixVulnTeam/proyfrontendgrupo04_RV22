@@ -1,0 +1,15 @@
+.cal-events {
+    display: none !important;
+  
+}
+.mc {
+    margin-top: 300px;
+    margin-left: 300px;
+   
+}
+
+.container {
+    background: rgb(5, 5, 5);
+    border-radius: 10px;
+    width: 70%;
+}

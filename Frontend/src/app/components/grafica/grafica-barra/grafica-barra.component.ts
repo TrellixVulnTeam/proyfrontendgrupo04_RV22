@@ -10,7 +10,11 @@ import DataLabelsPlugin from 'chartjs-plugin-datalabels';
   styleUrls: ['./grafica-barra.component.css'],
 })
 export class GraficaBarraComponent implements OnInit {
-  ngOnInit(): void {}
+  minimo = 0;
+  maximo = 20;
+  ngOnInit(): void { }
+  etiquetas = [1, 2, 3, 4, 5];
+  dataB = [2, 4, 6, 8, 10];
 
   @ViewChild(BaseChartDirective) chart: BaseChartDirective | undefined;
 
@@ -20,7 +24,8 @@ export class GraficaBarraComponent implements OnInit {
     scales: {
       x: {},
       y: {
-        min: 10,
+        min: this.minimo,
+        max: this.maximo
       },
     },
     plugins: {
@@ -37,10 +42,10 @@ export class GraficaBarraComponent implements OnInit {
   public barChartPlugins = [DataLabelsPlugin];
 
   public barChartData: ChartData<'bar'> = {
-    labels: ['2006', '2007', '2008', '2009', '2010', '2011', '2012'],
+    labels: this.etiquetas,
     datasets: [
-      { data: [65, 59, 80, 81, 56, 55, 40], label: 'Series A' },
-      { data: [28, 48, 40, 19, 86, 27, 90], label: 'Series B' },
+      { data: this.dataB, label: 'Series A' },
+
     ],
   };
 
@@ -65,17 +70,9 @@ export class GraficaBarraComponent implements OnInit {
     console.log(event, active);
   }
 
-  public randomize(): void {
-    // Only Change 3 values
-    this.barChartData.datasets[0].data = [
-      Math.round(Math.random() * 100),
-      59,
-      80,
-      Math.round(Math.random() * 100),
-      56,
-      Math.round(Math.random() * 100),
-      40,
-    ];
+  public actualizar(): void {
+
+    this.barChartData.datasets[0].data = this.dataB;
 
     this.chart?.update();
   }

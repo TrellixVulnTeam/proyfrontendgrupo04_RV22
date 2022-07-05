@@ -22,7 +22,7 @@ const routes: Routes = [
     {path:"calendario",component:CalendarioComponent},
     {path:"empleado",component:EmpleadoComponent},
     {path:"empleado-form/:id",component:EmpleadoFormComponent},
-    {path:"usuario-form/:id",component:UsuarioFormComponent}
+    {path:"usuario-form/:id",component:UsuarioFormComponent},
     
     {path:"calendario",component:CalendarioComponent},
     {path:"empleado-form/:id",component:EmpleadoFormComponent }

@@ -1,6 +1,11 @@
 <div class="row">
     <div class="col-10">
-        <p>Recursos</p> 
+        <button type="button" class="btn btn-success" (click)="altaRecurso()" id="alta"><i class="bi bi-plus-lg"></i></button>
+
+        <h2>Recursos</h2> 
+
+        <br>
+        <h4>Fisicos</h4> 
         <table class="table table-dark table-hover">
             <thead>
                 <tr>
@@ -21,17 +26,20 @@
             </tbody>
         </table>
 
-        <p>Recursos Digitales</p> 
+        <h4>Digitales</h4> 
+ 
         <table class="table table-dark table-hover">
             <thead>
                 <tr>
-                <th scope="col">Nombre</th> <!-- tipo reunion -->
+                <th scope="col">Nombre</th> 
+                <th scope="col">Tipo</th>
                 <th scope="col">Acciones</th>
                 </tr>
             </thead>
             <tbody>
                 <tr *ngFor="let rec of recursosDigital">
                     <td><label class="form-check-label" for="empleado" >{{rec.nombre}}</label></td>
+                    <td><label class="form-check-label" for="empleado" >{{rec.tipo}}</label></td>
                     <td>
                         <button type="button" class="btn btn-success"><i class="bi bi-arrow-down-circle"></i></button>
                         <button type="button" class="btn btn-warning" (click)="modificarRecurso(rec._id)"><i class="bi bi-pen"></i></button>
@@ -43,7 +51,6 @@
 
         </table>
         
-        <button type="button" class="btn btn-success" (click)="altaRecurso()">Registrar nuevo recurso</button>
         
 
     </div>

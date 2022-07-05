@@ -117,7 +117,7 @@ export class ReunionComponent implements OnInit {
     this.reunionService.getReunionParticipante(this.idEmpleado).subscribe(
       result => {
         console.log(result);
-         this.reuniones = new Array<Reunion>();
+          this.reuniones = new Array<Reunion>();
           Object.assign(this.reuniones, result);
       }) 
   }
@@ -139,7 +139,7 @@ export class ReunionComponent implements OnInit {
     this.reunionService.getReunionFecha(this.dia,this.mes).subscribe(
       (result) => {
         console.log(result);
-         this.reuniones = new Array<Reunion>();
+          this.reuniones = new Array<Reunion>();
           Object.assign(this.reuniones, result);
          
       },

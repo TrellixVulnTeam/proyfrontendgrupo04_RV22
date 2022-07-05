@@ -1,7 +1,7 @@
 #formulario{
     margin-right: auto;
     margin-left: auto;
-
+    color: white;
 }
 
 #izq{
@@ -15,4 +15,8 @@
 
 form{
     margin-top: 50px;
+}
+
+button{
+    margin-bottom: 20px;
 }

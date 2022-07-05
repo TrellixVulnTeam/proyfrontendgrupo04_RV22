@@ -50,4 +50,44 @@
     
     </div>
 
+    <div>
+        <h3 style="text-align: center;">Tabla de Reuniones</h3>
+        <table class="table table-dark table-hover">
+            <thead>
+              <tr>
+                <th scope="col">Dia</th>
+                <th scope="col">Mes</th>
+                <th scope="col">Anio</th>
+                <th scope="col">Hora Comienzo</th>
+                <th scope="col">Hora Final</th>
+                <th scope="col">Participantes</th>
+                <th scope="col">Recursos</th>
+                <th scope="col">Nro Oficina</th>
+                <th scope="col">Tipo Reunion</th>
+                <th scope="col">Tema Reunion</th>
+                <th scope="col">Estado</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of reuniones">
+                <td>{{item.dia}}</td>
+                <td>{{item.mes}}</td>
+                <td>{{item.anio}}</td>
+                <td>{{item.horaComienzo}}</td>
+                <td>{{item.horaFinal}}</td>
+                <td>{{item.participantes}}</td>
+                <td>{{item.recursos}}</td>
+                <td>{{item.nroOficina}}</td>
+                <td>{{item.tipoReunion}}</td>
+                <td>{{item.temaReunion}}</td>
+                <td>{{item.estado}}</td>
+                <!--<td>
+                  <button (click)="modificarEmpleado(item)" class="btn btn-success"><i class="bi bi-pen"></i></button>
+                  <button (click)="borrarEmpleado(item)" class="btn btn-danger"><i class="bi bi-trash"></i></button>
+                </td>-->
+              </tr>
+            </tbody>
+          </table>
+      </div>
 </div>
+

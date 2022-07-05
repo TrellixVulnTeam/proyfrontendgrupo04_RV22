@@ -62,7 +62,7 @@ export class UsuarioFormComponent implements OnInit {
       }
     )
   }
-  cargarEmpleados(){
+  cargarEmpleados(){ 
     this.empleados = new Array<Empleado>();
     this.empleadoService.getEmpleados().subscribe(
       result=>{

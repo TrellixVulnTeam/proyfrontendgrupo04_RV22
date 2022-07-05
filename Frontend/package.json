@@ -18,6 +18,7 @@
     "@angular/platform-browser": "~13.3.0",
     "@angular/platform-browser-dynamic": "~13.3.0",
     "@angular/router": "~13.3.0",
+    "@ng-bootstrap/ng-bootstrap": "^12.1.2",
     "@techiediaries/ngx-qrcode": "^9.1.0",
     "angular-calendar": "^0.29.0",
     "bootstrap": "^5.1.3",

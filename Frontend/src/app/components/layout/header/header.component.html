@@ -1,25 +1,28 @@
 <header class="p-3 bg-dark text-white">
   <div class="container">
     <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-      <!-- icono que no se muestra arreglar-->
-      <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"></use></svg>
-  
+      <!-- icono de empresa-->
+      <div id="img-ico">
+        <a title="empresa" href="https://www.youtube.com/watch?v=x9Bu-PCoufs" target="_blank">
+          <img src="/assets/img/icono-sistema/evento-planeado.png" alt="" style="width:48px; height:48px">
+        </a> 
+      </div>
       <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
           <li><a href="#" class="nav-link px-2 " [routerLink]="['home']">Home</a></li>
-          <div *ngIf="loginService.userLoggedInParticipante()">
-            <li><a href="#" class="nav-link px-2 text-white"[routerLink]="['empleado']">Empleado</a></li>
-          </div>
-
-          <li><a href="#" class="nav-link px-2 "[routerLink]="['listarReunion']">listarReunion</a></li>
-          <li><a href="#" class="nav-link px-2 "[routerLink]="['calendario']">Agenda</a></li>
-
-          <!--admin-->
+          <!--****************************+administradores+*************************-->
           <div *ngIf="loginService.userLoggedInAdmin()">
-            <li><a href="#" class="nav-link px-2 "[routerLink]="['listarReunion']">listarReunion</a></li>
+            <li><a href="#" class="nav-link px-2 "[routerLink]="['empleado']">Empleados</a></li>
           </div>
-          
-          <li><a href="#" class="nav-link px-2 ">Muestra2</a></li>
-
+          <div *ngIf="loginService.userLoggedInAdmin()">
+            <li><a href="#" class="nav-link px-2 "[routerLink]="['listarReunion']">Reuniones</a></li>
+          </div>
+          <div *ngIf="loginService.userLoggedInAdmin()">
+            <li><a href="#" class="nav-link px-2 "[routerLink]="['listarRecurso']">Recursos</a></li>
+          </div>
+          <!--***************************+Participantes+****************************-->
+          <div *ngIf="loginService.userLoggedInParticipante()">
+            <li><a href="#" class="nav-link px-2 "[routerLink]="['calendario']">Agenda</a></li>
+          </div>
       </ul>
 
       <div class="text-end">
@@ -27,12 +30,14 @@
           <button type="button" class="btn btn-outline-light me-2" value="(Login)">Login</button>
         </a>
         <a *ngIf="(loginService.userLoggedInParticipante())||(loginService.userLoggedInAdmin())" [routerLink]="['login']" (click)="logout()">
-          <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" class="bi bi-person-workspace" viewBox="0 0 16 16">
-            <path d="M4 16s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H4Zm4-5.95a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z"/>
-            <path d="M2 1a2 2 0 0 0-2 2v9.5A1.5 1.5 0 0 0 1.5 14h.653a5.373 5.373 0 0 1 1.066-2H1V3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v9h-2.219c.554.654.89 1.373 1.066 2h.653a1.5 1.5 0 0 0 1.5-1.5V3a2 2 0 0 0-2-2H2Z"/> 
-          </svg> 
-          {{loginService.userLogged()}}
-          <button type="button" class="btn btn-warning" value="(logout)">Salir</button>
+          <div id="img-ico2">
+             <!-- icono del usuario logueado-->
+            <img src="/assets/img/iniciar-sesion.png" alt="" style="width:42px; height:42px">
+            {{loginService.userLogged()}}
+            <button type="button" class="btn btn-warning" value="(logout)">Salir</button>
+          </div>
+          
+          
         </a>  
       </div>
     </div>

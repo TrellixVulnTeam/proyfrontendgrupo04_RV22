@@ -12,3 +12,7 @@ table{
     vertical-align: middle;
     text-align: center;
 }
+
+label{
+    color: white;
+}

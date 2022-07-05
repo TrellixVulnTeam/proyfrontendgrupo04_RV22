@@ -7,8 +7,8 @@ import { Email } from '../models/email';
   providedIn: 'root'
 })
 export class EmailService {
-  urlbase: string = '';
-  apibase: string = '';
+  urlbase: string = 'http://localhost:3000/api/';
+  apibase: string = 'api/send/';
   urlapi: string = this.urlbase + this.apibase;
   type: string = '';
   constructor(private readonly _http: HttpClient) { }
@@ -20,11 +20,12 @@ export class EmailService {
       headers: new HttpHeaders({
         'Content-Type': this.type,
       }),
-      params: new HttpParams({}),
     };
-    const _url = this.urlapi;
-    let body = JSON.stringify(email);
-    console.log(body);
+    const body = new HttpParams()
+      .set('destinatarios', email.destinatarios)
+      .set('asunto', email.asunto)
+      .set('mensaje', email.mensaje);
+    const _url = this.urlapi
     return this._http.post(_url, body, httpOptions);
   }
 

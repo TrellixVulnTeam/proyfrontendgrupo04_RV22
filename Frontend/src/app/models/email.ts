@@ -1,8 +1,8 @@
 export class Email {
-    destinatarios!: Array<String>
-    asunto!: String;
-    mensaje!: String;
-    adjunto!: any;
+    destinatarios!: string;
+    asunto!: string;
+    mensaje!: string;
+    // adjunto!: Array<any>
 }
 /*
 to: body.destinatarios, //array de destinatarios

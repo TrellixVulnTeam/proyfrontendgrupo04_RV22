@@ -30,10 +30,17 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptorService } from './services/token-interceptor.service';
 import { EmpleadoFormComponent } from './components/empleado-form/empleado-form.component';
 import { HomeComponent } from './components/home/home.component';
+
 import { ReunionPdfComponent } from './components/reunion-pdf/reunion-pdf.component';
 import { AltaRecursoComponent } from './components/alta-recurso/alta-recurso.component';
 import { ListarRecursoComponent } from './components/listar-recurso/listar-recurso.component';
 
+import { UsuarioFormComponent } from './components/usuario-form/usuario-form.component';
+
+
+import { CalendarioComponent } from './components/calendario/calendario.component';
+import { CalendarModule, DateAdapter } from 'angular-calendar';
+import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 
 
 
@@ -64,7 +71,10 @@ import { ListarRecursoComponent } from './components/listar-recurso/listar-recur
     HomeComponent,
     ReunionPdfComponent,
     AltaRecursoComponent,
-    ListarRecursoComponent
+    ListarRecursoComponent,
+    UsuarioFormComponent,
+    CalendarioComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -73,7 +83,13 @@ import { ListarRecursoComponent } from './components/listar-recurso/listar-recur
     FormsModule, //para los formularios
     NgChartsModule, //graficos
     NgxQRCodeModule, //para el QR
-    ReactiveFormsModule
+    ReactiveFormsModule,
+
+    CalendarModule.forRoot({
+      provide: DateAdapter,
+      useFactory: adapterFactory,
+    })
+
   ],
   providers: [LoginService,
     {

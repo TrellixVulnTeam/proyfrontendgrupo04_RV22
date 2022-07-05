@@ -49,16 +49,16 @@ export class LoginService {
 
   } 
  
-  public userLoggedInAdm(){
+  public userLoggedInParticipante(){
    var resultado = false;
    var usuario = sessionStorage.getItem("user");
    var per = sessionStorage.getItem("perfil");
-   if(usuario!=null && per=="comun"){
+   if(usuario!=null && per=="participante"){
      resultado = true;
    }
    return resultado;
  }
- public userLoggedInCom(){
+ public userLoggedInAdmin(){
   var resultado = false;
   var usuario = sessionStorage.getItem("user");
   var per = sessionStorage.getItem("perfil");

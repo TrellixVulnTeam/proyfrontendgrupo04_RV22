@@ -61,13 +61,13 @@ export class LoginComponent implements OnInit {
             //una vez logueado nos dirigira a.
             this.router.navigate(['listarReunion'])
           } else {
-            if(user.perfil=="comun"){
+            if(user.perfil=="participante"){
 
               this.router.navigateByUrl(this.returnUrl);
               //  alert("¡BIENVENIDO!");
                 //alertas
                 Swal.fire({
-                  title: '¡BIENVENIDO USUARIO COMUN Y SILVESTRE!',
+                  title: '¡BIENVENIDO PARTICIPANTE!',
                   width: 600,
                   timer: 3000,
                   padding: '3em',
@@ -82,20 +82,15 @@ export class LoginComponent implements OnInit {
                 })
                 //una vez logueado nos dirigira a.
                 this.router.navigate(['listarReunion'])
-              } else {
-                  //usuario no encontrado muestro mensaje en la vista
-                  /* this.msglogin="Credenciales incorrectas.."; */
-    
-                  Swal.fire({
-                    icon: 'error',
-                    title: 'Credenciales incorrectas..',
-                    text: 'intente de nuevo',
-                    
-                  })
-              }
-            
+              } 
           }
 
+      }else{
+        Swal.fire({
+          icon: 'error',
+          title: 'Credenciales incorrectas..',
+          text: 'intente de nuevo',     
+        })
       }
     },
      error => {

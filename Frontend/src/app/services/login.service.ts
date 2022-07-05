@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Usuario } from '../models/usuario';
+
 
 @Injectable({
   providedIn: 'root'
@@ -49,14 +49,24 @@ export class LoginService {
 
   } 
  
-  public userLoggedIn(){
+  public userLoggedInParticipante(){
    var resultado = false;
    var usuario = sessionStorage.getItem("user");
-   if(usuario!=null){
+   var per = sessionStorage.getItem("perfil");
+   if(usuario!=null && per=="participante"){
      resultado = true;
    }
    return resultado;
  }
+ public userLoggedInAdmin(){
+  var resultado = false;
+  var usuario = sessionStorage.getItem("user");
+  var per = sessionStorage.getItem("perfil");
+  if(usuario!=null && per=="administrador"){
+    resultado = true;
+  }
+  return resultado;
+}
  
  public userLogged(){
     var usuario = sessionStorage.getItem("user");

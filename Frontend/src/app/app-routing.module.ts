@@ -29,7 +29,6 @@ const routes: Routes = [
     {path:"listarRecurso",component:ListarRecursoComponent},
     {path:"altaRecurso/:id",component:AltaRecursoComponent},
     {path:"calendario",component:CalendarioComponent},
-    {path:"empleado",component:EmpleadoComponent},
     {path:"empleado-form/:id",component:EmpleadoFormComponent},
     {path:"usuario-form/:id",component:UsuarioFormComponent},
     

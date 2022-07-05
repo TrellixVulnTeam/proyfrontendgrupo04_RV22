@@ -9,20 +9,20 @@
       </div>
       <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
           <li><a href="#" class="nav-link px-2 " [routerLink]="['home']">Home</a></li>
-          <div *ngIf="loginService.userLoggedInParticipante()">
-            <li><a href="#" class="nav-link px-2 text-white"[routerLink]="['empleado']">Empleado</a></li>
-          </div>
-
-          <li><a href="#" class="nav-link px-2 "[routerLink]="['listarReunion']">listarReunion</a></li>
-          <li><a href="#" class="nav-link px-2 "[routerLink]="['calendario']">Agenda</a></li>
-
-          <!--admin-->
+          <!--****************************+administradores+*************************-->
           <div *ngIf="loginService.userLoggedInAdmin()">
-            <li><a href="#" class="nav-link px-2 "[routerLink]="['listarReunion']">listarReunion</a></li>
+            <li><a href="#" class="nav-link px-2 "[routerLink]="['empleado']">Empleados</a></li>
           </div>
-          
-          <li><a href="#" class="nav-link px-2 ">Muestra2</a></li>
-
+          <div *ngIf="loginService.userLoggedInAdmin()">
+            <li><a href="#" class="nav-link px-2 "[routerLink]="['listarReunion']">Reuniones</a></li>
+          </div>
+          <div *ngIf="loginService.userLoggedInAdmin()">
+            <li><a href="#" class="nav-link px-2 "[routerLink]="['listarRecurso']">Recursos</a></li>
+          </div>
+          <!--***************************+Participantes+****************************-->
+          <div *ngIf="loginService.userLoggedInParticipante()">
+            <li><a href="#" class="nav-link px-2 "[routerLink]="['calendario']">Agenda</a></li>
+          </div>
       </ul>
 
       <div class="text-end">

@@ -41,6 +41,9 @@ import { UsuarioFormComponent } from './components/usuario-form/usuario-form.com
 import { CalendarioComponent } from './components/calendario/calendario.component';
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
+import { AgendaParticipanteComponent } from './components/agenda-participante/agenda-participante.component';
+import { HistorialParticipanteComponent } from './components/historial-participante/historial-participante.component';
+import { NoParticipanteComponent } from './components/no-participante/no-participante.component';
 
 
 
@@ -74,6 +77,9 @@ import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
     ListarRecursoComponent,
     UsuarioFormComponent,
     CalendarioComponent,
+    AgendaParticipanteComponent,
+    HistorialParticipanteComponent,
+    NoParticipanteComponent,
 
   ],
   imports: [

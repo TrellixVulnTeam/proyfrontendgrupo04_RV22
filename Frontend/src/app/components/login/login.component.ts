@@ -67,7 +67,7 @@ export class LoginComponent implements OnInit {
                   background: '#37D66C url(/assets/img/icono-sistema/candado.gif)', 
                 })
                 //una vez logueado nos dirigira a.
-                this.router.navigate(['listarReunion'])
+                this.router.navigate(['historial-participante'])
               } 
           }
 

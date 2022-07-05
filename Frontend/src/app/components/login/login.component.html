@@ -7,13 +7,13 @@
                 <img src="/assets/img/iniciar-sesion.png" alt="" style="width:100px; height:100px">
             </div>
             <div class="form-group">
-                <input placeholder="Usuario" required maxlength="10" minlength="1" type="text" class="formcontrol" name="username" [(ngModel)]="userform.username"   #user="ngModel" /> <!-- [(ngModel)]="userform.username" -->
+                <input placeholder="Usuario" required maxlength="10" minlength="1" type="text" class="formcontrol" name="username" [(ngModel)]="userform.username"   #user="ngModel"/> 
                 <div *ngIf="user.invalid && (user.dirty || user.touched)" class="alert alert-danger" style="height: 50px;width: 330px;text-align:center;margin-left: auto;margin-right: auto;">
                      ingrese como minimo 1 caracter
                </div>
             </div>
             <div class="form-group">
-                <input placeholder="Contraseña" required maxlength="10" minlength="3" type="password" class="formcontrol" name="password"  [(ngModel)]="userform.password"  #password="ngModel"/> <!-- [(ngModel)]="userform.password" -->
+                <input placeholder="Contraseña" required maxlength="10" minlength="3" type="password" class="formcontrol" name="password"  [(ngModel)]="userform.password"  #password="ngModel"/> 
                 
                 <div *ngIf="password.invalid && (password.dirty || password.touched)" class="alert alert-danger"  style="height: 50px;width: 290px;text-align:center;margin-left: auto;margin-right: auto;">
                     ingrese como minimo 3 caracter

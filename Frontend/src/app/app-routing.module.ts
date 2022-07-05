@@ -13,6 +13,9 @@ import { ReunionPdfComponent } from './components/reunion-pdf/reunion-pdf.compon
 import { ListarRecursoComponent } from './components/listar-recurso/listar-recurso.component';
 import { AltaRecursoComponent } from './components/alta-recurso/alta-recurso.component';
 import { CalendarioComponent } from './components/calendario/calendario.component';
+import { NoParticipanteComponent } from './components/no-participante/no-participante.component';
+import { HistorialParticipanteComponent } from './components/historial-participante/historial-participante.component';
+import { AgendaParticipanteComponent } from './components/agenda-participante/agenda-participante.component';
 
 
 const routes: Routes = [
@@ -31,7 +34,9 @@ const routes: Routes = [
     {path:"calendario",component:CalendarioComponent},
     {path:"empleado-form/:id",component:EmpleadoFormComponent},
     {path:"usuario-form/:id",component:UsuarioFormComponent},
-    
+    {path:"no-participante",component:NoParticipanteComponent},
+    {path:"historial-participante",component:HistorialParticipanteComponent},
+    {path:"agenda-participante",component:AgendaParticipanteComponent},
     {path:"calendario",component:CalendarioComponent},
     {path:"empleado-form/:id",component:EmpleadoFormComponent },
 

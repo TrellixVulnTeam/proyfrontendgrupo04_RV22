@@ -22,7 +22,7 @@ export class UsuarioFormComponent implements OnInit {
               private empleadoService:EmpleadoService,
               private loginService:LoginService,
               private router:Router) {
-                this.perfilop = ['administrador','visitante'];
+                this.perfilop = ['administrador','participante'];
                 this.valido = false;
               }
 

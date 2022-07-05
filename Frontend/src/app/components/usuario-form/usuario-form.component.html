@@ -1,0 +1,41 @@
+<div class="container">
+    <div class="bg-dark" style="text-align: center; color: aliceblue;">
+        <h2>Registrar Empleado</h2>
+        <form class="col-md-12" method="post">
+            <div class="mb-3">
+                <label for="username" class="form-label"><h5>Nombre de usuario:</h5></label><br>
+                <input [(ngModel)]="usuario.username" id="username" type="text" name="legajo" minlength="3" required>
+
+                <div  *ngIf="valido!==false && usuario.username===''" class="alert alert-danger my-1 p-1" style="margin: 310px;">
+                    Complete el campo Nombre de usuario
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label"><h5>Contraseña:</h5></label><br>
+                <input [(ngModel)]="usuario.password" (change)="valido=false" type="text" name="password" required minlength="3" maxlength="10">
+
+                <div *ngIf="valido!==false && usuario.password===''" class="alert alert-danger my-1 p-1" style="margin: 310px;">
+                    Complete el campo Password
+                </div>
+            </div>
+            <div class="mb-3">
+                <!--<label for="perfil" class="form-label"><h5>Perfil:</h5></label><br>
+                <input [(ngModel)]="usuario.perfil" (change)="valido=false" type="text" name="legajo" required minlength="3" maxlength="10">
+                -->
+                <label for="perfil" class="form-label"><h5>Perfil:</h5></label><br>
+                <select style="height: 35px; width: 200px; font-size: 20px;" name="user" [(ngModel)]="usuario.perfil" (change)="valido=false">
+                    <option [value]="option" *ngFor="let option of perfilop">{{option}}</option>
+                </select>
+                <div *ngIf="valido!==false && usuario.perfil===''" class="alert alert-danger my-1 p-1" style="margin: 310px;">
+                    Complete el campo Perfil
+                </div>
+            </div>
+            <div>
+                <button *ngIf="accion=='new'" type="button" class="btn btn-primary btn-lg" (click)="guardarUsuario()">Guardar</button>           
+                <button *ngIf="accion=='update'" type="button" class="btn btn-primary btn-lg" (click)="actualizarUsuario()">Actualizar</button> 
+                <button type="button" class="btn btn-primary btn-lg p2" (click)="cerrar()">Cerrar</button> 
+            </div>
+        </form>
+        
+    </div>
+</div>

@@ -34,6 +34,58 @@ export class LoginService {
   };
     return this._http.get("http://localhost:3000/api/usuario",httpOptions); 
   }
+
+  createUsuario(usuario:Usuario):Observable<any>{
+    const httpOptions = {  
+      headers: new HttpHeaders({
+        "Content-Type":"application/json"
+      }),
+      params: new HttpParams({
+
+      })
+    };
+    let body = JSON.stringify(usuario);
+    return this._http.post("http://localhost:3000/api/usuario",body,httpOptions); 
+  }
+  //traer un empleado
+  getUsuario(id:string):Observable<any>{
+    const httpOptions = {  
+      headers: new HttpHeaders({
+        
+      }),
+      params: new HttpParams({
+
+      }).append("id",id)
+  };
+    return this._http.get("http://localhost:3000/api/usuario/"+id,httpOptions); 
+  }
+
+  updateUsuario(usuario:Usuario):Observable<any>{
+    const httpOptions = {  
+      headers: new HttpHeaders({
+        "Content-Type":"application/json"
+      }),
+      params: new HttpParams({
+
+      })
+  };
+  let body = JSON.stringify(usuario);
+    return this._http.put("http://localhost:3000/api/usuario/"+usuario._id,body,httpOptions); 
+  }
+
+  deleteUsuario(id:string):Observable<any>{
+    const httpOptions = {  
+      headers: new HttpHeaders({
+        
+      }),
+      params: new HttpParams({
+
+      }).append("id",id)
+  };
+    return this._http.delete("http://localhost:3000/api/usuario/"+id,httpOptions); 
+  }
+
+
   public logout() {
      //borro el vble almacenado mediante el storage
       sessionStorage.removeItem("user");

@@ -42,8 +42,6 @@
                     Complete el campo Dependencia
                 </div>
             </div>
-            <!--<div class="valid-feedback">campo valido</div>
-            <div class="invalid-feedback">debe completar los datos</div>-->
             <div>
                 <label for="idusuario" class="form-label"><h5>User:</h5></label><br>
                 <select style="height: 35px; width: 200px; font-size: 20px" name="user" [(ngModel)]="empleado.user" (change)="valido=false">
@@ -55,9 +53,9 @@
                 <br><br>
             </div>
             <div>
-                <button *ngIf="accion=='new'" type="button" class="btn btn-primary btn-lg" (click)="guardarEmpleado()">Guardar</button>           
-                <button *ngIf="accion=='update'" type="button" class="btn btn-primary btn-lg" (click)="actualizarEmpleado()">Actualizar</button> 
-                <button type="button" class="btn btn-primary btn-lg p2" (click)="cerrar()">Cerrar</button> 
+                <button *ngIf="accion=='new'" type="button" class="btn btn-success btn-lg" (click)="guardarEmpleado()">Guardar</button>           
+                <button *ngIf="accion=='update'" type="button" class="btn btn-success btn-lg" (click)="actualizarEmpleado()">Actualizar</button> 
+                <button type="button" class="btn btn-success btn-lg p2" (click)="cerrar()">Cerrar</button> 
             </div>
             
         </form>

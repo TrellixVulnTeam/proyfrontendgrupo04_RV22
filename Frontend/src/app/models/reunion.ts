@@ -12,7 +12,7 @@ export class Reunion {
     horaFinal!:Time;
     participantes!:Array<Empleado>;
     nroOficina!:String;
-    recursos!:Array<Recurso> // cambiar por clase recurso
+    recursos!:Array<Recurso>; // cambiar por clase recurso
     tipoReunion!:String;
     temaReunion!:String;
     estado!:String;

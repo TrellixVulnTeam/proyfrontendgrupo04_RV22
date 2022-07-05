@@ -32,6 +32,9 @@ import { EmpleadoFormComponent } from './components/empleado-form/empleado-form.
 import { HomeComponent } from './components/home/home.component';
 import { UsuarioFormComponent } from './components/usuario-form/usuario-form.component';
 
+import { CalendarioComponent } from './components/calendario/calendario.component';
+import { CalendarModule, DateAdapter } from 'angular-calendar';
+import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 
 
 
@@ -60,7 +63,8 @@ import { UsuarioFormComponent } from './components/usuario-form/usuario-form.com
     EstadisticaFormParticipanteComponent,
     EmpleadoFormComponent,
     HomeComponent,
-    UsuarioFormComponent
+    UsuarioFormComponent,
+    CalendarioComponent,
   ],
   imports: [
     BrowserModule,
@@ -68,7 +72,11 @@ import { UsuarioFormComponent } from './components/usuario-form/usuario-form.com
     HttpClientModule, // cliente
     FormsModule, //para los formularios
     NgChartsModule, //graficos
-    NgxQRCodeModule //para el QR
+    NgxQRCodeModule, //para el QR
+    CalendarModule.forRoot({
+      provide: DateAdapter,
+      useFactory: adapterFactory,
+    })
   ],
   providers: [LoginService,
     {

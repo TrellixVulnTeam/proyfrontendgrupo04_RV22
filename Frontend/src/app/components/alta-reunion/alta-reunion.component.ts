@@ -27,9 +27,11 @@ export class AltaReunionComponent implements OnInit {
   recursos!:Array<Recurso>;
   recurso!:Recurso;
 
+  recursosReunion!:Array<Recurso>;
   constructor(private reunionService:ReunionService, private empleadoService:EmpleadoService, private recursoService:RecursoService) { }
 
 ngOnInit(): void {
+    this.recursosReunion = new Array<Recurso>();
     this.participantes = new Array<Empleado>();
     this.reunion = new Reunion();
     this.fecha = new Date();
@@ -94,6 +96,8 @@ manejoDeDatos()
 
   this.reunion.participantes = this.participantes;
   this.reunion.estado = "Pendiente";
+  this.reunion.recursos = this.recursosReunion;
+  
 }
 
 
@@ -127,6 +131,40 @@ UserExists (empleado:Empleado): boolean {
   let exists = false;
   for (var _i = 0; _i < this.participantes.length; _i++) {
       if (this.participantes[_i]._id==empleado._id){
+          exists = true;
+      }
+  }
+  return exists;
+}
+
+// ******************************** Control de los recursos ********************************
+
+addRemoveRecursos(rec:Recurso, $event:any)
+{
+    if ( $event.checked ==true){
+        this.addRecursos(rec);
+    }else {
+        this.removeRecursos(rec);
+    }
+    console.log ("Recursos: ", this.recursosReunion);
+}
+  
+addRecursos(recurso:Recurso): void {
+  if (!this.recursoExists(recurso)){
+      this.recursosReunion.push(recurso);
+  }
+}
+removeRecursos(recurso:Recurso): void {
+  for (var _i = 0; _i < this.recursosReunion.length; _i++) {
+      if (this.recursosReunion[_i]._id==recurso._id){
+        this.recursosReunion.splice( _i, 1 )
+      }
+  }
+}
+recursoExists (recurso:Recurso): boolean {
+  let exists = false;
+  for (var _i = 0; _i < this.recursosReunion.length; _i++) {
+      if (this.recursosReunion[_i]._id==recurso._id){
           exists = true;
       }
   }

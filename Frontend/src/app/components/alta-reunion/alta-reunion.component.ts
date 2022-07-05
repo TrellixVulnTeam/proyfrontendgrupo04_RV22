@@ -1,7 +1,7 @@
 import { Time } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Route, Router } from '@angular/router';
 import { Empleado } from 'src/app/models/empleado';
 import { Recurso } from 'src/app/models/recurso';
 import { Reunion } from 'src/app/models/reunion';
@@ -35,7 +35,7 @@ export class AltaReunionComponent implements OnInit {
   reunionesGuardadas!:Array<Reunion>;
   accion!:Boolean;
 
-  constructor(private reunionService:ReunionService, private empleadoService:EmpleadoService, private recursoService:RecursoService,private fb:FormBuilder, private activateRoute:ActivatedRoute) 
+  constructor(private reunionService:ReunionService, private empleadoService:EmpleadoService, private recursoService:RecursoService,private fb:FormBuilder, private activateRoute:ActivatedRoute, private router:Router) 
   { 
     this.formReunion = this.fb.group({
         temaReunion : ['', Validators.required],
@@ -129,9 +129,24 @@ altaReunion()
   this.reunionService.postReunion(this.reunion).subscribe(
     (result) => {
         console.log("56 "+ result);
+        alert("Reunion guardada");
     },
   )
+    this.router.navigate(['listarReunion']);
   
+  
+}
+
+modificarReunion(){
+  this.manejoDeDatos()
+  console.log(this.reunion);
+  this.reunionService.editeReunion(this.reunion).subscribe(
+    (result) => {
+        console.log(""+ result);
+        alert("Reunion modificada");
+    },
+  )
+  this.router.navigate(['listarReunion']);
 }
 
 
@@ -173,7 +188,8 @@ controlColisionOficinas(reunion:Reunion):Boolean{
         if(this.reunionesGuardadas[i].dia == reunion.dia && this.reunionesGuardadas[i].mes== reunion.mes){
           if(this.reunionesGuardadas[i].horaComienzo == reunion.horaComienzo){
               guardar=false;
-              console.log("No guardar");
+              alert("No se puede elegir esta oficina en este horario")
+
           }
         }
       }

@@ -64,7 +64,11 @@ export class ReunionComponent implements OnInit {
   }
 
   altaReunion() {
-    this.router.navigate(['altaReunion']);
+    this.router.navigate(['altaReunion/0']);
+  }
+
+  modificarReunion(id:String) {
+    this.router.navigate(['altaReunion/'+id]);
   }
 
   borrarReunion(reunion: Reunion) {
@@ -77,9 +81,6 @@ export class ReunionComponent implements OnInit {
     this.getReuniones();
   }
 
-  modificarReunion() {
-
-  }
 
   pdfReunion(reunion: Reunion) {
     this.router.navigate(['reunionpdf', reunion._id]);

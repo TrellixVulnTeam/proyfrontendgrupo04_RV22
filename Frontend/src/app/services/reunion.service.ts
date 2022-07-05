@@ -67,13 +67,18 @@ export class ReunionService {
   }
 
     //Recuperar reuniones por fecha
-    public getReunionFecha(fecha:string){
+    public getReunionFecha(dia:string, mes:string){
       const httpOptions = {
+        params: {dia: dia , mes: mes},
         headers: new HttpHeaders({
           'Content-Type':'application/json',
         })
+       
       };
-      return this._http.get(this.urlBase+"reunion/dias/dia/"+fecha , httpOptions);
+
+      
+
+      return this._http.get(this.urlBase+"reunion/dias/dia/", httpOptions);
     }
   
     //Recuperar reunion por oficina
@@ -82,10 +87,9 @@ export class ReunionService {
         headers: new HttpHeaders({
           'Content-Type':'application/json',
         }),
-        params: new HttpParams({
-        })
+
       };
-      return this._http.get(this.urlBase+"reunion/oficina/nroOficina/?nroOficina=A1" , httpOptions);
+      return this._http.get(this.urlBase+"reunion/oficina/nroOficina/?nroOficina="+nroOficina , httpOptions);
     }
   
     //Recuperar reunion por participantes
@@ -110,4 +114,13 @@ export class ReunionService {
       return this._http.get(this.urlBase+"reunion/noparticipante/"+id , httpOptions);
     } 
 
+    public getReunionPorLegajo(legajo:string)
+    {
+      const httpOptions = {
+        headers: new HttpHeaders({
+          'Content-Type':'application/json',
+        })
+      };
+      return this._http.get(this.urlBase+"reunion/participantes/legajo/"+legajo , httpOptions);
+    }
 }

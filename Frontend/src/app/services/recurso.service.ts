@@ -66,4 +66,16 @@ export class RecursoService {
     return this._http.delete(this.urlBase+"recurso/"+id,httpOptions); 
   }
 
+  getRecursoId(id:string){
+    const httpOptions = {  
+      headers: new HttpHeaders({
+        "Content-Type":"application/json"
+      }),
+      params: new HttpParams({
+
+      })
+  };
+    return this._http.get(this.urlBase+"recurso/"+id,httpOptions); 
+  }
+
 }

@@ -1,6 +1,7 @@
 import { Time } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { Empleado } from 'src/app/models/empleado';
 import { Recurso } from 'src/app/models/recurso';
 import { Reunion } from 'src/app/models/reunion';
@@ -32,8 +33,9 @@ export class AltaReunionComponent implements OnInit {
   recursosReunion!:Array<Recurso>;
 
   reunionesGuardadas!:Array<Reunion>;
+  accion!:Boolean;
 
-  constructor(private reunionService:ReunionService, private empleadoService:EmpleadoService, private recursoService:RecursoService,private fb:FormBuilder) 
+  constructor(private reunionService:ReunionService, private empleadoService:EmpleadoService, private recursoService:RecursoService,private fb:FormBuilder, private activateRoute:ActivatedRoute) 
   { 
     this.formReunion = this.fb.group({
         temaReunion : ['', Validators.required],
@@ -42,12 +44,25 @@ export class AltaReunionComponent implements OnInit {
         oficinaReunion : ['', Validators.required],
         horaInicio: ['', Validators.required],
         horaFinal: ['', Validators.required] 
-   /* */
-        
+      
     })
   }
 
 ngOnInit(): void {
+
+  this.activateRoute.params.subscribe(params =>{
+      
+    if(params['id'] == '0'){
+      this.accion=false;
+     
+    }
+    else{
+      this.accion=true;
+      this.getReunionId(params['id']);
+    }
+  }) 
+
+
     this.recursosReunion = new Array<Recurso>();
     this.participantes = new Array<Empleado>();
     this.reunion = new Reunion();
@@ -118,6 +133,17 @@ altaReunion()
   )
   
 }
+
+
+getReunionId(id:string){
+  this.reunionService.getReunionId(id).subscribe(
+    (result) => {
+      console.log(result);
+      this.reunion = new Reunion();
+      Object.assign(this.reunion,result);
+    }
+  )
+}
 // ******************************** Manejo de recursos ********************************
   //Permite gestionar ver la cantidad de recursos disponibles
   restarRecursos(recursos:Array<Recurso>){
@@ -168,7 +194,7 @@ manejoDeDatos()
 {  
   
   this.reunion.dia= this.fecha.getDate().toString();
-  this.reunion.mes= this.fecha.getMonth().toString();
+  this.reunion.mes= (this.fecha.getMonth()+1).toString();
   this.reunion.anio= this.fecha.getFullYear().toString(); 
 
 
@@ -250,5 +276,11 @@ recursoExists (recurso:Recurso): boolean {
   }
   return exists;
 }
+
+
+marcarEmpleado(){
+
+}
+
 
 }

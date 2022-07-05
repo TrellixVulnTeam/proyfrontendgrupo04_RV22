@@ -1,5 +1,6 @@
 #body{
     margin-top: 0px;
+    
 }
 #centro{
     margin-top: 50px;
@@ -56,3 +57,18 @@ input[id^="spoiler"]{
     height: auto;
     opacity: 1;
     }
+
+
+    .container-position {
+      
+        position: relative;
+     
+       }
+       
+       .footer {
+        position: absolute;
+        bottom: 0;
+        height: 25px;
+        background-color: blue;
+        width: 100%;
+       }

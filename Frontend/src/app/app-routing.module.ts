@@ -27,16 +27,16 @@ const routes: Routes = [
     {path:"empleado",component:EmpleadoComponent},
     {path:"empleado-form/:id",component:EmpleadoFormComponent},
     {path:"listarRecurso",component:ListarRecursoComponent},
-    {path:"altaRecurso",component:AltaRecursoComponent}
+    {path:"altaRecurso",component:AltaRecursoComponent},
     {path:"calendario",component:CalendarioComponent},
     {path:"empleado",component:EmpleadoComponent},
     {path:"empleado-form/:id",component:EmpleadoFormComponent},
     {path:"usuario-form/:id",component:UsuarioFormComponent},
     
     {path:"calendario",component:CalendarioComponent},
-    {path:"empleado-form/:id",component:EmpleadoFormComponent }
+    {path:"empleado-form/:id",component:EmpleadoFormComponent },
 
->>>>>>> 18b2ec4c861bf604a9490b18a99bbdff599f02a9
+
     //cuando se ingresa cualquier otra ruta volvera al login
     //{path: '**', redirectTo:'login',pathMatch:'full'},
 ];

@@ -2,7 +2,6 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Recurso } from '../models/recurso';
-import { Reunion } from '../models/reunion';
 
 @Injectable({
   providedIn: 'root'
@@ -35,11 +34,14 @@ export class RecursoService {
       headers: new HttpHeaders({
         'Contet-Type':'application/json'
       }),
+      params: new HttpParams({
+
+      }),
     }
-    return this._http.post(this.urlBase+"recurso/tipo/"+tipo, httpOptions);
+    return this._http.get(this.urlBase+"recurso/tipo/"+tipo, httpOptions);
   }
 
-  updateRecurso(reunion:Reunion):Observable<any>{
+  updateRecurso(recurso:Recurso):Observable<any>{
     const httpOptions = {  
       headers: new HttpHeaders({
         "Content-Type":"application/json"
@@ -48,8 +50,8 @@ export class RecursoService {
 
       })
   };
-  let body = JSON.stringify(reunion);
-    return this._http.put(this.urlBase+"recurso/"+reunion._id,body,httpOptions); 
+  let body = JSON.stringify(recurso);
+    return this._http.put(this.urlBase+"recurso/"+recurso._id,body,httpOptions); 
   }
 
   deleteRecurso(id:string){

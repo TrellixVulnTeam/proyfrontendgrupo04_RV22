@@ -1,6 +1,20 @@
 <div class="row">
     <div class="col-8" id="formulario">
         <form #formReunion="ngForm" >
+            <h1 [hidden]="accion">Alta de reunion</h1>
+
+            <h1 [hidden]="!accion">Modificar reunion</h1>
+
+            <div class="mb-3">
+                <label for="estado">Estado de la reunion</label>
+                  <select class="form-control" id="estado" required [(ngModel)]="reunion.estado"  name="estado" >
+                      <option value="Pendiente">Pendiente</option>
+                      <option value="Espera">En espera</option>
+                      <option value="Celebrada">Celebrada</option>
+                      <option value="Anulada">Anulada</option>
+                  </select>            
+            </div>
+
             <div class="mb-3">
                 <label for="temaReunion" class="form-label">Tema</label>
                 <input type="text" class="form-control" id="temaReunion" aria-describedby="temaReunion" required [(ngModel)]="reunion.temaReunion" name="temaReunion" #temaReunion="ngModel">
@@ -127,7 +141,12 @@
 
             </div>
 
-            <button type="button" class="btn btn-success" (click)="altaReunion()">Guardar</button>
+            <div class="d-grid gap-2" >
+                <button type="button" class="btn btn-success" (click)="altaReunion()" [disabled]="!formReunion.form.valid" [hidden]="accion">Crear</button>
+
+                <button type="button" class="btn btn-success" (click)="altaReunion()" [disabled]="!formReunion.form.valid" [hidden]="!accion">Modificar</button>
+            </div>
+
         </form>
     </div>
 </div>

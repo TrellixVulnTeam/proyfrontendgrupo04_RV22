@@ -1,8 +1,13 @@
 .col-10{
+    color: white;
     margin-left: auto;
     margin-right: auto;
 }
 
 button{
     margin: 5px;
+}
+
+#alta{
+    float: right;
 }

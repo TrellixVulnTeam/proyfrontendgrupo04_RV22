@@ -81,8 +81,12 @@ async getRecursos(){
         this.recursos = new Array<Recurso>();
         result.forEach((element:any)=> {
           this.recurso = new Recurso();
-          Object.assign(this.recurso,element);
-          this.recursos.push(this.recurso);
+          if(element.cantidad>0)
+          {
+            Object.assign(this.recurso,element);
+            this.recursos.push(this.recurso);
+          }
+          
         });
     }
   )
@@ -114,6 +118,23 @@ altaReunion()
   )
   
 }
+// ******************************** Manejo de recursos ********************************
+  //Permite gestionar ver la cantidad de recursos disponibles
+  restarRecursos(reunion:Reunion){
+    reunion.recursos.forEach(element => {
+        if(element.tipo == "Fisico")
+        {
+          element.cantidad -=1; 
+          this.recursoService.updateRecurso(reunion).subscribe(
+            result => {
+              console.log("Cantidad de recursos: "+ result)
+            }
+          )
+
+        }
+          
+    });
+  }
 
 
 // ******************************** Manejo de datos ********************************
@@ -155,7 +176,8 @@ manejoDeDatos()
   this.reunion.estado = "Pendiente";
   this.reunion.recursos = this.recursosReunion;
   this.reunion.fechaCompleta = this.fecha;
-  
+  this.restarRecursos(this.reunion);
+
 }
 
 

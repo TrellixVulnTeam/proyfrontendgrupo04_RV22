@@ -7,6 +7,7 @@
                 <th scope="col">Nombre</th> <!-- tipo reunion -->
                 <th scope="col">Tipo</th>
                 <th scope="col">Cantidad Disponible</th>
+                <th scope="col">Acciones</th>
                 </tr>
             </thead>
             <tbody>
@@ -14,6 +15,8 @@
                     <td><label class="form-check-label" for="empleado" >{{rec.nombre}}</label></td>
                     <td>{{rec.tipo}}</td>
                     <td>{{rec.cantidad}}</td>
+                    <td><button type="button" class="btn btn-warning" ><i class="bi bi-pen"></i></button>
+                        <button type="button" class="btn btn-danger" ><i class="bi bi-trash"></i></button></td>
                 </tr>
             </tbody>
         </table>
@@ -29,14 +32,19 @@
             <tbody>
                 <tr *ngFor="let rec of recursos">
                     <td><label class="form-check-label" for="empleado" >{{rec.nombre}}</label></td>
-                    <td><button type="button" class="btn btn-success"><i class="bi bi-arrow-down-circle"></i></button></td>
+                    <td>
+                        <button type="button" class="btn btn-success"><i class="bi bi-arrow-down-circle"></i></button>
+                        <button type="button" class="btn btn-warning"><i class="bi bi-pen"></i></button>
+                        <button type="button" class="btn btn-danger" ><i class="bi bi-trash"></i></button>
+                    </td>
+                    
                 </tr>
             </tbody>
 
         </table>
         
         <button type="button" class="btn btn-success" (click)="redirigir()">Registrar nuevo recurso</button>
-
+        
 
     </div>
 </div>

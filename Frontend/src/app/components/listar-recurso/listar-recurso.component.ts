@@ -32,6 +32,17 @@ export class ListarRecursoComponent implements OnInit {
     )
   }
 
+  deleteRecurso(id:string){
+     this.recursoService.deleteRecurso(id).subscribe(
+      (result) => {
+        console.log(result);
+      } );
+  }
+
+  modificarRecurso(){
+
+  }
+
   redirigir(){
     this.router.navigate(['altaRecurso']);
   }

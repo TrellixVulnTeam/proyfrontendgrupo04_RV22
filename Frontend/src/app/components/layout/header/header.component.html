@@ -9,12 +9,17 @@
           <div *ngIf="loginService.userLoggedInParticipante()">
             <li><a href="#" class="nav-link px-2 text-white"[routerLink]="['empleado']">Empleado</a></li>
           </div>
+
+          <li><a href="#" class="nav-link px-2 "[routerLink]="['listarReunion']">listarReunion</a></li>
+          <li><a href="#" class="nav-link px-2 "[routerLink]="['calendario']">Agenda</a></li>
+
           <!--admin-->
           <div *ngIf="loginService.userLoggedInAdmin()">
             <li><a href="#" class="nav-link px-2 "[routerLink]="['listarReunion']">listarReunion</a></li>
           </div>
           
           <li><a href="#" class="nav-link px-2 ">Muestra2</a></li>
+
       </ul>
 
       <div class="text-end">

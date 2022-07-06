@@ -1,0 +1,52 @@
+<div class="row">
+    <div class="col-10">
+
+        <form #formRecurso="ngForm"  >
+ 
+            <div class="mb-3">
+                <label for="tipoRecurso" class="form-label">Tipo</label>
+                <select class="form-select" id="tipoRecurso" aria-label="tipoRecurso" required [(ngModel)]="this.recurso.tipo" name="tipoRecurso" #tipoRecurso="ngModel" (change)="controlRecurso()" >
+                    <option value="Digital">Digital</option>
+                    <option value="Fisico">Fisico</option>
+                </select>
+            </div>
+            <div *ngIf="tipoRecurso.invalid && (tipoRecurso.dirty || tipoRecurso.touched)" class="alert alert-danger" >
+                <div class="row">
+                    Tipo de recurso requerido
+                </div>
+            </div>
+
+
+            <div class="mb-3">
+                <label for="nombreRecurso" class="form-label">Nombre</label>
+                <input type="text" class="form-control" id="nombreRecurso" aria-describedby="temaReunion" required [(ngModel)]="this.recurso.nombre" name="nombreRecurso" #nombreRecurso="ngModel">
+            </div>
+            <div *ngIf="nombreRecurso.invalid && (nombreRecurso.dirty || nombreRecurso.touched)" class="alert alert-danger" >
+                <div class="row">
+                    Nombre de recurso requerido
+                </div>
+            </div>
+
+
+
+            <div class="mb-3">
+                <label for="stockRecurso" class="form-label">Cantidad</label>
+                <input  type="number" class="form-control" id="stockRecurso" aria-describedby="stockRecurso" required [(ngModel)]="this.recurso.cantidad" name="stockRecurso" #stockRecurso="ngModel" >
+            </div>
+            <div *ngIf="stockRecurso.invalid && (stockRecurso.dirty || stockRecurso.touched)" class="alert alert-danger" >
+                <div class="row">
+                    Cantidad de recurso requerido
+                </div>
+            </div>
+
+            <div class="d-grid gap-2" >
+                <button type="button" class="btn btn-success" (click)="postRecurso()" [disabled]="!formRecurso.form.valid" [hidden]="accion">Crear</button>
+                <button type="button" class="btn btn-success" (click)="editarRecurso()" [disabled]="!formRecurso.form.valid" [hidden]="!accion">Modificar</button>
+            </div>
+        </form>
+
+           
+           
+
+    </div>
+</div>

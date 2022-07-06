@@ -5,7 +5,7 @@ import { AppComponent } from './app.component';
 import { FooterComponent } from './components/layout/footer/footer.component';
 import { HeaderComponent } from './components/layout/header/header.component';
 import { LoginComponent } from './components/login/login.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { LoginService } from './services/login.service';
 import { EmpleadoComponent } from './components/empleado/empleado.component';
@@ -31,6 +31,19 @@ import { TokenInterceptorService } from './services/token-interceptor.service';
 import { EmpleadoFormComponent } from './components/empleado-form/empleado-form.component';
 import { HomeComponent } from './components/home/home.component';
 
+import { ReunionPdfComponent } from './components/reunion-pdf/reunion-pdf.component';
+import { AltaRecursoComponent } from './components/alta-recurso/alta-recurso.component';
+import { ListarRecursoComponent } from './components/listar-recurso/listar-recurso.component';
+
+import { UsuarioFormComponent } from './components/usuario-form/usuario-form.component';
+
+
+import { CalendarioComponent } from './components/calendario/calendario.component';
+import { CalendarModule, DateAdapter } from 'angular-calendar';
+import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
+import { AgendaParticipanteComponent } from './components/agenda-participante/agenda-participante.component';
+import { HistorialParticipanteComponent } from './components/historial-participante/historial-participante.component';
+import { NoParticipanteComponent } from './components/no-participante/no-participante.component';
 
 
 
@@ -58,7 +71,16 @@ import { HomeComponent } from './components/home/home.component';
     EstadisticaFormTiempoComponent,
     EstadisticaFormParticipanteComponent,
     EmpleadoFormComponent,
-    HomeComponent
+    HomeComponent,
+    ReunionPdfComponent,
+    AltaRecursoComponent,
+    ListarRecursoComponent,
+    UsuarioFormComponent,
+    CalendarioComponent,
+    AgendaParticipanteComponent,
+    HistorialParticipanteComponent,
+    NoParticipanteComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -66,7 +88,14 @@ import { HomeComponent } from './components/home/home.component';
     HttpClientModule, // cliente
     FormsModule, //para los formularios
     NgChartsModule, //graficos
-    NgxQRCodeModule //para el QR
+    NgxQRCodeModule, //para el QR
+    ReactiveFormsModule,
+    
+    CalendarModule.forRoot({
+      provide: DateAdapter,
+      useFactory: adapterFactory,
+    })
+  
   ],
   providers: [LoginService,
     {

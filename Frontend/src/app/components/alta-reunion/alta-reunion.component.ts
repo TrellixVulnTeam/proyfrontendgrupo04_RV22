@@ -1,5 +1,7 @@
 import { Time } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Route, Router } from '@angular/router';
 import { Empleado } from 'src/app/models/empleado';
 import { Recurso } from 'src/app/models/recurso';
 import { Reunion } from 'src/app/models/reunion';
@@ -15,9 +17,11 @@ import { ReunionService } from 'src/app/services/reunion.service';
 })
 export class AltaReunionComponent implements OnInit {
 
+  formReunion:FormGroup;
+
   fecha!:Date;
-  horaInicio!:String;
-  horaFinal!:String;
+  hInicio!:String;
+  hFinal!:String;
   empleado!:Empleado;
   participante!:Empleado;
   empleados!:Array<Empleado>;
@@ -26,23 +30,52 @@ export class AltaReunionComponent implements OnInit {
 
   recursos!:Array<Recurso>;
   recurso!:Recurso;
-
   recursosReunion!:Array<Recurso>;
-  constructor(private reunionService:ReunionService, private empleadoService:EmpleadoService, private recursoService:RecursoService) { }
+
+  reunionesGuardadas!:Array<Reunion>;
+  accion!:Boolean;
+
+  constructor(private reunionService:ReunionService, private empleadoService:EmpleadoService, private recursoService:RecursoService,private fb:FormBuilder, private activateRoute:ActivatedRoute, private router:Router) 
+  { 
+    this.formReunion = this.fb.group({
+        temaReunion : ['', Validators.required],
+        tipoReunion : ['', Validators.required],
+        fechaReunion : ['', Validators.required],
+        oficinaReunion : ['', Validators.required],
+        horaInicio: ['', Validators.required],
+        horaFinal: ['', Validators.required] 
+      
+    })
+  }
 
 ngOnInit(): void {
+
+  this.activateRoute.params.subscribe(params =>{
+      
+    if(params['id'] == '0'){
+      this.accion=false;
+     
+    }
+    else{
+      this.accion=true;
+      this.getReunionId(params['id']);
+    }
+  }) 
+
+
     this.recursosReunion = new Array<Recurso>();
     this.participantes = new Array<Empleado>();
     this.reunion = new Reunion();
     this.fecha = new Date();
     this.getEmpleados();
     this.getRecursos();
+  //  this.getReuniones()  Para hacer comprobaciones
 }
 
 
 // ******************************** Implementacion de servicios ********************************
 
-getEmpleados()
+async getEmpleados()
 {
     this.empleadoService.getEmpleados().subscribe(
       (result) => {
@@ -56,16 +89,36 @@ getEmpleados()
     )
 }
 
-getRecursos(){
+async getRecursos(){
+  await this.getEmpleados()
   this.recursoService.getRecursos().subscribe(
     (result) => {
         this.recursos = new Array<Recurso>();
         result.forEach((element:any)=> {
           this.recurso = new Recurso();
-          Object.assign(this.recurso,element);
-          this.recursos.push(this.recurso);
+          if(element.cantidad>0)
+          {
+            Object.assign(this.recurso,element);
+            this.recursos.push(this.recurso);
+          }
+          
         });
     }
+  )
+}
+
+async getReuniones(){
+  await this.getRecursos();
+  this.reunionService.getReuniones().subscribe(
+    (result) => {
+      console.log(result);
+      this.reunionesGuardadas = new Array<Reunion>();
+      result.forEach((element: any) => {
+        this.reunion = new Reunion();
+        Object.assign(this.reunion, element);
+        this.reunionesGuardadas.push(this.reunion);
+      })
+    },
   )
 }
 
@@ -76,28 +129,97 @@ altaReunion()
   this.reunionService.postReunion(this.reunion).subscribe(
     (result) => {
         console.log("56 "+ result);
+        alert("Reunion guardada");
     },
   )
+    this.router.navigate(['listarReunion']);
+  
   
 }
 
+modificarReunion(){
+  this.manejoDeDatos()
+  console.log(this.reunion);
+  this.reunionService.editeReunion(this.reunion).subscribe(
+    (result) => {
+        console.log(""+ result);
+        alert("Reunion modificada");
+    },
+  )
+  this.router.navigate(['listarReunion']);
+}
 
-// ******************************** Gestion de fecha y hora ********************************
+
+getReunionId(id:string){
+  this.reunionService.getReunionId(id).subscribe(
+    (result) => {
+      console.log(result);
+      this.reunion = new Reunion();
+      Object.assign(this.reunion,result);
+    }
+  )
+}
+// ******************************** Manejo de recursos ********************************
+  //Permite gestionar ver la cantidad de recursos disponibles
+  restarRecursos(recursos:Array<Recurso>){
+    recursos.forEach(element => {
+        if(element.tipo == "Fisico")
+        {
+          element.cantidad -=1; 
+          this.recursoService.updateRecurso(element).subscribe(
+            result => {
+              console.log("Cantidad de recursos: "+ result)
+            }
+          )
+
+        }
+          
+    });
+  }
+
+
+// ******************************** Manejo de datos ********************************
+
+controlColisionOficinas(reunion:Reunion):Boolean{
+    let guardar=true;
+
+    for (let i = 0; i < this.reunionesGuardadas.length && guardar==true; i++) {
+      if(this.reunionesGuardadas[i].nroOficina == reunion.nroOficina){
+        if(this.reunionesGuardadas[i].dia == reunion.dia && this.reunionesGuardadas[i].mes== reunion.mes){
+          if(this.reunionesGuardadas[i].horaComienzo == reunion.horaComienzo){
+              guardar=false;
+              alert("No se puede elegir esta oficina en este horario")
+
+          }
+        }
+      }
+    }
+     
+      return guardar;
+}
+
+controlColisionParticipantes(){
+
+}
+
+controlColisionRecursosFisicos(){
+
+}
 
 manejoDeDatos()
 {  
   
   this.reunion.dia= this.fecha.getDate().toString();
-  this.reunion.mes= this.fecha.getMonth().toString();
+  this.reunion.mes= (this.fecha.getMonth()+1).toString();
   this.reunion.anio= this.fecha.getFullYear().toString(); 
 
-  this.reunion.horaComienzo= this.horaInicio;
-  this.reunion.horaFinal= this.horaFinal;
 
   this.reunion.participantes = this.participantes;
   this.reunion.estado = "Pendiente";
   this.reunion.recursos = this.recursosReunion;
-  
+  this.reunion.fechaCompleta = this.fecha;
+  this.restarRecursos(this.reunion.recursos);
+
 }
 
 
@@ -170,5 +292,11 @@ recursoExists (recurso:Recurso): boolean {
   }
   return exists;
 }
+
+
+marcarEmpleado(){
+
+}
+
 
 }

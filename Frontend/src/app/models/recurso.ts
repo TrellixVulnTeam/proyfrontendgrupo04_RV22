@@ -1,7 +1,7 @@
 export class Recurso {
-    _id!:String;
-    tipo!:String;
-    nombre!:String;
-    cantidad!:Number;
+    _id!:string;
+    tipo!:string;
+    nombre!:string;
+    cantidad!:number;
 }
 

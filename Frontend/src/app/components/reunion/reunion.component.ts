@@ -18,17 +18,19 @@ export class ReunionComponent implements OnInit {
   empleado!: Empleado;
   empleados!: Array<Empleado>;
 
-  idEmpleado!:string;
-  temaReunion!:string;
-  fechaReunion!:string;
-  legajoEmpleado!:string;
-  nroOficina!:string;
+  idEmpleado!: string;
+  temaReunion!: string;
+  fechaReunion!: string;
+  legajoEmpleado!: string;
+  nroOficina!: string;
 
-  dia!:string;
-  mes!:string
+  dia!: string;
+  mes!: string;
+
+
+  reunionesFiltro!: Array<Reunion>;
+
   constructor(private reunionService: ReunionService, private router: Router, private empleadoService: EmpleadoService) { }
-
-
 
   ngOnInit(): void {
     this.getReuniones();
@@ -57,6 +59,8 @@ export class ReunionComponent implements OnInit {
       (result) => {
         console.log(result);
         this.reuniones = new Array<Reunion>();
+        this.reunionesFiltro = new Array<Reunion>();
+
         result.forEach((element: any) => {
           this.reunion = new Reunion();
           Object.assign(this.reunion, element);
@@ -70,8 +74,8 @@ export class ReunionComponent implements OnInit {
     this.router.navigate(['altaReunion/0']);
   }
 
-  modificarReunion(id:String) {
-    this.router.navigate(['altaReunion/'+id]);
+  modificarReunion(id: String) {
+    this.router.navigate(['altaReunion/' + id]);
   }
 
   borrarReunion(reunion: Reunion) {
@@ -84,7 +88,6 @@ export class ReunionComponent implements OnInit {
     this.getReuniones();
   }
 
-
   pdfReunion(reunion: Reunion) {
     this.router.navigate(['reunionpdf', reunion._id]);
   }
@@ -94,56 +97,84 @@ export class ReunionComponent implements OnInit {
   }
 
   // ******************************** Filtros ********************************
-  buscarxLegajo(){
+  buscarxLegajo() {
     this.reunionService.getReunionPorLegajo(this.legajoEmpleado).subscribe(
       result => {
         console.log(result);
-            /*this.reuniones = new Array<Reunion>();
-             result.forEach((element: any) => {
-              this.reunion = new Reunion();
-              Object.assign(this.reunion, element);
-              this.reuniones.push(this.reunion);
-            }) */
-          },
-        )
+        /*this.reuniones = new Array<Reunion>();
+         result.forEach((element: any) => {
+          this.reunion = new Reunion();
+          Object.assign(this.reunion, element);
+          this.reuniones.push(this.reunion);
+        }) */
+      },
+    )
+  }
+
+  sumarFiltros() {
+    if (!this.reunionesFiltro.length)          // reunionesFiltro = reunionesTEMPORAL  
+    {
+      this.reuniones.forEach(element => {
+        this.reunionesFiltro.push(element);
+
+      });
     }
-    
+    else {
+      this.reuniones.forEach(element => {
+        if (!this.reunionesFiltro.includes(element)) {
+          let i = this.reunionesFiltro.indexOf(element);
+          this.reunionesFiltro.splice(i, 1);
+        }
 
+      });
+      this.reuniones = new Array<Reunion>();
+      this.reunionesFiltro.forEach(element => {
+        this.reuniones.push(element);
+      });
 
-  buscarxEmpleado(){
+    }
+  }
 
+  buscarxEmpleado() {
     console.log(this.idEmpleado);
-
     this.reunionService.getReunionParticipante(this.idEmpleado).subscribe(
       result => {
         console.log(result);
-          this.reuniones = new Array<Reunion>();
-          Object.assign(this.reuniones, result);
-      }) 
+        this.reuniones = new Array<Reunion>();
+        Object.assign(this.reuniones, result);
+        this.sumarFiltros();
+
+      })
   }
 
-  buscarxOficina(){
+  buscarxOficina() {
     console.log(this.nroOficina);
     this.reunionService.getReunionOficina(this.nroOficina).subscribe(
       (result) => {
-          this.reuniones = new Array<Reunion>();
-          Object.assign(this.reuniones,result);
-          console.log("133"+this.reuniones);
+        this.reuniones = new Array<Reunion>();
+        Object.assign(this.reuniones, result);
+        console.log("133" + this.reuniones);
+        this.sumarFiltros();
+
       },
     )
+
   }
 
-  buscarxdiaMes(){
+  buscarxdiaMes() {
     console.log(this.dia);
     console.log(this.mes);
-    this.reunionService.getReunionFecha(this.dia,this.mes).subscribe(
+    this.reunionService.getReunionFecha(this.dia, this.mes).subscribe(
       (result) => {
         console.log(result);
-          this.reuniones = new Array<Reunion>();
-          Object.assign(this.reuniones, result);
-         
+        this.reuniones = new Array<Reunion>();
+        Object.assign(this.reuniones, result);
+        this.sumarFiltros();
       },
     )
+
   }
+
+
 
 }

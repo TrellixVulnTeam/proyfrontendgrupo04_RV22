@@ -7,7 +7,7 @@
 
             <div class="mb-3">
                 <label for="estado">Estado de la reunion</label>
-                  <select class="form-control" id="estado" required [(ngModel)]="reunion.estado"  name="estado" >
+                  <select class="form-select" id="estado" required [(ngModel)]="reunion.estado" name="estado" >
                       <option value="Pendiente">Pendiente</option>
                       <option value="Espera">En espera</option>
                       <option value="Celebrada">Celebrada</option>
@@ -17,7 +17,7 @@
 
             <div class="mb-3">
                 <label for="temaReunion" class="form-label">Tema</label>
-                <input type="text" class="form-control" id="temaReunion" aria-describedby="temaReunion" required [(ngModel)]="reunion.temaReunion" name="temaReunion" #temaReunion="ngModel">
+                <input type="text" class="form-control" id="temaReunion" aria-describedby="temaReunion" required [(ngModel)]="reunion.temaReunion"  name="temaReunion" #temaReunion="ngModel">
             </div>
             <div *ngIf="temaReunion.invalid && (temaReunion.dirty || temaReunion.touched)" class="alert alert-danger" >
                 <div class="row">
@@ -42,7 +42,7 @@
             <div class="col-6" id="izq">
                 <div class="mb-3" >
                     <label for="fechaReunion" class="form-label" >Fecha</label>
-                    <input type="date" class="form-control" id="fecha" required [ngModel]="fecha | date: 'yyyy-MM-dd'" name="fechaReunion" [value]="fecha"  #fechaReunion="ngModel">
+                    <input type="date" class="form-control" id="fecha" required [ngModel]="fecha" name="fechaReunion" [value]="fecha"  #fechaReunion="ngModel" (change)="mostrarFecha()">
                 </div>
             </div>
             <div *ngIf="fechaReunion.invalid && (fechaReunion.dirty || fechaReunion.touched)" class="alert alert-danger" >

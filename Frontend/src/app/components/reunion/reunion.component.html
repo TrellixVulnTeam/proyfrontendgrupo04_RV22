@@ -2,14 +2,8 @@
   <div><button type="button" class="btn btn-success" (click)="altaReunion()"><i class="bi bi-plus" ></i><i class="bi bi-calendar-event"></i></button></div>
   <div class="col-10">
         <form action="">
-              <div class="col-6">
-                <div class="mb-3">
-                  <label for="temaReunion" class="form-label">Legajo</label> <label for="" (mouseover)="mostrarInfo()"><i class="bi bi-info-circle"></i></label>
-                  <input type="text" class="form-control" id="temaReunion" [(ngModel)]="legajoEmpleado" name="tema">
-                </div>
-                <button type="button" class="btn btn-success" (click)="buscarxLegajo()">Buscar</button>
-              </div>
-              <div class="col-6">
+              <h3 style="color:white; margin-bottom:20px ;">Filtros</h3>
+              <div class="col-8">
                 <div class="input-group">
                   <span class="input-group-text">Dia | Mes</span>
                   <input type="text" aria-label="First name" class="form-control" [(ngModel)]="dia" name="dia">
@@ -18,7 +12,7 @@
                 <button type="button" class="btn btn-success" (click)="buscarxdiaMes()">Buscar</button>
               </div>
               
-              <div class="col-6">
+              <div class="col-8">
                   <label for="empleado" class="form-label">Participante </label>
                   <select class="form-select" id="empleado" name="empleado" [(ngModel)]="idEmpleado" >
                     <option *ngFor="let emp of empleados" [value]="emp._id" >{{emp.apellido}},{{emp.nombre}}</option>
@@ -27,7 +21,7 @@
               </div> 
               
 
-              <div class="col-6">
+              <div class="col-8">
                 <label for="temaReunion" class="form-label">Oficina</label>
                   <select class="form-select" id="inputGroupSelect04" aria-label="Example select with button addon" name="oficina" [(ngModel)]="nroOficina">
                         <option value="A1">A1</option>
@@ -67,7 +61,7 @@
                   <td>{{r.tipoReunion}}</td>
                   <td>{{r.temaReunion}}</td>
                   <td>{{r.nroOficina}}</td>
-                  <td>{{r.fechaCompleta}}</td>
+                  <td>{{r.dia}}/{{r.mes}}</td>
                   <td><p *ngFor="let p of r.participantes" >{{p.apellido}}, {{p.nombre}}</p></td>
                   <td><p *ngFor="let rec of r.recursos">{{rec.nombre}}</p></td>
                   <td>

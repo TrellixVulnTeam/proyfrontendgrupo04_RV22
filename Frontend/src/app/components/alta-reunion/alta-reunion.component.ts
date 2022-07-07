@@ -1,7 +1,7 @@
 import { Time } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Route, Router } from '@angular/router';
 import { Empleado } from 'src/app/models/empleado';
 import { Recurso } from 'src/app/models/recurso';
 import { Reunion } from 'src/app/models/reunion';
@@ -36,6 +36,7 @@ export class AltaReunionComponent implements OnInit {
   accion!: Boolean;
 
   constructor(private reunionService: ReunionService, private empleadoService: EmpleadoService, private recursoService: RecursoService, private fb: FormBuilder, private activateRoute: ActivatedRoute) {
+
     this.formReunion = this.fb.group({
       temaReunion: ['', Validators.required],
       tipoReunion: ['', Validators.required],
@@ -120,17 +121,34 @@ export class AltaReunionComponent implements OnInit {
     )
   }
 
-  altaReunion() {
-    this.manejoDeDatos()
-    console.log(this.reunion);
-    this.reunionService.postReunion(this.reunion).subscribe(
-      (result) => {
-        console.log("56 " + result);
-      },
-    )
+altaReunion()
+{
+  this.manejoDeDatos()
+  //this.controlColisionOficinas(this.reunion)
+  
+  console.log(this.reunion);
+  this.reunionService.postReunion(this.reunion).subscribe(
+    (result) => {
+        console.log("56 "+ result);
+        alert("Reunion guardada");
+    },
+  )
+    this.router.navigate(['listarReunion']);
+  
+  
+}
 
-  }
-
+modificarReunion(){
+  this.manejoDeDatos()
+  console.log(this.reunion);
+  this.reunionService.editeReunion(this.reunion).subscribe(
+    (result) => {
+        console.log(""+ result);
+        alert("Reunion modificada");
+    },
+  )
+  this.router.navigate(['listarReunion']);
+}
 
   getReunionId(id: string) {
     this.reunionService.getReunionId(id).subscribe(
@@ -161,19 +179,24 @@ export class AltaReunionComponent implements OnInit {
 
   // ******************************** Manejo de datos ********************************
 
-  controlColisionOficinas(reunion: Reunion): Boolean {
-    let guardar = true;
 
-    for (let i = 0; i < this.reunionesGuardadas.length && guardar == true; i++) {
-      if (this.reunionesGuardadas[i].nroOficina == reunion.nroOficina) {
-        if (this.reunionesGuardadas[i].dia == reunion.dia && this.reunionesGuardadas[i].mes == reunion.mes) {
-          if (this.reunionesGuardadas[i].horaComienzo == reunion.horaComienzo) {
-            guardar = false;
-            console.log("No guardar");
+controlColisionOficinas(reunion:Reunion){
+    let guardar=true;
+
+    for (let i = 0; i < this.reunionesGuardadas.length && guardar==true; i++) {
+      if(this.reunionesGuardadas[i].nroOficina == reunion.nroOficina){
+        if(this.reunionesGuardadas[i].dia == reunion.dia && this.reunionesGuardadas[i].mes== reunion.mes){
+          if(this.reunionesGuardadas[i].horaComienzo == reunion.horaComienzo){
+              guardar=false;
+              alert("No se puede elegir esta oficina en este horario")
+
+
           }
         }
       }
     }
+}
+
 
     return guardar;
   }

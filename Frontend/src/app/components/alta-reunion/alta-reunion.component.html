@@ -54,7 +54,7 @@
             <div class="col-6" id="der">
                 <div class="mb-3" >
                     <label for="oficinaReunion" class="form-label"  >Oficina</label>
-                    <select class="form-select" aria-label="Default select example" required [(ngModel)]="reunion.nroOficina" name="oficinaReunion" #nroOficina="ngModel">
+                    <select class="form-select" aria-label="Default select example" required [(ngModel)]="reunion.nroOficina" name="oficinaReunion" #nroOficina="ngModel" >
                         <option value="A1">A1</option>
                         <option value="B2">B2</option>
                         <option value="C3">C3</option>
@@ -144,7 +144,7 @@
             <div class="d-grid gap-2" >
                 <button type="button" class="btn btn-success" (click)="altaReunion()" [disabled]="!formReunion.form.valid" [hidden]="accion">Crear</button>
 
-                <button type="button" class="btn btn-success" (click)="altaReunion()" [disabled]="!formReunion.form.valid" [hidden]="!accion">Modificar</button>
+                <button type="button" class="btn btn-success" (click)="modificarReunion()" [disabled]="!formReunion.form.valid" [hidden]="!accion">Modificar</button>
             </div>
 
         </form>

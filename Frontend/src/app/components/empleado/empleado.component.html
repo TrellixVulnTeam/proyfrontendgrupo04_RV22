@@ -23,7 +23,7 @@
             <td>{{item.legajo}}</td>
             <td>{{item.correo}}</td>
             <td>{{item.dependencia}}</td>
-            <td>{{item.user.username}}</td>
+            <td>{{item.user.username}}</td> 
             <td>{{item.user.perfil}}</td>
             <td>
               <button (click)="modificarEmpleado(item)" class="btn btn-success"><i class="bi bi-pen"></i></button>
@@ -47,11 +47,11 @@
             <td>{{item.username}}</td>
             <td>{{item.perfil}}</td>
             <td>
-              <button (click)="modificarUsuario(item)" class="btn btn-success"><i class="bi bi-pen"></i></button>
+               <button (click)="modificarUsuario(item)" class="btn btn-success"><i class="bi bi-pen"></i></button>
               <button (click)="borrarUsuario(item)" class="btn btn-danger"><i class="bi bi-trash"></i></button>
             </td>
           </tr>
         </tbody>
-      </table>
+      </table> 
   </div>
 </form>

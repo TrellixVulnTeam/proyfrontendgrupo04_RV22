@@ -19,8 +19,8 @@ export class AuthAGuard implements CanActivate {
       }else{
         Swal.fire({
           icon: 'error',
-          title: 'USTED NO ES UN ADMINISTRADOR',
-          text: 'Intente ingresar con una cuenta de participante!',
+          title: 'USTED NO ES UN ADMINISTRADOR ',
+          text: '¡Intente ingresar con una cuenta de ADMINISTRADOR!',
           footer: '<a href="https://www.youtube.com/shorts/je43BDo8t3U" target="_blank">¿Por qué tengo este problema?</a>'
         })
         this.pase1=false;

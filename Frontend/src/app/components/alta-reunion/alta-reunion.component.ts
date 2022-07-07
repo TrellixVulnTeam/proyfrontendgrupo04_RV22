@@ -20,8 +20,8 @@ export class AltaReunionComponent implements OnInit {
   formReunion: FormGroup;
 
   fecha!: Date;
-  hInicio!: String;
-  hFinal!: String;
+  hLaboralInicio:Date;
+  hLaboralFinal:Date;
   empleado!: Empleado;
   participante!: Empleado;
   empleados!: Array<Empleado>;
@@ -56,6 +56,7 @@ export class AltaReunionComponent implements OnInit {
         this.accion = false;
         this.reunion=new Reunion();
         this.reunion.estado ="Pendiente";
+        this.reunion.fechaCompleta = new Date();
       }
       else {
         this.accion = true;
@@ -67,7 +68,7 @@ export class AltaReunionComponent implements OnInit {
     this.participantes = new Array<Empleado>();
 
     this.reunion = new Reunion();
-    this.fecha = new Date();
+    
     this.getEmpleados();
     this.getRecursos();
     //  this.getReuniones()  Para hacer comprobaciones
@@ -159,6 +160,8 @@ modificarReunion(){
       }
     )
   }
+
+
   // ******************************** Manejo de recursos ********************************
   //Permite gestionar ver la cantidad de recursos disponibles
   restarRecursos(recursos: Array<Recurso>) {
@@ -197,6 +200,37 @@ controlColisionOficinas(reunion:Reunion){
     return guardar;
   }
 
+
+//******************************** Manejo de tiempo ********************************
+
+controlarFechayHorarioLaboral(){
+
+  this.hLaboralInicio = new Date()
+  this.hLaboralFinal = new Date()
+
+    this.hLaboralInicio.setHours(7,0);
+    this.hLaboralFinal.setHours(22,0);
+
+    
+    console.log(this.reunion.horaComienzo.hours < 7);
+
+    if(this.reunion.horaComienzo.hours < 7 )
+    {
+      console.log("antes del horario laboral");
+    }
+
+    if(this.reunion.horaFinal.hours > 22)
+    {
+      console.log("Fuera de horario laboral");
+    }
+
+    if((this.reunion.horaFinal.hours - this.reunion.horaComienzo.hours) < 1 )
+    {
+      console.log("La reunion durara muy poco");
+    }
+}
+
+
   controlColisionParticipantes() {
 
   }
@@ -207,12 +241,11 @@ controlColisionOficinas(reunion:Reunion){
 
   manejoDeDatos() {
 
-    this.reunion.dia = this.fecha.getDate().toString();
-    this.reunion.mes = (this.fecha.getMonth() + 1).toString();
-    this.reunion.anio = this.fecha.getFullYear().toString();
+    this.reunion.dia = " a";//this.reunion.fechaCompleta.getDate().toString();
+    this.reunion.mes = " a"; //this.reunion.fechaCompleta.getMonth().toString();
+    this.reunion.anio = "a ";//this.reunion.fechaCompleta.getFullYear().toString();
     this.reunion.participantes = this.participantes;
     this.reunion.recursos = this.recursosReunion;
-    this.reunion.fechaCompleta = this.fecha;
     this.restarRecursos(this.reunion.recursos);
 
   }
@@ -295,7 +328,7 @@ controlColisionOficinas(reunion:Reunion){
   // Mostrar fecha
 
   mostrarFecha(){
-    console.log(this.fecha);
+    console.log(this.reunion.fechaCompleta);
   }
 
 

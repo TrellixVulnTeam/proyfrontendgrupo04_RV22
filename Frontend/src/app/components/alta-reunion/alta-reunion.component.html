@@ -42,7 +42,7 @@
             <div class="col-6" id="izq">
                 <div class="mb-3" >
                     <label for="fechaReunion" class="form-label" >Fecha</label>
-                    <input type="date" class="form-control" id="fecha" required [ngModel]="fecha" name="fechaReunion" [value]="fecha"  #fechaReunion="ngModel" (change)="mostrarFecha()">
+                    <input type="date" class="form-control" id="fecha" required [(ngModel)]="reunion.fechaCompleta" name="fechaReunion" [value]="reunion.fechaCompleta"  #fechaReunion="ngModel" (change)="controlarFechayHorarioLaboral()">
                 </div>
             </div>
             <div *ngIf="fechaReunion.invalid && (fechaReunion.dirty || fechaReunion.touched)" class="alert alert-danger" >

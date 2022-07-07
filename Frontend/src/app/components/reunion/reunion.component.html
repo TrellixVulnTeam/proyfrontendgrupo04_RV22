@@ -61,7 +61,7 @@
                   <td>{{r.tipoReunion}}</td>
                   <td>{{r.temaReunion}}</td>
                   <td>{{r.nroOficina}}</td>
-                  <td>{{r.dia}}/{{r.mes}}</td>
+                  <td>{{r.fechaCompleta |date: 'd/M/yyyy' }}</td>
                   <td><p *ngFor="let p of r.participantes" >{{p.apellido}}, {{p.nombre}}</p></td>
                   <td><p *ngFor="let rec of r.recursos">{{rec.nombre}}</p></td>
                   <td>

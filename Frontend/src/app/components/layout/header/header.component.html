@@ -13,26 +13,32 @@
           <div *ngIf="loginService.userLoggedInAdmin()">
             <li><a href="#" class="nav-link px-2 "[routerLink]="['empleado']">Empleados</a></li>
           </div>
+          
           <div *ngIf="loginService.userLoggedInAdmin()">
             <li><a href="#" class="nav-link px-2 "[routerLink]="['listarReunion']">Reuniones</a></li>
           </div>
+          
           <div *ngIf="loginService.userLoggedInAdmin()">
             <li><a href="#" class="nav-link px-2 "[routerLink]="['listarRecurso']">Recursos</a></li>
           </div>
+          
           <div *ngIf="loginService.userLoggedInAdmin()">
             <li><a href="#" class="nav-link px-2 "[routerLink]="['calendario']">Agenda</a></li>
          </div>
           <!--***************************+Participantes+****************************-->
 
-          <div *ngIf="loginService.userLoggedInParticipante()">
-            <li><a href="#" class="nav-link px-2 "[routerLink]="['no-participante']">No-partipante</a></li>
-         </div>
-         <div *ngIf="loginService.userLoggedInParticipante()">
+        <div *ngIf="loginService.userLoggedInParticipante()">
+            <li><a href="#" class="nav-link px-2 "[routerLink]="['no-participante']">Ver +</a></li>
+        </div>
+
+        <div *ngIf="loginService.userLoggedInParticipante()">
           <li><a href="#" class="nav-link px-2 "[routerLink]="['historial-participante']">Historial</a></li>
-       </div>
-       <div *ngIf="loginService.userLoggedInParticipante()">
-        <li><a href="#" class="nav-link px-2 "[routerLink]="['agenda-participante']">Agenda-Participante</a></li>
-     </div>
+        </div>
+
+        <div *ngIf="loginService.userLoggedInParticipante()">
+          <li><a href="#" class="nav-link px-2 "[routerLink]="['agenda-participante']">Agenda-Participante</a></li>
+        </div>
+
       </ul>
 
       <div class="text-end">

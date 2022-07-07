@@ -11,11 +11,11 @@ export class Reunion {
     horaComienzo!:Time;
     horaFinal!:Time;
     participantes!:Array<Empleado>;
-    nroOficina!:String;
+    nroOficina!:string;
     recursos!:Array<Recurso> // cambiar por clase recurso
-    tipoReunion!:String;
-    temaReunion!:String;
-    estado!:String;
+    tipoReunion!:string;
+    temaReunion!:string;
+    estado!:string;
     fechaCompleta!:Date;
 
     

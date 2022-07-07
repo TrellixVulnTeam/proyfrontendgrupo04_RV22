@@ -44,6 +44,7 @@ import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { AgendaParticipanteComponent } from './components/agenda-participante/agenda-participante.component';
 import { HistorialParticipanteComponent } from './components/historial-participante/historial-participante.component';
 import { NoParticipanteComponent } from './components/no-participante/no-participante.component';
+import { CommonModule } from '@angular/common';
 
 
 
@@ -90,7 +91,7 @@ import { NoParticipanteComponent } from './components/no-participante/no-partici
     NgChartsModule, //graficos
     NgxQRCodeModule, //para el QR
     ReactiveFormsModule,
-    
+    CommonModule,
     CalendarModule.forRoot({
       provide: DateAdapter,
       useFactory: adapterFactory,

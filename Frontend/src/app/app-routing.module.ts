@@ -16,37 +16,37 @@ import { CalendarioComponent } from './components/calendario/calendario.componen
 import { NoParticipanteComponent } from './components/no-participante/no-participante.component';
 import { HistorialParticipanteComponent } from './components/historial-participante/historial-participante.component';
 import { AgendaParticipanteComponent } from './components/agenda-participante/agenda-participante.component';
-
+import { EstadisticaComponent } from './components/estadistica/estadistica.component';
 
 const routes: Routes = [
-    //cuando no ingrese nada va al login
-    {path: '', redirectTo:'login',pathMatch:'full'}, 
-    //Las rutas validas
-    {path: 'home', component:HomeComponent},
-    {path: 'altaReunion/:id', component:AltaReunionComponent},
-    {path: 'listarReunion', component:ReunionComponent},
-    {path: 'login', component: LoginComponent}, 
-    {path: 'reunionpdf/:id', component:ReunionPdfComponent},
-    {path:"empleado",component:EmpleadoComponent},
-    {path:"empleado-form/:id",component:EmpleadoFormComponent},
-    {path:"listarRecurso",component:ListarRecursoComponent},
-    {path:"altaRecurso/:id",component:AltaRecursoComponent},
-    {path:"calendario",component:CalendarioComponent},
-    {path:"empleado-form/:id",component:EmpleadoFormComponent},
-    {path:"usuario-form/:id",component:UsuarioFormComponent},
-    {path:"no-participante",component:NoParticipanteComponent},
-    {path:"historial-participante",component:HistorialParticipanteComponent},
-    {path:"agenda-participante",component:AgendaParticipanteComponent},
-    {path:"calendario",component:CalendarioComponent},
-    {path:"empleado-form/:id",component:EmpleadoFormComponent },
+  //cuando no ingrese nada va al login
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  //Las rutas validas
+  { path: 'home', component: HomeComponent },
+  { path: 'altaReunion/:id', component: AltaReunionComponent },
+  { path: 'listarReunion', component: ReunionComponent },
+  { path: 'login', component: LoginComponent },
+  { path: 'reunionpdf/:id', component: ReunionPdfComponent },
+  { path: "empleado", component: EmpleadoComponent },
+  { path: "empleado-form/:id", component: EmpleadoFormComponent },
+  { path: "listarRecurso", component: ListarRecursoComponent },
+  { path: "altaRecurso/:id", component: AltaRecursoComponent },
+  { path: "calendario", component: CalendarioComponent },
+  { path: "empleado-form/:id", component: EmpleadoFormComponent },
+  { path: "usuario-form/:id", component: UsuarioFormComponent },
+  { path: "no-participante", component: NoParticipanteComponent },
+  { path: "historial-participante", component: HistorialParticipanteComponent },
+  { path: "agenda-participante", component: AgendaParticipanteComponent },
+  { path: "calendario", component: CalendarioComponent },
+  { path: "empleado-form/:id", component: EmpleadoFormComponent },
+  { path: "estadisticas/", component: EstadisticaComponent },
 
-
-    //cuando se ingresa cualquier otra ruta volvera al login
-    {path: '**', redirectTo:'login',pathMatch:'full'},
+  //cuando se ingresa cualquier otra ruta volvera al login
+  { path: '**', redirectTo: 'login', pathMatch: 'full' },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

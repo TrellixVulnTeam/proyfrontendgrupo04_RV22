@@ -35,7 +35,7 @@ export class AltaReunionComponent implements OnInit {
   reunionesGuardadas!: Array<Reunion>;
   accion!: Boolean;
 
-  constructor(private reunionService: ReunionService, private empleadoService: EmpleadoService, private recursoService: RecursoService, private fb: FormBuilder, private activateRoute: ActivatedRoute) {
+  constructor(private reunionService: ReunionService, private empleadoService: EmpleadoService, private recursoService: RecursoService, private fb: FormBuilder, private activateRoute: ActivatedRoute, private router:Router) {
 
     this.formReunion = this.fb.group({
       temaReunion: ['', Validators.required],
@@ -189,14 +189,10 @@ controlColisionOficinas(reunion:Reunion){
           if(this.reunionesGuardadas[i].horaComienzo == reunion.horaComienzo){
               guardar=false;
               alert("No se puede elegir esta oficina en este horario")
-
-
           }
         }
       }
     }
-}
-
 
     return guardar;
   }

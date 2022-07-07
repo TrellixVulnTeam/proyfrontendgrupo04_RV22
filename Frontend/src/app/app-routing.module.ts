@@ -13,36 +13,37 @@ import { ReunionPdfComponent } from './components/reunion-pdf/reunion-pdf.compon
 import { ListarRecursoComponent } from './components/listar-recurso/listar-recurso.component';
 import { AltaRecursoComponent } from './components/alta-recurso/alta-recurso.component';
 import { CalendarioComponent } from './components/calendario/calendario.component';
+import { EstadisticaComponent } from './components/estadistica/estadistica.component';
 
 
 const routes: Routes = [
-    //cuando no ingrese nada va al login
-    {path: '', redirectTo:'login',pathMatch:'full'}, 
-    //Las rutas validas
-    {path: 'home', component:HomeComponent},
-    {path: 'altaReunion', component:AltaReunionComponent},
-    {path: 'listarReunion', component:ReunionComponent},
-    {path: 'login', component: LoginComponent}, 
-    {path: 'reunionpdf/:id', component:ReunionPdfComponent},
-    {path:"empleado",component:EmpleadoComponent},
-    {path:"empleado-form/:id",component:EmpleadoFormComponent},
-    {path:"listarRecurso",component:ListarRecursoComponent},
-    {path:"altaRecurso",component:AltaRecursoComponent},
-    {path:"calendario",component:CalendarioComponent},
-    {path:"empleado",component:EmpleadoComponent},
-    {path:"empleado-form/:id",component:EmpleadoFormComponent},
-    {path:"usuario-form/:id",component:UsuarioFormComponent},
-    
-    {path:"calendario",component:CalendarioComponent},
-    {path:"empleado-form/:id",component:EmpleadoFormComponent },
+  //cuando no ingrese nada va al login
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  //Las rutas validas
+  { path: 'home', component: HomeComponent },
+  { path: 'altaReunion', component: AltaReunionComponent },
+  { path: 'listarReunion', component: ReunionComponent },
+  { path: 'login', component: LoginComponent },
+  { path: 'reunionpdf/:id', component: ReunionPdfComponent },
+  { path: "empleado", component: EmpleadoComponent },
+  { path: "empleado-form/:id", component: EmpleadoFormComponent },
+  { path: "listarRecurso", component: ListarRecursoComponent },
+  { path: "altaRecurso", component: AltaRecursoComponent },
+  { path: "calendario", component: CalendarioComponent },
+  { path: "empleado", component: EmpleadoComponent },
+  { path: "empleado-form/:id", component: EmpleadoFormComponent },
+  { path: "usuario-form/:id", component: UsuarioFormComponent },
+  { path: "estadisticas", component: EstadisticaComponent },
+  { path: "calendario", component: CalendarioComponent },
+  { path: "empleado-form/:id", component: EmpleadoFormComponent },
 
 
-    //cuando se ingresa cualquier otra ruta volvera al login
-    //{path: '**', redirectTo:'login',pathMatch:'full'},
+  //cuando se ingresa cualquier otra ruta volvera al login
+  //{path: '**', redirectTo:'login',pathMatch:'full'},
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

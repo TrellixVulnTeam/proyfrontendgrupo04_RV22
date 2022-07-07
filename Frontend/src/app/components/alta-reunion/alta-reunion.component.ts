@@ -125,6 +125,8 @@ async getReuniones(){
 altaReunion()
 {
   this.manejoDeDatos()
+  //this.controlColisionOficinas(this.reunion)
+  
   console.log(this.reunion);
   this.reunionService.postReunion(this.reunion).subscribe(
     (result) => {
@@ -180,7 +182,7 @@ getReunionId(id:string){
 
 // ******************************** Manejo de datos ********************************
 
-controlColisionOficinas(reunion:Reunion):Boolean{
+controlColisionOficinas(reunion:Reunion){
     let guardar=true;
 
     for (let i = 0; i < this.reunionesGuardadas.length && guardar==true; i++) {
@@ -194,8 +196,6 @@ controlColisionOficinas(reunion:Reunion):Boolean{
         }
       }
     }
-     
-      return guardar;
 }
 
 controlColisionParticipantes(){

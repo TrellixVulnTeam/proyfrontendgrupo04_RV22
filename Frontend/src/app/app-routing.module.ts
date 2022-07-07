@@ -42,7 +42,7 @@ const routes: Routes = [
 
 
     //cuando se ingresa cualquier otra ruta volvera al login
-    //{path: '**', redirectTo:'login',pathMatch:'full'},
+    {path: '**', redirectTo:'login',pathMatch:'full'},
 ];
 
 @NgModule({

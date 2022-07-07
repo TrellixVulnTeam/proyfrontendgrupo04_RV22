@@ -17,30 +17,47 @@ import { NoParticipanteComponent } from './components/no-participante/no-partici
 import { HistorialParticipanteComponent } from './components/historial-participante/historial-participante.component';
 import { AgendaParticipanteComponent } from './components/agenda-participante/agenda-participante.component';
 
+import { AuthAGuard } from './components/guardian/auth-a.guard';
+import { AuthPGuard } from './components/guardian/auth-p.guard';
+
+
 
 const routes: Routes = [
     //cuando no ingrese nada va al login
     {path: '', redirectTo:'login',pathMatch:'full'}, 
-    //Las rutas validas
+    ////rutas que puede acceder el Administrador
     {path: 'home', component:HomeComponent},
-    {path: 'altaReunion/:id', component:AltaReunionComponent},
-    {path: 'listarReunion', component:ReunionComponent},
-    {path: 'login', component: LoginComponent}, 
+    {path: 'login', component:LoginComponent},
+    {path: 'altaReunion/:id', component:AltaReunionComponent,
+    canActivate: [AuthAGuard]},
+    {path: 'listarReunion', component:ReunionComponent,
+    canActivate: [AuthAGuard]},
     {path: 'reunionpdf/:id', component:ReunionPdfComponent},
-    {path:"empleado",component:EmpleadoComponent},
-    {path:"empleado-form/:id",component:EmpleadoFormComponent},
-    {path:"listarRecurso",component:ListarRecursoComponent},
-    {path:"altaRecurso/:id",component:AltaRecursoComponent},
-    {path:"calendario",component:CalendarioComponent},
-    {path:"empleado-form/:id",component:EmpleadoFormComponent},
-    {path:"usuario-form/:id",component:UsuarioFormComponent},
-    {path:"no-participante",component:NoParticipanteComponent},
-    {path:"historial-participante",component:HistorialParticipanteComponent},
-    {path:"agenda-participante",component:AgendaParticipanteComponent},
-    {path:"calendario",component:CalendarioComponent},
-    {path:"empleado-form/:id",component:EmpleadoFormComponent },
-
-
+    {path:"empleado",component:EmpleadoComponent,
+    canActivate: [AuthAGuard]},
+    {path:"empleado-form/:id",component:EmpleadoFormComponent,
+    canActivate: [AuthAGuard]},
+    {path:"listarRecurso",component:ListarRecursoComponent,
+    canActivate: [AuthAGuard]},
+    {path:"altaRecurso/:id",component:AltaRecursoComponent,
+    canActivate: [AuthAGuard]},
+    {path:"calendario",component:CalendarioComponent,
+    canActivate: [AuthAGuard]},
+    {path:"empleado-form/:id",component:EmpleadoFormComponent,
+    canActivate: [AuthAGuard]},
+    {path:"usuario-form/:id",component:UsuarioFormComponent,
+    canActivate: [AuthAGuard]},
+    {path:"calendario",component:CalendarioComponent,
+    canActivate: [AuthAGuard]},
+    {path:"empleado-form/:id",component:EmpleadoFormComponent ,
+    canActivate: [AuthAGuard]},
+    //rutas que puede acceder el participante
+    {path:"no-participante",component:NoParticipanteComponent,
+    canActivate: [AuthPGuard]},
+    {path:"agenda-participante",component:AgendaParticipanteComponent,
+    canActivate: [AuthPGuard]},
+    {path:"historial-participante",component:HistorialParticipanteComponent,
+    canActivate: [AuthPGuard]},
     //cuando se ingresa cualquier otra ruta volvera al login
     {path: '**', redirectTo:'login',pathMatch:'full'},
 ];

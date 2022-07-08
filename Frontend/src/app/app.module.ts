@@ -49,6 +49,16 @@ import { NoParticipanteComponent } from './components/no-participante/no-partici
 import { CommonModule } from '@angular/common';
 import { SendemailComponent } from './components/sendemail/sendemail.component';
 
+import { ModalModule } from 'ngx-bootstrap/modal';
+import { FullCalendarModule } from '@fullcalendar/angular'; // must go before plugins
+import dayGridPlugin from '@fullcalendar/daygrid'; // a plugin!
+import interactionPlugin from '@fullcalendar/interaction'; // a plugin!
+
+FullCalendarModule.registerPlugins([ // register FullCalendar plugins
+  dayGridPlugin,
+  interactionPlugin
+]);
+
 
 
 @NgModule({
@@ -97,6 +107,7 @@ import { SendemailComponent } from './components/sendemail/sendemail.component';
     NgxQRCodeModule, //para el QR
     ReactiveFormsModule,
     CommonModule,
+    FullCalendarModule,ModalModule.forRoot(),//fullcalendar
     CalendarModule.forRoot({
       provide: DateAdapter,
       useFactory: adapterFactory,

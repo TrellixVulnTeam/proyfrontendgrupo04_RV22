@@ -123,4 +123,70 @@ export class ReunionService {
       };
       return this._http.get(this.urlBase+"reunion/participantes/legajo/"+legajo , httpOptions);
     }
+  
+  
+  
+  
+  
+  
+   //////Requeridos para estadistica
+
+  //Recupera las reuniones de un tipo determinado
+  public getReunionPorTipo(tipo: string) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      })
+    };
+    return this._http.get(this.urlBase + "reunion/tipo/tipo/" + tipo, httpOptions);
+  }
+  //recupera reuniones a las que fue/es invitado un empleado en determinado mes y año
+  public getReunionFiltroPersona(participante: string, mes: string, anio: string) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+
+    };
+    
+    return this._http.get(this.urlBase + "reunion/filtro/participante/mes/anio/?participantes=" + participante + "&mes=" + mes + "&anio=" + anio, httpOptions);
+  }
+
+  //recupera reuniones a las que fue/es/será ocupada un oficina en determinado mes y año
+  public getReunionFiltroOficina(oficina: string, mes: string, anio: string) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+
+    };
+    return this._http.get(this.urlBase + "reunion/filtro/oficina/mes/anio/?nroOficina=" + oficina + "&mes=" + mes + "&anio=" + anio, httpOptions);
+  }
+
+  //recupera tipos de reuniones de un determinado mes y año
+  public getReunionFiltroTipo(tipoReunion: string, mes: string, anio: string) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+
+    };
+    return this._http.get(this.urlBase + "reunion/filtro/tipo/mes/anio/?tipoReunion=" + tipoReunion + "&mes=" + mes + "&anio=" + anio, httpOptions);
+  }
+
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
 }

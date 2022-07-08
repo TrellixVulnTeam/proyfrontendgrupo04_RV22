@@ -8,3 +8,32 @@ body{
     height: 100%;
     width: 100%;
 }
+.col-10{
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+button{
+    margin: 4px;
+}
+
+table{
+    margin-top: 30px;
+    vertical-align: middle;
+    text-align: center;
+}
+
+label{
+    color: white;
+}
+
+.col-8{
+    margin-left: auto;
+    margin-right: auto;
+}
+
+input{
+    margin-left: auto;
+    margin-right: auto;
+}

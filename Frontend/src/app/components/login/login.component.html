@@ -1,4 +1,4 @@
-<div class="row">
+<!-- <div class="row">
     <div class="col col-8">
         
         <form #loginForm="ngForm">
@@ -25,4 +25,53 @@
             <div class="alert-danger">{{msglogin}}</div>
         </form>
     </div>
-</div>
+</div> -->
+
+
+
+<!--jbsdfjhsdfklhdfsklj-->
+<body>
+    <div class="login-wrap">
+        <form #loginForm="ngForm">
+        <div class="login-html">
+            <input id="tab-1" type="radio" name="tab" class="sign-in" checked><label for="tab-1" class="tab">Ingrese</label>
+            <input id="tab-2" type="radio" name="tab" class="sign-up"><label for="tab-2" class="tab"></label>
+            <div class="login-form">
+                <div class="sign-in-htm">
+                    <div class="group">
+                        <label for="user" class="label">Nombre de usuario</label>
+                        <input id="user" placeholder="Usuario" required maxlength="10" minlength="1" type="text" class="input"  name="username" [(ngModel)]="userform.username"   #user="ngModel"/> 
+                        <div *ngIf="user.invalid && (user.dirty || user.touched)" class="alert alert-danger" style="height: 50px;width: 330px;text-align:center;margin-left: auto;margin-right: auto;">
+                              ingrese como minimo 1 caracter
+                        </div>
+                    </div>
+                    <div class="group">
+                        <label for="pass" class="label">contraseña</label>
+                        <!-- <input id="pass" type="password" class="input" data-type="password"> -->
+                        <input id="pass" class="input" data-type="password" placeholder="Contraseña" required maxlength="10" minlength="3" type="password" class="input" name="password"  [(ngModel)]="userform.password"  #password="ngModel"/> 
+                    <div *ngIf="password.invalid && (password.dirty || password.touched)" class="alert alert-danger"  style="height: 50px;width: 290px;text-align:center;margin-left: auto;margin-right: auto;">
+                        ingrese como minimo 3 caracter
+                    </div>
+                    </div>
+<!--                     <div class="group">
+                        <input id="check" type="checkbox" class="check" checked>
+                        <label for="check"><span class="icon"></span> Keep me Signed in</label>
+                    </div> -->
+                    <div class="group">
+                        <!-- <button  [disabled]="!loginForm.form.valid" class="btnn " (click)="login()">Ingresar</button> -->
+                        <input [disabled]="!loginForm.form.valid" (click)="login()" type="submit" class="button" value="Ingresar">
+                    </div>
+    <!-- 				<div class="hr"></div>
+                    <div class="foot-lnk">
+                        <a href="#forgot">Forgot Password?</a>
+                    </div> -->
+                </div>
+                
+            </div>
+        </div>
+        <div class="alert-danger">{{msglogin}}</div>
+    </form>
+    </div>
+    
+    
+</body>

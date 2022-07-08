@@ -1,63 +1,65 @@
-<div class="container">
-    <div class="bg-dark" style="text-align: center; color: aliceblue;">
-        <h2>Registrar Empleado</h2>
-        <form class="col-md-12" method="post">
-            <div class="mb-3">
-                <label class="form-label"><h5>Apellido:</h5></label><br>
-                <input [(ngModel)]="empleado.apellido" (change)="valido=false" type="text" name="apellido" required>
-
-                <div *ngIf="valido!==false && empleado.apellido===''" class="alert alert-danger my-1 p-1" style="margin: 350px;">
-                    Complete el campo Apellido
+<div id="body">
+    <div class="container">
+        <div class="bg-dark" style="text-align: center; color: aliceblue;">
+            <h2>Registrar Empleado</h2>
+            <form class="col-md-12" method="post">
+                <div class="mb-3">
+                    <label class="form-label"><h5>Apellido:</h5></label><br>
+                    <input [(ngModel)]="empleado.apellido" (change)="valido=false" type="text" name="apellido" required>
+    
+                    <div *ngIf="valido!==false && empleado.apellido===''" class="alert alert-danger my-1 p-1" style="margin: 350px;">
+                        Complete el campo Apellido
+                    </div>
                 </div>
-            </div>
-            <div class="mb-3">
-                <label class="form-label"><h5>Nombre:</h5></label><br>
-                <input [(ngModel)]="empleado.nombre" (change)="valido=false" type="text" name="nombre" required>
-
-                <div *ngIf="valido!==false && empleado.nombre===''" class="alert alert-danger my-1 p-1" style="margin: 350px;">
-                    Complete el campo Nombre
+                <div class="mb-3">
+                    <label class="form-label"><h5>Nombre:</h5></label><br>
+                    <input [(ngModel)]="empleado.nombre" (change)="valido=false" type="text" name="nombre" required>
+    
+                    <div *ngIf="valido!==false && empleado.nombre===''" class="alert alert-danger my-1 p-1" style="margin: 350px;">
+                        Complete el campo Nombre
+                    </div>
                 </div>
-            </div>
-            <div class="mb-3">
-                <label class="form-label"><h5>Legajo:</h5></label><br>
-                <input [(ngModel)]="empleado.legajo" (change)="valido=false" type="text" name="legajo" required>
-
-                <div *ngIf="valido!==false && empleado.legajo==''" class="alert alert-danger my-1 p-1" style="margin: 350px;">
-                    Complete el campo Legajo
+                <div class="mb-3">
+                    <label class="form-label"><h5>Legajo:</h5></label><br>
+                    <input [(ngModel)]="empleado.legajo" (change)="valido=false" type="text" name="legajo" required>
+    
+                    <div *ngIf="valido!==false && empleado.legajo==''" class="alert alert-danger my-1 p-1" style="margin: 350px;">
+                        Complete el campo Legajo
+                    </div>
                 </div>
-            </div>
-            <div class="mb-3">
-                <label class="form-label"><h5>Correo:</h5></label><br>
-                <input [(ngModel)]="empleado.correo" (change)="valido=false" type="email" name="correo" required>
-
-                <div *ngIf="valido!==false && empleado.correo===''" class="alert alert-danger my-1 p-1" style="margin: 350px;">
-                    Complete el campo Correo
+                <div class="mb-3">
+                    <label class="form-label"><h5>Correo:</h5></label><br>
+                    <input [(ngModel)]="empleado.correo" (change)="valido=false" type="email" name="correo" required>
+    
+                    <div *ngIf="valido!==false && empleado.correo===''" class="alert alert-danger my-1 p-1" style="margin: 350px;">
+                        Complete el campo Correo
+                    </div>
                 </div>
-            </div>
-            <div class="mb-3">
-                <label class="form-label"><h5>Dependencia:</h5></label><br>
-                <input [(ngModel)]="empleado.dependencia" (change)="valido=false" type="text" name="dependencia" required>
-
-                <div *ngIf="valido!==false && empleado.dependencia===''" class="alert alert-danger my-1 p-1" style="margin: 330px;">
-                    Complete el campo Dependencia
+                <div class="mb-3">
+                    <label class="form-label"><h5>Dependencia:</h5></label><br>
+                    <input [(ngModel)]="empleado.dependencia" (change)="valido=false" type="text" name="dependencia" required>
+    
+                    <div *ngIf="valido!==false && empleado.dependencia===''" class="alert alert-danger my-1 p-1" style="margin: 330px;">
+                        Complete el campo Dependencia
+                    </div>
                 </div>
-            </div>
-            <div>
-                <label for="idusuario" class="form-label"><h5>User:</h5></label><br>
-                <select style="height: 35px; width: 200px; font-size: 20px" name="user" [(ngModel)]="empleado.user" (change)="valido=false">
-                    <option *ngFor="let usuario of usuarios" [ngValue]="usuario">{{usuario.username}}</option>
-                </select>
-                <div *ngIf="valido!==false && empleado.user.username===''" class="alert alert-danger my-1 p-1" style="margin: 310px;">
-                    Complete el campo User
+                <div>
+                    <label for="idusuario" class="form-label"><h5>User:</h5></label><br>
+                    <select style="height: 35px; width: 200px; font-size: 20px" name="user" [(ngModel)]="empleado.user" (change)="valido=false">
+                        <option *ngFor="let usuario of usuarios" [ngValue]="usuario">{{usuario.username}}</option>
+                    </select>
+                    <div *ngIf="valido!==false && empleado.user.username===''" class="alert alert-danger my-1 p-1" style="margin: 310px;">
+                        Complete el campo User
+                    </div>
+                    <br><br>
                 </div>
-                <br><br>
-            </div>
-            <div>
-                <button *ngIf="accion=='new'" type="button" class="btn btn-success btn-lg" (click)="guardarEmpleado()">Guardar</button>           
-                <button *ngIf="accion=='update'" type="button" class="btn btn-success btn-lg" (click)="actualizarEmpleado()">Actualizar</button> 
-                <button type="button" class="btn btn-success btn-lg p2" (click)="cerrar()">Cerrar</button> 
-            </div>
-            
-        </form>
+                <div>
+                    <button *ngIf="accion=='new'" type="button" class="btn btn-success btn-lg" (click)="guardarEmpleado()">Guardar</button>           
+                    <button *ngIf="accion=='update'" type="button" class="btn btn-success btn-lg" (click)="actualizarEmpleado()">Actualizar</button> 
+                    <button type="button" class="btn btn-success btn-lg p2" (click)="cerrar()">Cerrar</button> 
+                </div>
+                
+            </form>
+        </div>
     </div>
 </div>

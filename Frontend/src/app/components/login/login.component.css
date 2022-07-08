@@ -1,78 +1,9 @@
-/* .col{
-    margin-left: auto;
-    margin-right: auto;
-    text-align: center;
-}
 
-input{
-    margin: 10px;
-    background: transparent;
-    border-top:none;
-    border-right:none;
-    border-left: none;
-    color: rgb(241, 237, 237);
-    font-family: cursive;
-}
-
-form {
-    margin-top: 10px;
-    margin-block-end: 20px;
-    border-radius: 30px;
-    opacity: 1.3;
-    
-    color: rgb(0, 0, 0);
-    font-family: cursive;
-    background: rgba(26, 192, 101, 0.575);
-    width: 500px;
-    text-align: center;
-    margin-left: auto;
-    margin-right: auto;
-} 
-
-.btnn{
-    
-    text-decoration: none;
-    background: #1c1c1d;
-    border: none;
-    margin-top: 30px;
-    font-size:28px ;
-    border-radius: 10px;
-    cursor: pointer;
-    color: white;
-    font-family: cursive;
-    transition: 0.4 ease-in-out;
-    margin-block-end: 30px;
-    
-}
-.btnn:hover{
-    background: #716add;
-    color: #e9e9e9;
-    transform:scale(1.2);
-}
-
-.row{
-   margin-top: 5%;
-  
-   height: auto;
-    
-    border-radius: 30px;
-    translate: 3px;
-    margin-block-end: 62px;
-} */
-
-
-
-
-
-
-
-
-
-body{
+#body{
 	margin:0;
 	
 	background:url(https://images.pexels.com/photos/3183183/pexels-photo-3183183.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1) ;
-	/* font:100% 16px/18px 'Open Sans',sans-serif; */
+	
 	background-repeat:no-repeat;
 	background-size: cover;
     height: 100%;

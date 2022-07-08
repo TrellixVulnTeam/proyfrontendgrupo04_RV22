@@ -134,7 +134,7 @@ export class AltaReunionComponent implements OnInit {
     this.manejoDeDatos()
     //this.controlColisionOficinas(this.reunion)
 
-    if (this.invitados) { this.sendEmail(); }
+    if (this.invitados.length != 0) { this.sendEmail(); }
     console.log(this.reunion);
     this.reunionService.postReunion(this.reunion).subscribe(
       (result) => {
@@ -224,19 +224,22 @@ export class AltaReunionComponent implements OnInit {
     this.reunion.dia = this.fecha.getDate().toString();
     this.reunion.mes = (this.fecha.getMonth() + 1).toString();
     this.reunion.anio = this.fecha.getFullYear().toString();
-    this.oldParticipantes = this.reunion.participantes;
-    if (this.participantes.length != 0) {
+    if (this.participantes.length != 0&& this.accion == true) {
+      //respaldo de participantes 
+      this.oldParticipantes = this.reunion.participantes;
       this.reunion.participantes = this.participantes;
+      //comprobando la presencia de antiguos participantes
       this.oldParticipantes = this.oldParticipantes.filter(p => !this.participantes.includes(p));
-      /*var result = datos1.filter(el => !datos2.includes(el));*/
-    }
+      //preparando para enviar cancelacion
+       this.cancelarInvitacion();
+    }else{this.reunion.participantes = this.participantes;}
     this.reunion.recursos = this.recursosReunion;
     this.reunion.fechaCompleta = this.fecha;
     this.restarRecursos(this.reunion.recursos);
     this.mensaje = this.mensaje + this.reunion.dia + "/" + this.reunion.mes + "/" + this.reunion.anio + " a horas: " + this.reunion.horaComienzo + "hasta las " + this.reunion.horaFinal + ", en la oficina: " + this.reunion.nroOficina; +". Tema a tratar: " + this.reunion.temaReunion + ".";
     this.email.mensaje = this.mensaje;
     this.email.destinatarios = this.invitados.toString();
-    this.cancelarInvitacion();
+   
   }
 
 

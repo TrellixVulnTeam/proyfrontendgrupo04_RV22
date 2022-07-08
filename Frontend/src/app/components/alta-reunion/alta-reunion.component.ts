@@ -48,7 +48,6 @@ export class AltaReunionComponent implements OnInit {
 
   constructor(private reunionService: ReunionService, private empleadoService: EmpleadoService, private recursoService: RecursoService, private fb: FormBuilder, private activateRoute: ActivatedRoute, private router: Router, private emailService: EmailService) {
 
-
     this.formReunion = this.fb.group({
       temaReunion: ['', Validators.required],
       tipoReunion: ['', Validators.required],
@@ -71,6 +70,7 @@ export class AltaReunionComponent implements OnInit {
         this.reunion = new Reunion();
         this.reunion.estado = "Pendiente";
         this.fecha = new Date();
+
        //calendarioParticipante
       }
       else {
@@ -248,8 +248,6 @@ export class AltaReunionComponent implements OnInit {
 
   // ******************************** Manejo de datos ********************************
 
-
-
   controlColisionOficinas() {
 
     
@@ -423,11 +421,19 @@ export class AltaReunionComponent implements OnInit {
             Object.assign(reunion, element);
             this.reuniones.push(reunion);
           }
+
         })
       }
     )
   }
-  
+
+
+  mostrarFecha() {
+    console.log(this.fecha);
+  }
+
+
+      
   
   buscarxOficina( nroOficina: string) {
     console.log(nroOficina);
@@ -533,3 +539,7 @@ export class AltaReunionComponent implements OnInit {
 
 
 }
+
+
+
+

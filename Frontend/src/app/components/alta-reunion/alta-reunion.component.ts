@@ -23,8 +23,8 @@ export class AltaReunionComponent implements OnInit {
   formReunion: FormGroup;
 
   fecha!: Date;
-  hInicio!: String;
-  hFinal!: String;
+  hLaboralInicio: Date;
+  hLaboralFinal: Date;
   empleado!: Empleado;
   participante!: Empleado;
   empleados!: Array<Empleado>;
@@ -36,9 +36,12 @@ export class AltaReunionComponent implements OnInit {
   recursosReunion!: Array<Recurso>;
 
   reunionesGuardadas!: Array<Reunion>;
+  reuniones!: Array<Reunion>;
   accion!: Boolean;
 
+
   constructor(private reunionService: ReunionService, private empleadoService: EmpleadoService, private recursoService: RecursoService, private fb: FormBuilder, private activateRoute: ActivatedRoute, private router: Router, private emailService: EmailService) {
+
 
     this.formReunion = this.fb.group({
       temaReunion: ['', Validators.required],
@@ -56,15 +59,21 @@ export class AltaReunionComponent implements OnInit {
     this.activateRoute.params.subscribe(params => {
 
       if (params['id'] == '0') {
+        this.recursosReunion = new Array<Recurso>();
+        this.participantes = new Array<Empleado>();
         this.accion = false;
         this.reunion = new Reunion();
         this.reunion.estado = "Pendiente";
+        this.fecha = new Date();
+       calendarioParticipante
       }
       else {
         this.accion = true;
         this.getReunionId(params['id']);
+        console.log(this.reunion);
       }
     })
+
 
     this.recursosReunion = new Array<Recurso>();
     this.participantes = new Array<Empleado>();
@@ -78,6 +87,11 @@ export class AltaReunionComponent implements OnInit {
     this.noemail = new Email();
     this.invitados = new Array<any>();
     this.noinvitados = new Array<any>();
+
+    this.getEmpleados();
+    this.getRecursos();
+    //this.getReuniones()  Para hacer comprobaciones
+
   }
 
 
@@ -128,6 +142,7 @@ export class AltaReunionComponent implements OnInit {
     )
   }
 
+
   altaReunion() {
     this.email.asunto = "Aviso de nueva reunión"
     this.mensaje = "Tienes una reunion el ";
@@ -135,6 +150,7 @@ export class AltaReunionComponent implements OnInit {
     //this.controlColisionOficinas(this.reunion)
 
     if (this.invitados.length != 0) { this.sendEmail(); }
+
     console.log(this.reunion);
     this.reunionService.postReunion(this.reunion).subscribe(
       (result) => {
@@ -148,6 +164,7 @@ export class AltaReunionComponent implements OnInit {
   }
 
   modificarReunion() {
+
     this.email.asunto = "Aviso de reunión modificada"
     this.mensaje = "Se modificó la reunion para el día: ";
     this.manejoDeDatos()
@@ -155,6 +172,8 @@ export class AltaReunionComponent implements OnInit {
     console.log(this.reunion);
     console.log("No participan: " + this.oldParticipantes);
     if (this.noinvitados.length != 0) { this.sendEmailnoparticipa(); }
+    this.manejoDeDatos()
+    console.log(this.reunion);
     this.reunionService.editeReunion(this.reunion).subscribe(
       (result) => {
         console.log("" + result);
@@ -165,6 +184,7 @@ export class AltaReunionComponent implements OnInit {
   }
 
   getReunionId(id: string) {
+    
     this.reunionService.getReunionId(id).subscribe(
       (result) => {
         console.log(result);
@@ -173,51 +193,108 @@ export class AltaReunionComponent implements OnInit {
       }
     )
   }
+
+
   // ******************************** Manejo de recursos ********************************
   //Permite gestionar ver la cantidad de recursos disponibles
-  restarRecursos(recursos: Array<Recurso>) {
+  async restarRecursos(recursos: Array<Recurso>) {
     recursos.forEach(element => {
-      if (element.tipo == "Fisico") {
-        element.cantidad -= 1;
-        this.recursoService.updateRecurso(element).subscribe(
-          result => {
-            console.log("Cantidad de recursos: " + result)
-          }
-        )
+      if(element.cantidad != 0){
+        if (element.tipo == "Fisico") {
+          element.cantidad -= 1;
+          this.recursoService.updateRecurso(element).subscribe(
+            result => {
+              console.log("Cantidad de recursos: " + result)
+            }
+          )
+        }
+      }
+      else
+      {
 
       }
+      
 
     });
   }
 
+  //Permite gestionar ver la cantidad de recursos disponibles
+  sumarRecursos(recursos: Array<Recurso>) {
+    recursos.forEach(element => {    
+        if (element.tipo == "Fisico") {
+          element.cantidad += 1;
+          this.recursoService.updateRecurso(element).subscribe(
+            result => {
+              console.log("Cantidad de recursos: " + result)
+            }
+          )
+        }      
+    });
+  }
 
   // ******************************** Manejo de datos ********************************
 
 
-  controlColisionOficinas(reunion: Reunion) {
-    let guardar = true;
 
-    for (let i = 0; i < this.reunionesGuardadas.length && guardar == true; i++) {
-      if (this.reunionesGuardadas[i].nroOficina == reunion.nroOficina) {
-        if (this.reunionesGuardadas[i].dia == reunion.dia && this.reunionesGuardadas[i].mes == reunion.mes) {
-          if (this.reunionesGuardadas[i].horaComienzo == reunion.horaComienzo) {
-            guardar = false;
-            alert("No se puede elegir esta oficina en este horario")
-          }
+  async controlColisionOficinas() {
+
+    this.reuniones = new Array<Reunion>();
+    this.reunionesGuardadas = new Array<Reunion>();
+    
+    this.buscarxOficina(this.reuniones,this.reunion.nroOficina);
+    this.buscarxdiaMes(this.reunionesGuardadas, "7" , "7");
+    //console.log(this.reuniones);
+    //console.log(this.reunionesGuardadas);
+    
+    this.sumarFiltros(this.reuniones, this.reunionesGuardadas);
+
+    console.log(this.reunionesGuardadas);
+    console.log(this.reunionesGuardadas.length);
+    console.log(this.reunionesGuardadas[0].temaReunion);
+    
+    this.reunionesGuardadas.forEach((element:Reunion) => {
+      console.log("entra1");
+      let caso1 = element.horaComienzo == this.reunion.horaComienzo;
+      let caso2 = (this.reunion.horaComienzo > element.horaComienzo) && (this.reunion.horaComienzo > element.horaFinal);
+      if(caso1 || caso2){
+        console.log("No puede guardar la reunion");
         }
+      else
+      {
+        console.log("Se puede guardar la reunion");
       }
+    });
+  }
+
+  controlarFechayHorarioLaboral() {
+
+    this.hLaboralInicio = new Date()
+    this.hLaboralFinal = new Date()
+
+    this.hLaboralInicio.setHours(7, 0);
+    this.hLaboralFinal.setHours(22, 0);
+
+
+    console.log(this.reunion.horaComienzo.hours < 7);
+
+    if (this.reunion.horaComienzo.hours < 7) {
+      console.log("antes del horario laboral");
     }
 
-    return guardar;
+    if (this.reunion.horaFinal.hours > 22) {
+      console.log("Fuera de horario laboral");
+    }
+
+    if ((this.reunion.horaFinal.hours - this.reunion.horaComienzo.hours) < 1) {
+      console.log("La reunion durara muy poco");
+    }
   }
+
 
   controlColisionParticipantes() {
 
   }
 
-  controlColisionRecursosFisicos() {
-
-  }
 
   manejoDeDatos() {
 
@@ -240,6 +317,18 @@ export class AltaReunionComponent implements OnInit {
     this.email.mensaje = this.mensaje;
     this.email.destinatarios = this.invitados.toString();
    
+    this.reunion.dia = " a";//this.reunion.fechaCompleta.getDate().toString();
+    this.reunion.mes = " a"; //this.reunion.fechaCompleta.getMonth().toString();
+    this.reunion.anio = "a ";//this.reunion.fechaCompleta.getFullYear().toString();
+    this.reunion.participantes = this.participantes;
+    this.reunion.recursos = this.recursosReunion;
+
+    if(this.reunion.estado=="Pendiente")
+      this.restarRecursos(this.reunion.recursos);
+
+    if(this.reunion.estado=="Celebrada" || this.reunion.estado=="Anulada" )
+      this.sumarRecursos(this.reunion.recursos);
+
   }
 
 
@@ -314,12 +403,21 @@ export class AltaReunionComponent implements OnInit {
   }
 
 
-  marcarEmpleado() {
-
-  }
 
 
-  // Mostrar fecha
+  // ******************************** Servicios FILTRO para validaciones ********************************
+
+  buscarxEmpleado( idEmpleado: string){
+    console.log(idEmpleado);
+    this.reunionService.getReunionParticipante(idEmpleado).subscribe(
+     (result:Array<Reunion>) => {
+        result.forEach((element: any) => {
+          let reunion= new Reunion();
+          if (element.cantidad > 0) {
+            Object.assign(reunion, element);
+            this.reuniones.push(reunion);
+          }
+
 
   mostrarFecha() {
     console.log(this.fecha);
@@ -381,4 +479,64 @@ export class AltaReunionComponent implements OnInit {
     this.noemail.destinatarios = this.noinvitados.toString();
     console.log("cancelados: " + this.noinvitados.toString())
   }
+=======
+      });
+      })
+ 
+  }
+
+  buscarxOficina( reuniones:Array<Reunion>, nroOficina: string) {
+    console.log(nroOficina);
+    
+    
+    this.reunionService.getReunionOficina(nroOficina).subscribe(
+      (result:Array<Reunion>) => {
+        result.forEach((element: Reunion) => {
+            reuniones.push(element);
+            //console.log(this.reuniones); 
+      });
+
+      },
+    )
+  }
+
+  buscarxdiaMes( reuniones:Array<Reunion>, dia: string, mes: string){
+    this.reunionService.getReunionFecha(dia, mes).subscribe(
+      (result:Array<Reunion>) => {
+        result.forEach((element: Reunion) => {
+            reuniones.push(element);
+            //console.log(this.reunionesGuardadas);
+      });
+      },
+    )
+  }
+
+  /**
+   * Compara dos arrays y va quitando los elementos que no coincidan 
+   * @param reuniones Array que contiene la informacion
+   * @param reunionesFiltro Array que contiene el resultado
+   */
+  sumarFiltros(reuniones: Array<Reunion>, reunionesFiltro: Array<Reunion>) {    
+
+    if (!reunionesFiltro.length) {
+      reuniones.forEach((element:Reunion) => {
+        reunionesFiltro.push(element);
+      });
+    }
+    else {
+      reuniones.forEach((element:Reunion) => {
+        if (!reunionesFiltro.includes(element) ) {
+          let i = reunionesFiltro.indexOf(element);
+          reunionesFiltro.splice(i, 1);
+        }
+      });
+/*           reuniones = new Array<Reunion>();
+          reunionesFiltro.forEach(element => {
+            this.reuniones.push(element);
+          });  */
+
+    }
+  }
+
+
 }

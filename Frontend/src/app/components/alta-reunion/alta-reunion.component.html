@@ -5,7 +5,7 @@
 
             <h1 [hidden]="!accion">Modificar reunion</h1>
 
-            <div class="mb-3">
+            <div class="mb-3" [hidden]="!accion">
                 <label for="estado">Estado de la reunion</label>
                 <select class="form-select" id="estado" required [(ngModel)]="reunion.estado" name="estado">
                     <option value="Pendiente">Pendiente</option>
@@ -13,6 +13,7 @@
                     <option value="Celebrada">Celebrada</option>
                     <option value="Anulada">Anulada</option>
                 </select>
+
             </div>
 
             <div class="mb-3">
@@ -42,10 +43,10 @@
                 </div>
             </div>
             <div class="col-6" id="izq">
-                <div class="mb-3">
-                    <label for="fechaReunion" class="form-label">Fecha</label>
-                    <input type="date" class="form-control" id="fecha" required [ngModel]="fecha" name="fechaReunion"
-                        [value]="fecha" #fechaReunion="ngModel" (change)="mostrarFecha()">
+                <div class="mb-3" >
+                    <label for="fechaReunion" class="form-label" >Fecha</label>
+                    <input type="date" class="form-control" id="fecha" required [ngModel]="reunion.fechaCompleta" name="fechaReunion" #fechaReunion="ngModel" >
+
                 </div>
             </div>
             <div *ngIf="fechaReunion.invalid && (fechaReunion.dirty || fechaReunion.touched)"
@@ -151,9 +152,12 @@
 
             </div>
 
-            <div class="d-grid gap-2">
-                <button type="button" class="btn btn-success" (click)="altaReunion()"
-                    [disabled]="!formReunion.form.valid" [hidden]="accion">Crear</button>
+
+            <div class="d-grid gap-2" >
+                <button class="btn btn-success" (click)="controlColisionOficinas()">Probar</button>
+
+                <button type="button" class="btn btn-success" (click)="altaReunion()" [disabled]="!formReunion.form.valid" [hidden]="accion">Crear</button>
+
 
                 <button type="button" class="btn btn-success" (click)="modificarReunion()"
                     [disabled]="!formReunion.form.valid||participantes.length == 0"

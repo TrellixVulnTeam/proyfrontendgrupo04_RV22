@@ -1,0 +1,48 @@
+<form [formGroup]="formCtrl" class="text-center text-white">
+    <div class="row">
+        <div class="col-md-6 mb-4">
+            <div class="form-outline">
+                <label class="form-label">Destinatario</label>
+                <input type="text" formControlName="destinatarios" class="form-control"
+                    [(ngModel)]="email.destinatarios" name="destinatarios" />
+                <div class="alert alert-danger"
+                    *ngIf="destinatarios.invalid && (destinatarios.dirty || destinatarios.touched)">
+                    <div *ngIf="destinatarios.errors?.['required']">
+                        es requerido
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 mb-4">
+            <div class="form-outline">
+                <label class="form-label">Asunto</label>
+                <input type="text" formControlName="asunto" class="form-control" [(ngModel)]="email.asunto"
+                    name="asunto" />{{email.asunto}}
+                <div class="alert alert-danger" *ngIf="asunto.invalid && (asunto.dirty || asunto.touched)">
+                    <div *ngIf="asunto.errors?.['required']">
+                        es requerido
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 mb-4">
+            <div class="form-outline">
+                <label class="form-label">Mensaje</label>
+                <textarea formControlName="mensaje" [(ngModel)]="email.mensaje" name="mensaje"></textarea>
+                <div class="alert alert-danger" *ngIf="mensaje.invalid && (mensaje.dirty || mensaje.touched)">
+                    <div *ngIf="mensaje.errors?.['required']">
+                        es requerido
+                    </div>
+                </div>
+            </div>
+            <button class="btn btn-success" (click)="sendEmail()"><i class="bi bi-envelope"></i></button>
+        </div>
+    </div>
+
+</form>

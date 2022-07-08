@@ -2,15 +2,30 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import DatalabelsPlugin from 'chartjs-plugin-datalabels';
 import { ChartConfiguration, ChartData, ChartEvent, ChartType } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
+import { ReunionService } from 'src/app/services/reunion.service';
+import { Reunion } from 'src/app/models/reunion';
+import { EmpleadoService } from 'src/app/services/empleado.service';
+import { Empleado } from 'src/app/models/empleado';
 @Component({
   selector: 'app-grafica-torta',
   templateUrl: './grafica-torta.component.html',
   styleUrls: ['./grafica-torta.component.css'],
 })
 export class GraficaTortaComponent implements OnInit {
-  constructor() {}
+  dataP = [2, 4, 6, 8, 10, 12];
+  etiquetas = ['Oficina A1', 'Oficina B2', 'Oficina C3', 'Oficina D5', 'Oficina E6', 'Oficina F4'];
+  reuniones!: Reunion[];
+  reunion!: Reunion;
+  participantes!: Array<Empleado>;
+  participante!: Empleado;
+  constructor(private reunionService: ReunionService, private empleadoService: EmpleadoService) {
+    this.participantes = new Array<Empleado>();
+    this.reuniones = new Array<Reunion>();
+    this.getReuniones();
+    this.getParticipantes()
+  }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
   @ViewChild(BaseChartDirective) chart: BaseChartDirective | undefined;
 
   // Pie
@@ -31,10 +46,10 @@ export class GraficaTortaComponent implements OnInit {
     },
   };
   public pieChartData: ChartData<'pie', number[], string | string[]> = {
-    labels: [['Download', 'Sales'], ['In', 'Store', 'Sales'], 'Mail Sales'],
+    labels: this.etiquetas,
     datasets: [
       {
-        data: [300, 500, 100],
+        data: this.dataP,
       },
     ],
   };
@@ -63,70 +78,18 @@ export class GraficaTortaComponent implements OnInit {
   }
 
   changeLabels(): void {
-    const words = [
-      'hen',
-      'variable',
-      'embryo',
-      'instal',
-      'pleasant',
-      'physical',
-      'bomber',
-      'army',
-      'add',
-      'film',
-      'conductor',
-      'comfortable',
-      'flourish',
-      'establish',
-      'circumstance',
-      'chimney',
-      'crack',
-      'hall',
-      'energy',
-      'treat',
-      'window',
-      'shareholder',
-      'division',
-      'disk',
-      'temptation',
-      'chord',
-      'left',
-      'hospital',
-      'beef',
-      'patrol',
-      'satisfied',
-      'academy',
-      'acceptance',
-      'ivory',
-      'aquarium',
-      'building',
-      'store',
-      'replace',
-      'language',
-      'redeem',
-      'honest',
-      'intention',
-      'silk',
-      'opera',
-      'sleep',
-      'innocent',
-      'ignore',
-      'suite',
-      'applaud',
-      'funny',
-    ];
-    const randomWord = () => words[Math.trunc(Math.random() * words.length)];
-    this.pieChartData.labels = new Array(3).map((_) => randomWord());
+
+    this.pieChartData.labels = new Array();
 
     this.chart?.update();
   }
 
   addSlice(): void {
     if (this.pieChartData.labels) {
-      this.pieChartData.labels.push(['Line 1', 'Line 2', 'Line 3']);
+      this.pieChartData.labels.push(this.etiquetas);
     }
 
-    this.pieChartData.datasets[0].data.push(400);
+    this.pieChartData.datasets[0].data.push(this.dataP[0]);
 
     this.chart?.update();
   }
@@ -160,4 +123,36 @@ export class GraficaTortaComponent implements OnInit {
 
     this.chart?.render();
   }
+
+  getReuniones() {
+
+    this.reunionService.getReuniones().subscribe(
+      (result) => {
+        console.log(result);
+        this.reuniones = new Array<Reunion>();
+        result.forEach((element: any) => {
+          this.reunion = new Reunion();
+          Object.assign(this.reunion, element);
+          this.reuniones.push(this.reunion);
+        })
+      },
+    )
+  }
+  getParticipantes() {
+
+    this.empleadoService.getEmpleados().subscribe(
+      (result) => {
+        console.log(result);
+        this.participantes = new Array<Empleado>();
+        result.forEach((element: any) => {
+          this.participante = new Empleado();
+          Object.assign(this.participante, element);
+          this.participantes.push(this.participante);
+        })
+      },
+    )
+    console.log(this.participantes)
+    console.log(this.participante)
+  }
+
 }

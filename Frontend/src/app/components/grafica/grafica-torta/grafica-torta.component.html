@@ -1,5 +1,12 @@
-<p>grafica-torta works!</p>
 <div>
+    <div class="">
+        <label for="Reunion" class="form-label"></label>
+        <select class="form-select" aria-label="Default select example" required name="participantes"
+            [(ngModel)]="participante">
+            <option></option>
+            <option *ngFor="let part of participantes" [ngValue]="part">{{part.apellido}}, {{part.nombre}}</option>
+        </select>
+    </div>
     <div>
         <div class="chart">
             <canvas baseChart [data]="pieChartData" [type]="pieChartType" [options]="pieChartOptions"
@@ -9,10 +16,8 @@
     </div>
 </div>
 <div class="button-row">
-    <button class="btn btn-primary" (click)="toggleLegend()">Toggle Legend</button>
-    <button class="btn btn-primary" (click)="changeLabels()">Change Labels</button>
-    <button class="btn btn-primary" (click)="addSlice()">Add Slice</button>
-    <button class="btn btn-primary" (click)="removeSlice()">Remove Slice</button>
-    <button class="btn btn-primary" (click)="changeLegendPosition()">Change Legend
-        Position</button>
+
+
+    <!--  <button class="btn btn-primary" (click)="addSlice()"><i class="bi bi-plus-square"></i></button>
+    <button class="btn btn-primary" (click)="changeLegendPosition()"><i class="bi bi-arrow-repeat"></i></button>-->
 </div>

@@ -1,23 +1,12 @@
 <div>
-    <div class="">
-        <label for="Reunion" class="form-label"></label>
-        <select class="form-select" aria-label="Default select example" required name="participantes"
-            [(ngModel)]="participante">
-            <option></option>
-            <option *ngFor="let part of participantes" [ngValue]="part">{{part.apellido}}, {{part.nombre}}</option>
-        </select>
+    <div class="text-center text-white">
+        <h5>Total de reuniones por oficina</h5>
     </div>
     <div>
-        <div class="chart">
+        <div class="chart ">
             <canvas baseChart [data]="pieChartData" [type]="pieChartType" [options]="pieChartOptions"
                 [plugins]="pieChartPlugins">
             </canvas>
         </div>
     </div>
-</div>
-<div class="button-row">
-
-
-    <!--  <button class="btn btn-primary" (click)="addSlice()"><i class="bi bi-plus-square"></i></button>
-    <button class="btn btn-primary" (click)="changeLegendPosition()"><i class="bi bi-arrow-repeat"></i></button>-->
 </div>

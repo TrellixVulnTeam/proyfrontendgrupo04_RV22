@@ -3,10 +3,10 @@
 
         <div class="">
             <div class="col-md-12 ">
-                <label for="Reunion" class="form-label h5 text-white">Participante: {{participanteId}}</label>
+                <label for="Reunion" class="form-label h5 text-white">Oficina: {{oficina}}</label>
                 <div class="input-group">
-                    <select class="form-select" [(ngModel)]="participanteId" name="participante">
-                        <option *ngFor="let p of participantes" [ngValue]="p._id">{{p.apellido}}, {{p.nombre}}
+                    <select class="form-select" [(ngModel)]="oficina" name="participante">
+                        <option *ngFor="let o of oficinas" [ngValue]="o">{{o}}
                         </option>
                     </select>
                     <span class="input-group-text"><i class="bi bi-person-bounding-box"></i></span>
@@ -15,7 +15,7 @@
 
             <div class="row">
                 <div class="col-md-8">
-                    <label for="Mes" class="form-label h6 text-white">Rango de meses: {{rango}}</label>
+                    <label for="Mes" class="form-label h5 text-white">Rango de meses: {{rango}}</label>
                     <div class="input-group">
                         <select class="form-select" aria-label="Default select example" [(ngModel)]="rango" required
                             name="etiquetas">
@@ -26,7 +26,7 @@
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <label for="Anio" class="form-label h6 text-white">Año: {{anio}}</label>
+                    <label for="Anio" class="form-label h5 text-white">Año: {{anio}}</label>
                     <div class="input-group">
                         <select type="number" class="form-select" aria-label="Default select example" [(ngModel)]="anio"
                             required name="anio">
@@ -44,7 +44,7 @@
         </div>
         <div class="d-grid gap-2 p-3">
             <button class="btn btn-success"><i class="bi bi-arrow-repeat"
-                    (click)="buscarReunionesDeParticipantes()"></i></button>
+                    (click)="buscarReunionesEnOficina()"></i></button>
         </div>
     </form>
     <div>

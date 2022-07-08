@@ -43,8 +43,8 @@
             </div>
         </div>
         <div class="d-grid gap-2 p-3">
-            <button class="btn btn-success"><i class="bi bi-arrow-repeat"
-                    (click)="buscarReunionesEnOficina()"></i></button>
+            <button class="btn btn-success" (click)="buscarReunionesEnOficina()"
+                [disabled]="!oficina||rango==undefined||!anio"><i class="bi bi-arrow-repeat"></i></button>
         </div>
     </form>
     <div>

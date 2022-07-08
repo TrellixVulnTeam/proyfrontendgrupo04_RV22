@@ -4,7 +4,6 @@
         <div class="col-8" id="formulario">
             <form #formReunion="ngForm" >
                 <h1 [hidden]="accion">Alta de reunion</h1>
-    
                 <h1 [hidden]="!accion">Modificar reunion</h1>
     
                 <div class="mb-3">
@@ -21,185 +20,74 @@
                     <label for="temaReunion" class="form-label">Tema</label>
                     <input type="text" class="form-control" id="temaReunion" aria-describedby="temaReunion" required [(ngModel)]="reunion.temaReunion"  name="temaReunion" #temaReunion="ngModel">
                 </div>
-               <div *ngIf="temaReunion.invalid && (temaReunion.dirty || temaReunion.touched)" class="alert alert-danger" >
-
-<div class="row">
-    <div class="col-8" id="formulario">
-        <form #formReunion="ngForm">
-            <h1 [hidden]="accion">Alta de reunion</h1>
-
-            <h1 [hidden]="!accion">Modificar reunion</h1>
-
-            <div class="mb-3" >
-                <label for="estado">Estado de la reunion</label>
-                <select class="form-select" id="estado" required [(ngModel)]="reunion.estado" name="estado">
-                    <option value="Pendiente">Pendiente</option>
-                    <option value="Espera">En espera</option>
-                    <option value="Celebrada">Celebrada</option>
-                    <option value="Anulada">Anulada</option>
-                </select>
-
-            </div>
-
-            <div class="mb-3">
-                <label for="temaReunion" class="form-label">Tema</label>
-                <input type="text" class="form-control" id="temaReunion" aria-describedby="temaReunion" required
-                    [(ngModel)]="reunion.temaReunion" name="temaReunion" #temaReunion="ngModel">
-            </div>
-            <div *ngIf="temaReunion.invalid && (temaReunion.dirty || temaReunion.touched)" class="alert alert-danger">
-                <div class="row">
-                    Tema de reunion requerido
-                </div>
-            </div>
-            <div class="mb-3">
-                <label for="tipoReunion" class="form-label">Tipo</label>
-                <select class="form-select" aria-label="Default select example" required
-                    [(ngModel)]="reunion.tipoReunion" name="tipoReunion" #tipoReunion="ngModel">
-                    <option value="Informativa">Informativa</option>
-                    <option value="Formativa">Formativa</option>
-                    <option value="Estrategica">Estrategica</option>
-                    <option value="Creativa">Creativa</option>
-                    <option value="OnetoOne">One to One</option>
-                </select>
-            </div>
-            <div *ngIf="tipoReunion.invalid && (tipoReunion.dirty || tipoReunion.touched)" class="alert alert-danger">
-                <div class="row">
-                    Tipo de reunion requerido
-                </div>
-            </div>
-            <div class="col-6" id="izq">
-                <div class="mb-3" >
-                    <label for="fechaReunion" class="form-label" >Fecha</label>
-                    <input type="date" class="form-control" id="fecha" required [(ngModel)]="fecha" name="fechaReunion" #fechaReunion="ngModel" >
-
-                </div>
-            </div>
-            <div *ngIf="fechaReunion.invalid && (fechaReunion.dirty || fechaReunion.touched)"
-                class="alert alert-danger">
-                <div class="row">
-                    Fecha de reunion requerido
-                </div>
-            </div>
-
-            <div class="col-6" id="der">
-                <div class="mb-3">
-                    <label for="oficinaReunion" class="form-label">Oficina</label>
-                    <select class="form-select" aria-label="Default select example" required
-                        [(ngModel)]="reunion.nroOficina" name="oficinaReunion" #nroOficina="ngModel">
-                        <option value="A1">A1</option>
-                        <option value="B2">B2</option>
-                        <option value="C3">C3</option>
-                        <option value="D5">D5</option>
-                        <option value="E6">E6</option>
-                        <option value="F4">F4</option>
-                    </select>
-                </div>
-
-                <div *ngIf="nroOficina.invalid && (nroOficina.dirty || nroOficina.touched)" class="alert alert-danger">
-
+                <div *ngIf="temaReunion.invalid && (temaReunion.dirty || temaReunion.touched)" class="alert alert-danger">
                     <div class="row">
                         Tema de reunion requerido
                     </div>
-
-                </div> 
+                </div>
                 <div class="mb-3">
                     <label for="tipoReunion" class="form-label">Tipo</label>
-                    <select class="form-select" aria-label="Default select example" required [(ngModel)]="reunion.tipoReunion" name="tipoReunion" #tipoReunion="ngModel">
+                    <select class="form-select" aria-label="Default select example" required
+                        [(ngModel)]="reunion.tipoReunion" name="tipoReunion" #tipoReunion="ngModel">
                         <option value="Informativa">Informativa</option>
                         <option value="Formativa">Formativa</option>
                         <option value="Estrategica">Estrategica</option>
                         <option value="Creativa">Creativa</option>
-                        <option value="OnetoOne">One to One</option> 
+                        <option value="OnetoOne">One to One</option>
                     </select>
                 </div>
-                <div *ngIf="tipoReunion.invalid && (tipoReunion.dirty || tipoReunion.touched)" class="alert alert-danger" >
-
-                </div>
-
-            </div>
-
-
-            <div class="col-6" id="izq">
-                <div class="mb-3">
-                    <label for="horaInicio" class="form-label">Hora inicio</label>
-                    <input type="time" class="form-control" step="60" id="horaInicio" required
-                        [(ngModel)]="reunion.horaComienzo" name="horaInicio" #horaInicio="ngModel">
-                </div>
-                <div *ngIf="horaInicio.invalid && (horaInicio.dirty || horaInicio.touched)" class="alert alert-danger">
-
+                <div *ngIf="tipoReunion.invalid && (tipoReunion.dirty || tipoReunion.touched)" class="alert alert-danger">
                     <div class="row">
                         Tipo de reunion requerido
                     </div>
-
-                </div> 
+                </div>
                 <div class="col-6" id="izq">
                     <div class="mb-3" >
                         <label for="fechaReunion" class="form-label" >Fecha</label>
-                        <input type="date" class="form-control" id="fecha" required [ngModel]="fecha" name="fechaReunion" [value]="fecha"  #fechaReunion="ngModel" (change)="mostrarFecha()">
+                        <input type="date" class="form-control" id="fecha" required [(ngModel)]="fecha" name="fechaReunion" #fechaReunion="ngModel" >
+
                     </div>
                 </div>
-                <div *ngIf="fechaReunion.invalid && (fechaReunion.dirty || fechaReunion.touched)" class="alert alert-danger" >
-
-                </div>
-            </div>
-            <div class="col-6" id="der">
-                <div class="mb-3">
-                    <label for="horaFinal" class="form-label">Hora finalizacion</label>
-                    <input type="time" class="form-control" id="horaFinal" required [(ngModel)]="reunion.horaFinal"
-                        name="horaFinal" #horaFinal="ngModel">
-                </div>
-                <div *ngIf="horaFinal.invalid && (horaFinal.dirty || horaFinal.touched)" class="alert alert-danger">
-
-                    <div class="row">
+                <div *ngIf="fechaReunion.invalid && (fechaReunion.dirty || fechaReunion.touched)" class="alert alert-danger">
                         Fecha de reunion requerido
-                    </div>
+                </div>
 
-                </div> 
-    
                 <div class="col-6" id="der">
-                    <div class="mb-3" >
-                        <label for="oficinaReunion" class="form-label"  >Oficina</label>
-                        <select class="form-select" aria-label="Default select example" required [(ngModel)]="reunion.nroOficina" name="oficinaReunion" #nroOficina="ngModel" >
+                    <div class="mb-3">
+                        <label for="oficinaReunion" class="form-label">Oficina</label>
+                        <select class="form-select" aria-label="Default select example" required
+                            [(ngModel)]="reunion.nroOficina" name="oficinaReunion" #nroOficina="ngModel">
                             <option value="A1">A1</option>
                             <option value="B2">B2</option>
                             <option value="C3">C3</option>
                             <option value="D5">D5</option>
                             <option value="E6">E6</option>
-                            <option value="F4">F4</option>                       
+                            <option value="F4">F4</option>
                         </select>
                     </div>
-                
-                    <div *ngIf="nroOficina.invalid && (nroOficina.dirty || nroOficina.touched)" class="alert alert-danger" >
-                        <div class="row">
-                            Oficina requerida
-                        </div>
-                    </div> 
-                
                 </div>
-    
-                
+ 
                 <div class="col-6" id="izq">
-                    <div class="mb-3" >
-                        <label for="horaInicio" class="form-label" >Hora inicio</label>
-                        <input type="time" class="form-control" step="60" id="horaInicio" required [(ngModel)]="reunion.horaComienzo" name="horaInicio" #horaInicio="ngModel" >
+                    <div class="mb-3">
+                        <label for="horaInicio" class="form-label">Hora inicio</label>
+                        <input type="time" class="form-control" step="60" id="horaInicio" required
+                            [(ngModel)]="reunion.horaComienzo" name="horaInicio" #horaInicio="ngModel">
                     </div>
-                    <div *ngIf="horaInicio.invalid && (horaInicio.dirty || horaInicio.touched)" class="alert alert-danger" >
-                        <div class="row">
-                            Hora finalizacion requerida
-                        </div>
-                    </div> 
                 </div>
+                <div *ngIf="horaInicio.invalid && (horaInicio.dirty || horaInicio.touched)" class="alert alert-danger">
+                       Hora de inicio requerido
+                </div> 
+                    
                 <div class="col-6" id="der">
-                    <div class="mb-3" >
-                        <label for="horaFinal" class="form-label"  >Hora finalizacion</label>
-                        <input type="time" class="form-control" id="horaFinal" required [(ngModel)]="reunion.horaFinal" name="horaFinal" #horaFinal="ngModel">
+                    <div class="mb-3">
+                        <label for="horaFinal" class="form-label">Hora finalizacion</label>
+                        <input type="time" class="form-control" id="horaFinal" required [(ngModel)]="reunion.horaFinal"
+                            name="horaFinal" #horaFinal="ngModel">
                     </div>
-                    <div *ngIf="horaFinal.invalid && (horaFinal.dirty || horaFinal.touched)" class="alert alert-danger" >
-                        <div class="row">
-                            Hora inicio requerida
-                        </div>
-                    </div> 
                 </div>
+                <div *ngIf="horaFinal.invalid && (horaFinal.dirty || horaFinal.touched)" class="alert alert-danger">
+                        Fecha de reunion requerido
+                </div> 
                 
                 <div>
                     <p>Participantes</p> 
@@ -252,72 +140,6 @@
                     <button type="button" class="btn btn-success" (click)="modificarReunion()" [disabled]="!formReunion.form.valid" [hidden]="!accion">Modificar</button>
                 </div>
     
-            </form>
-        </div>
-
-                </div>
-            </div>
-
-            <div>
-                <p>Participantes</p>
-                <table class="table table-dark table-hover">
-                    <thead>
-                        <tr>
-                            <th scope="col">Estado</th>
-                            <th scope="col">Nombre Completo</th> <!-- tipo reunion -->
-                            <th scope="col">Dependencia</th>
-                            <th scope="col">Legajo</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let emp of empleados">
-                            <th scope="row"><input class="form-check-input" type="checkbox" role="switch" [id]="emp._id"
-                                    name="emp" [value]="emp._id" (change)="addRemoveEmpleado(emp,$event.target)"></th>
-                            <td> <label class="form-check-label" for="empleado">{{emp.apellido}}, {{emp.nombre}}</label>
-                            </td>
-                            <td>{{emp.dependencia}}</td>
-                            <td>{{emp.legajo}}</td>
-                        </tr>
-                    </tbody>
-                </table>
-
-            </div>
-
-            <div>
-                <p>Recursos</p>
-                <table class="table table-dark table-hover">
-                    <thead>
-                        <tr>
-                            <th scope="col">Estado</th>
-                            <th scope="col">Nombre</th> <!-- tipo reunion -->
-                            <th scope="col">Tipo</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let rec of recursos">
-                            <th scope="row"><input class="form-check-input" type="checkbox" role="switch" id="empleado"
-                                    name="emp" [value]="rec._id" (change)="addRemoveRecursos(rec,$event.target)"></th>
-                            <td><label class="form-check-label" for="empleado">{{rec.nombre}} {{rec.tipo}}</label></td>
-                            <td>{{rec.tipo}}</td>
-
-                        </tr>
-                    </tbody>
-                </table>
-
-            </div>
-
-
-            <div class="d-grid gap-2" >
-                <button class="btn btn-success" (click)="controlColisionOficinas()">Probar</button>
-
-                <button type="button" class="btn btn-success" (click)="altaReunion()" [disabled]="!formReunion.form.valid" [hidden]="accion">Crear</button>
-
-
-                <button type="button" class="btn btn-success" (click)="modificarReunion()"
-                    [disabled]="!formReunion.form.valid||participantes.length == 0"
-                    [hidden]="!accion">Modificar</button>
-            </div>
-
         </form>
 
     </div>

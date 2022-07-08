@@ -11,7 +11,12 @@
 .col-10{
     margin-left: auto;
     margin-right: auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
     text-align: center;
+    background-color: rgba(0, 0, 0, 0.507);
+    padding-left: 20px;
+    padding-right: 20px;
 }
 
 button{
@@ -38,6 +43,35 @@ input{
     margin-right: auto;
 }
 
+#body{
+    margin-top: 0px;
+    
+}
+#centro{
+    margin-top: 50px;
+}
+#centro div {
+    
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+}
+.imgRedonda {
+    width:140px;
+     height:140px;
+    border-radius:150px;
+}
+
+label:hover{
+    border-radius:10px;
+    background: #716add;
+    color: white;
+    transform:scale(1.2);
+}
+
+
+
+/* Ocultar botón radio */
 input[id^="spoiler"]{
     display: none;
     }

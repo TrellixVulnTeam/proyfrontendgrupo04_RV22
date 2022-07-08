@@ -4,7 +4,9 @@ import { Reunion } from 'src/app/models/reunion';
 import { ReunionService } from 'src/app/services/reunion.service';
 import { EmpleadoService } from 'src/app/services/empleado.service';
 import { Empleado } from 'src/app/models/empleado';
-
+import Swal from 'sweetalert2';
+import { Recurso } from 'src/app/models/recurso';
+import { RecursoService } from 'src/app/services/recurso.service';
 
 
 @Component({
@@ -30,7 +32,7 @@ export class ReunionComponent implements OnInit {
 
   reunionesFiltro!: Array<Reunion>;
 
-  constructor(private reunionService: ReunionService, private router: Router, private empleadoService: EmpleadoService) { }
+  constructor(private reunionService: ReunionService,private recursoService:RecursoService , private router: Router, private empleadoService: EmpleadoService) { }
 
   ngOnInit(): void {
     this.getReuniones();
@@ -80,36 +82,75 @@ export class ReunionComponent implements OnInit {
 
   borrarReunion(reunion: Reunion) {
 
-    this.reunionService.deleteReunion(reunion).subscribe(
-      (result) => {
-        console.log("Reunion eliminada");
+    const swalWithBootstrapButtons = Swal.mixin({
+      customClass: {
+        confirmButton: 'btn btn-success',
+        cancelButton: 'btn btn-danger'
       },
-    )
-    this.getReuniones();
+      buttonsStyling: false
+    })
+    
+    swalWithBootstrapButtons.fire({
+      title: '¿Estas seguro?',
+      text: "No podras revertir esto!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Si!',
+      cancelButtonText: 'No',
+      reverseButtons: true
+    }).then((result) => {
+      if (result.isConfirmed) {
+        swalWithBootstrapButtons.fire(
+          'Reunion eliminada!',
+          '',
+          'success'
+        )
+        if(reunion.estado!="Celebrada")
+          this.sumarRecursos(reunion.recursos);
+        this.reunionService.deleteReunion(reunion).subscribe(
+          (result) => {
+            console.log("Reunion eliminada");
+          },
+        )
+        this.getReuniones();
+      } else if (
+        /* Read more about handling dismissals below */
+        result.dismiss === Swal.DismissReason.cancel
+      ) {
+        swalWithBootstrapButtons.fire(
+          'Cancelled',
+          'Your imaginary file is safe :)',
+          'error'
+        )
+      }
+    })
+    
+
+
+    
   }
 
   pdfReunion(reunion: Reunion) {
     this.router.navigate(['reunionpdf', reunion._id]);
   }
 
-  mostrarInfo() {
+  // ******************************** Control de recursos ********************************
 
+  sumarRecursos(recursos: Array<Recurso>) {
+    recursos.forEach(element => {    
+        if (element.tipo == "Fisico") {
+          element.cantidad += 1;
+          this.recursoService.updateRecurso(element).subscribe(
+            result => {
+              console.log("Cantidad de recursos: " + result)
+            }
+          )
+        }      
+    });
   }
+
 
   // ******************************** Filtros ********************************
-  buscarxLegajo() {
-    this.reunionService.getReunionPorLegajo(this.legajoEmpleado).subscribe(
-      result => {
-        console.log(result);
-        /*this.reuniones = new Array<Reunion>();
-         result.forEach((element: any) => {
-          this.reunion = new Reunion();
-          Object.assign(this.reunion, element);
-          this.reuniones.push(this.reunion);
-        }) */
-      },
-    )
-  }
 
   sumarFiltros() {
     if (!this.reunionesFiltro.length)          // reunionesFiltro = reunionesTEMPORAL  
@@ -158,7 +199,6 @@ export class ReunionComponent implements OnInit {
 
       },
     )
-
   }
 
   buscarxdiaMes() {
@@ -172,7 +212,6 @@ export class ReunionComponent implements OnInit {
         this.sumarFiltros();
       },
     )
-
   }
 
 

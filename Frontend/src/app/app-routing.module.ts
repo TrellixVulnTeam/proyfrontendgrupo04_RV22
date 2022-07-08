@@ -16,7 +16,7 @@ import { CalendarioComponent } from './components/calendario/calendario.componen
 import { NoParticipanteComponent } from './components/no-participante/no-participante.component';
 import { HistorialParticipanteComponent } from './components/historial-participante/historial-participante.component';
 import { AgendaParticipanteComponent } from './components/agenda-participante/agenda-participante.component';
-
+import { EstadisticaComponent } from './components/estadistica/estadistica.component';
 
 import { AuthAGuard } from './components/guardian/auth-a.guard';
 import { AuthPGuard } from './components/guardian/auth-p.guard';
@@ -51,6 +51,8 @@ const routes: Routes = [
     {path:"calendario",component:CalendarioComponent,
     canActivate: [AuthAGuard]},
     {path:"empleado-form/:id",component:EmpleadoFormComponent ,
+    canActivate: [AuthAGuard]},
+    {path: "estadisticas", component: EstadisticaComponent,
     canActivate: [AuthAGuard]},
     //rutas que puede acceder el participante
     {path:"no-participante",component:NoParticipanteComponent,

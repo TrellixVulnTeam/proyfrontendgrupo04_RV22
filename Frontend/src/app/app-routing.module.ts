@@ -17,6 +17,7 @@ import { NoParticipanteComponent } from './components/no-participante/no-partici
 import { HistorialParticipanteComponent } from './components/historial-participante/historial-participante.component';
 import { AgendaParticipanteComponent } from './components/agenda-participante/agenda-participante.component';
 
+
 import { AuthAGuard } from './components/guardian/auth-a.guard';
 import { AuthPGuard } from './components/guardian/auth-p.guard';
 
@@ -60,10 +61,11 @@ const routes: Routes = [
     canActivate: [AuthPGuard]},
     //cuando se ingresa cualquier otra ruta volvera al login
     {path: '**', redirectTo:'login',pathMatch:'full'},
+
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

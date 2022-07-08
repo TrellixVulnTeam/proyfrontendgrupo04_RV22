@@ -16,13 +16,15 @@ import { FormParticipantesComponent } from './components/form/form-participantes
 import { EstadisticaComponent } from './components/estadistica/estadistica.component';
 import { GraficaBarraComponent } from './components/grafica/grafica-barra/grafica-barra.component';
 import { GraficaTortaComponent } from './components/grafica/grafica-torta/grafica-torta.component';
-import { EstadisticaMenuComponent } from './components/estadistica/estadistica-menu/estadistica-menu.component';
+import { GraficaTortaTipoComponent } from './components/grafica/grafica-torta-tipo/grafica-torta-tipo.component';
+import { GraficaBarraOficinaComponent } from './components/grafica/grafica-barra-oficina/grafica-barra-oficina.component';
+import { GraficaBarraTiporeunionComponent } from './components/grafica/grafica-barra-tiporeunion/grafica-barra-tiporeunion.component';
 import { EstadisticaReunionTiempoComponent } from './components/estadistica/estadistica-reunion-tiempo/estadistica-reunion-tiempo.component';
 import { EstadisticaReunionOficinaComponent } from './components/estadistica/estadistica-reunion-oficina/estadistica-reunion-oficina.component';
 import { EstadisticaReunionParticipanteComponent } from './components/estadistica/estadistica-reunion-participante/estadistica-reunion-participante.component';
-import { EstadisticaFormOficinaComponent } from './components/estadistica/estadistica-form-oficina/estadistica-form-oficina.component';
-import { EstadisticaFormTiempoComponent } from './components/estadistica/estadistica-form-tiempo/estadistica-form-tiempo.component';
-import { EstadisticaFormParticipanteComponent } from './components/estadistica/estadistica-form-participante/estadistica-form-participante.component';
+
+
+
 import { NgChartsModule } from 'ng2-charts';
 import { AltaEmpleadoComponent } from './components/form/alta-empleado/alta-empleado.component';
 import { NgxQRCodeModule } from '@techiediaries/ngx-qrcode';
@@ -45,6 +47,7 @@ import { AgendaParticipanteComponent } from './components/agenda-participante/ag
 import { HistorialParticipanteComponent } from './components/historial-participante/historial-participante.component';
 import { NoParticipanteComponent } from './components/no-participante/no-participante.component';
 import { CommonModule } from '@angular/common';
+import { SendemailComponent } from './components/sendemail/sendemail.component';
 
 
 
@@ -64,13 +67,11 @@ import { CommonModule } from '@angular/common';
     EstadisticaComponent,
     GraficaBarraComponent,
     GraficaTortaComponent,
-    EstadisticaMenuComponent,
+
     EstadisticaReunionTiempoComponent,
     EstadisticaReunionOficinaComponent,
     EstadisticaReunionParticipanteComponent,
-    EstadisticaFormOficinaComponent,
-    EstadisticaFormTiempoComponent,
-    EstadisticaFormParticipanteComponent,
+
     EmpleadoFormComponent,
     HomeComponent,
     ReunionPdfComponent,
@@ -81,6 +82,10 @@ import { CommonModule } from '@angular/common';
     AgendaParticipanteComponent,
     HistorialParticipanteComponent,
     NoParticipanteComponent,
+    SendemailComponent,
+    GraficaTortaTipoComponent,
+    GraficaBarraOficinaComponent,
+    GraficaBarraTiporeunionComponent,
 
   ],
   imports: [
@@ -96,7 +101,7 @@ import { CommonModule } from '@angular/common';
       provide: DateAdapter,
       useFactory: adapterFactory,
     })
-  
+
   ],
   providers: [LoginService,
     {

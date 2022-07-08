@@ -16,11 +16,25 @@
                         Tipo de recurso requerido
                     </div>
                 </div>
+
     
     
                 <div class="mb-3">
                     <label for="nombreRecurso" class="form-label">Nombre</label>
                     <input type="text" class="form-control" id="nombreRecurso" aria-describedby="temaReunion" required [(ngModel)]="this.recurso.nombre" name="nombreRecurso" #nombreRecurso="ngModel">
+=======
+            </div>
+
+
+
+            <div class="mb-3" >
+                <label for="stockRecurso" class="form-label">Cantidad</label>
+                <input  type="number" class="form-control" id="stockRecurso" aria-describedby="stockRecurso" required [(ngModel)]="this.recurso.cantidad" name="stockRecurso" #stockRecurso="ngModel" (change)="controlRecurso()">
+            </div>
+            <div *ngIf="stockRecurso.invalid && (stockRecurso.dirty || stockRecurso.touched)" class="alert alert-danger" >
+                <div class="row">
+                    Cantidad de recurso requerido
+
                 </div>
                 <div *ngIf="nombreRecurso.invalid && (nombreRecurso.dirty || nombreRecurso.touched)" class="alert alert-danger" >
                     <div class="row">

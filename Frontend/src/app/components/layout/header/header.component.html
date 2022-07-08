@@ -25,6 +25,9 @@
           <div *ngIf="loginService.userLoggedInAdmin()">
             <li><a href="#" class="nav-link px-2 "[routerLink]="['calendario']">Agenda</a></li>
          </div>
+        <div *ngIf="loginService.userLoggedInAdmin()">
+            <li><a href="#" class="nav-link px-2 "[routerLink]="['estadisticas']">Estadisticas</a></li>
+         </div>
           <!--***************************+Participantes+****************************-->
 
         <div *ngIf="loginService.userLoggedInParticipante()">

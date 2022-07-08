@@ -20,8 +20,8 @@ export class AltaReunionComponent implements OnInit {
   formReunion: FormGroup;
 
   fecha!: Date;
-  hLaboralInicio:Date;
-  hLaboralFinal:Date;
+  hLaboralInicio: Date;
+  hLaboralFinal: Date;
   empleado!: Empleado;
   participante!: Empleado;
   empleados!: Array<Empleado>;
@@ -33,9 +33,10 @@ export class AltaReunionComponent implements OnInit {
   recursosReunion!: Array<Recurso>;
 
   reunionesGuardadas!: Array<Reunion>;
+  reuniones!: Array<Reunion>;
   accion!: Boolean;
 
-  constructor(private reunionService: ReunionService, private empleadoService: EmpleadoService, private recursoService: RecursoService, private fb: FormBuilder, private activateRoute: ActivatedRoute, private router:Router) {
+  constructor(private reunionService: ReunionService, private empleadoService: EmpleadoService, private recursoService: RecursoService, private fb: FormBuilder, private activateRoute: ActivatedRoute, private router: Router) {
 
     this.formReunion = this.fb.group({
       temaReunion: ['', Validators.required],
@@ -53,25 +54,25 @@ export class AltaReunionComponent implements OnInit {
     this.activateRoute.params.subscribe(params => {
 
       if (params['id'] == '0') {
+        this.recursosReunion = new Array<Recurso>();
+        this.participantes = new Array<Empleado>();
         this.accion = false;
-        this.reunion=new Reunion();
-        this.reunion.estado ="Pendiente";
-        this.reunion.fechaCompleta = new Date();
+        this.reunion = new Reunion();
+        this.reunion.estado = "Pendiente";
+        this.fecha = new Date();
       }
       else {
         this.accion = true;
         this.getReunionId(params['id']);
+        console.log(this.reunion);
       }
     })
 
-    this.recursosReunion = new Array<Recurso>();
-    this.participantes = new Array<Empleado>();
-
-    this.reunion = new Reunion();
     
+
     this.getEmpleados();
     this.getRecursos();
-    //  this.getReuniones()  Para hacer comprobaciones
+    //this.getReuniones()  Para hacer comprobaciones
   }
 
 
@@ -121,37 +122,37 @@ export class AltaReunionComponent implements OnInit {
       },
     )
   }
-
-altaReunion()
-{
-  this.manejoDeDatos()
-  //this.controlColisionOficinas(this.reunion)
   
-  console.log(this.reunion);
-  this.reunionService.postReunion(this.reunion).subscribe(
-    (result) => {
-        console.log("56 "+ result);
+  async altaReunion() {
+    this.manejoDeDatos()
+    //this.controlColisionOficinas()
+
+    console.log(this.reunion);
+    this.reunionService.postReunion(this.reunion).subscribe(
+      (result) => {
+        console.log("56 " + result);
         alert("Reunion guardada");
-    },
-  )
+      },
+    )
     this.router.navigate(['listarReunion']);
-  
-  
-}
 
-modificarReunion(){
-  this.manejoDeDatos()
-  console.log(this.reunion);
-  this.reunionService.editeReunion(this.reunion).subscribe(
-    (result) => {
-        console.log(""+ result);
+
+  }
+
+  modificarReunion() {
+    this.manejoDeDatos()
+    console.log(this.reunion);
+    this.reunionService.editeReunion(this.reunion).subscribe(
+      (result) => {
+        console.log("" + result);
         alert("Reunion modificada");
-    },
-  )
-  this.router.navigate(['listarReunion']);
-}
+      },
+    )
+    this.router.navigate(['listarReunion']);
+  }
 
   getReunionId(id: string) {
+    
     this.reunionService.getReunionId(id).subscribe(
       (result) => {
         console.log(result);
@@ -164,80 +165,104 @@ modificarReunion(){
 
   // ******************************** Manejo de recursos ********************************
   //Permite gestionar ver la cantidad de recursos disponibles
-  restarRecursos(recursos: Array<Recurso>) {
+  async restarRecursos(recursos: Array<Recurso>) {
     recursos.forEach(element => {
-      if (element.tipo == "Fisico") {
-        element.cantidad -= 1;
-        this.recursoService.updateRecurso(element).subscribe(
-          result => {
-            console.log("Cantidad de recursos: " + result)
-          }
-        )
+      if(element.cantidad != 0){
+        if (element.tipo == "Fisico") {
+          element.cantidad -= 1;
+          this.recursoService.updateRecurso(element).subscribe(
+            result => {
+              console.log("Cantidad de recursos: " + result)
+            }
+          )
+        }
+      }
+      else
+      {
 
       }
+      
 
     });
   }
 
+  //Permite gestionar ver la cantidad de recursos disponibles
+  sumarRecursos(recursos: Array<Recurso>) {
+    recursos.forEach(element => {    
+        if (element.tipo == "Fisico") {
+          element.cantidad += 1;
+          this.recursoService.updateRecurso(element).subscribe(
+            result => {
+              console.log("Cantidad de recursos: " + result)
+            }
+          )
+        }      
+    });
+  }
 
   // ******************************** Manejo de datos ********************************
 
 
-controlColisionOficinas(reunion:Reunion){
-    let guardar=true;
+  async controlColisionOficinas() {
 
-    for (let i = 0; i < this.reunionesGuardadas.length && guardar==true; i++) {
-      if(this.reunionesGuardadas[i].nroOficina == reunion.nroOficina){
-        if(this.reunionesGuardadas[i].dia == reunion.dia && this.reunionesGuardadas[i].mes== reunion.mes){
-          if(this.reunionesGuardadas[i].horaComienzo == reunion.horaComienzo){
-              guardar=false;
-              alert("No se puede elegir esta oficina en este horario")
-          }
+    this.reuniones = new Array<Reunion>();
+    this.reunionesGuardadas = new Array<Reunion>();
+    
+    this.reunionService.getReunionOficina(this.reunion.nroOficina).subscribe(
+      (result) => {
+        Object.assign(this.reuniones,result);
+      },)
+
+    this.reunionService.getReunionFecha("7", "7").subscribe(
+      (result) => {
+        Object.assign(this.reunionesGuardadas,result);
+      },
+    )
+    this.sumarFiltros(this.reuniones, this.reunionesGuardadas);
+
+    console.log(this.reunionesGuardadas.length);
+    this.reunionesGuardadas.forEach(element => {
+      let caso1 = element.horaComienzo == this.reunion.horaComienzo;
+      let caso2 = (this.reunion.horaComienzo > element.horaComienzo) && (this.reunion.horaComienzo > element.horaFinal);
+      if(caso1 || caso2){
+        console.log("No puede guardar la reunion");
         }
+      else
+      {
+        console.log("Se puede guardar la reunion");
       }
-    }
-
-    return guardar;
+    });
   }
 
+  controlarFechayHorarioLaboral() {
 
-//******************************** Manejo de tiempo ********************************
+    this.hLaboralInicio = new Date()
+    this.hLaboralFinal = new Date()
 
-controlarFechayHorarioLaboral(){
+    this.hLaboralInicio.setHours(7, 0);
+    this.hLaboralFinal.setHours(22, 0);
 
-  this.hLaboralInicio = new Date()
-  this.hLaboralFinal = new Date()
 
-    this.hLaboralInicio.setHours(7,0);
-    this.hLaboralFinal.setHours(22,0);
-
-    
     console.log(this.reunion.horaComienzo.hours < 7);
 
-    if(this.reunion.horaComienzo.hours < 7 )
-    {
+    if (this.reunion.horaComienzo.hours < 7) {
       console.log("antes del horario laboral");
     }
 
-    if(this.reunion.horaFinal.hours > 22)
-    {
+    if (this.reunion.horaFinal.hours > 22) {
       console.log("Fuera de horario laboral");
     }
 
-    if((this.reunion.horaFinal.hours - this.reunion.horaComienzo.hours) < 1 )
-    {
+    if ((this.reunion.horaFinal.hours - this.reunion.horaComienzo.hours) < 1) {
       console.log("La reunion durara muy poco");
     }
-}
+  }
 
 
   controlColisionParticipantes() {
 
   }
 
-  controlColisionRecursosFisicos() {
-
-  }
 
   manejoDeDatos() {
 
@@ -246,7 +271,12 @@ controlarFechayHorarioLaboral(){
     this.reunion.anio = "a ";//this.reunion.fechaCompleta.getFullYear().toString();
     this.reunion.participantes = this.participantes;
     this.reunion.recursos = this.recursosReunion;
-    this.restarRecursos(this.reunion.recursos);
+
+    if(this.reunion.estado=="Pendiente")
+      this.restarRecursos(this.reunion.recursos);
+
+    if(this.reunion.estado=="Celebrada" || this.reunion.estado=="Anulada" )
+      this.sumarRecursos(this.reunion.recursos);
 
   }
 
@@ -320,18 +350,67 @@ controlarFechayHorarioLaboral(){
   }
 
 
-  marcarEmpleado() {
 
+
+  // ******************************** Servicios FILTRO para validaciones ********************************
+
+  buscarxEmpleado( idEmpleado: string): Array<any> {
+    console.log(idEmpleado);
+    this.reunionService.getReunionParticipante(idEmpleado).subscribe(
+      result => {
+        //console.log(result);
+        return result;
+      })
+      return null;
   }
 
+  buscarxOficina(nroOficina: string): Array<any> {
+    console.log(nroOficina);
+    this.reunionService.getReunionOficina(nroOficina).subscribe(
+      (result) => {
+        //console.log(reuniones); 
+        return result;
 
-  // Mostrar fecha
-
-  mostrarFecha(){
-    console.log(this.reunion.fechaCompleta);
+      },
+    )
+    return null;
   }
 
+  buscarxdiaMes( dia: string, mes: string): Array<any> {
+    this.reunionService.getReunionFecha(dia, mes).subscribe(
+      (result) => {
+        //console.log(result);
+        return result;
+      },
+    )
+    return null;
+  }
 
+  /**
+   * Compara dos arrays y va quitando los elementos que no coincidan 
+   * @param reuniones Array que contiene la informacion
+   * @param reunionesFiltro Array que contiene el resultado
+   */
+  sumarFiltros(reuniones: Array<Reunion>, reunionesFiltro: Array<Reunion>) {    
 
+    if (reunionesFiltro.length < 0) {
+      reuniones.forEach(element => {
+        reunionesFiltro.push(element);
+      });
+    }
+    else {
+      reuniones.forEach(element => {
+        if (!reunionesFiltro.includes(element) ) {
+          let i = reunionesFiltro.indexOf(element);
+          reunionesFiltro.splice(i, 1);
+        }
+      });
+          reuniones = new Array<Reunion>();
+          reunionesFiltro.forEach(element => {
+            this.reuniones.push(element);
+          }); 
+
+    }
+  }
 
 }

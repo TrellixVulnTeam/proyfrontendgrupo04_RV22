@@ -158,7 +158,6 @@ export class ReunionComponent implements OnInit {
 
       },
     )
-
   }
 
   buscarxdiaMes() {
@@ -172,7 +171,6 @@ export class ReunionComponent implements OnInit {
         this.sumarFiltros();
       },
     )
-
   }
 
 

@@ -16,7 +16,7 @@ export class Reunion {
     tipoReunion!:string;
     temaReunion!:string;
     estado!:string;
-    fechaCompleta!:Date;
+    fechaCompleta:Date;
 
     
 }

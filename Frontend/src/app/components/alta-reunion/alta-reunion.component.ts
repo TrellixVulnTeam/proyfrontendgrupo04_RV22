@@ -540,5 +540,3 @@ export class AltaReunionComponent implements OnInit {
 }
 
 
-
-

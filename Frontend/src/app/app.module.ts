@@ -16,7 +16,9 @@ import { FormParticipantesComponent } from './components/form/form-participantes
 import { EstadisticaComponent } from './components/estadistica/estadistica.component';
 import { GraficaBarraComponent } from './components/grafica/grafica-barra/grafica-barra.component';
 import { GraficaTortaComponent } from './components/grafica/grafica-torta/grafica-torta.component';
-
+import { GraficaTortaTipoComponent } from './components/grafica/grafica-torta-tipo/grafica-torta-tipo.component';
+import { GraficaBarraOficinaComponent } from './components/grafica/grafica-barra-oficina/grafica-barra-oficina.component';
+import { GraficaBarraTiporeunionComponent } from './components/grafica/grafica-barra-tiporeunion/grafica-barra-tiporeunion.component';
 import { EstadisticaReunionTiempoComponent } from './components/estadistica/estadistica-reunion-tiempo/estadistica-reunion-tiempo.component';
 import { EstadisticaReunionOficinaComponent } from './components/estadistica/estadistica-reunion-oficina/estadistica-reunion-oficina.component';
 import { EstadisticaReunionParticipanteComponent } from './components/estadistica/estadistica-reunion-participante/estadistica-reunion-participante.component';
@@ -81,6 +83,9 @@ import { SendemailComponent } from './components/sendemail/sendemail.component';
     HistorialParticipanteComponent,
     NoParticipanteComponent,
     SendemailComponent,
+    GraficaTortaTipoComponent,
+    GraficaBarraOficinaComponent,
+    GraficaBarraTiporeunionComponent,
 
   ],
   imports: [

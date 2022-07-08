@@ -208,20 +208,19 @@ export class AltaReunionComponent implements OnInit {
     this.reuniones = new Array<Reunion>();
     this.reunionesGuardadas = new Array<Reunion>();
     
-    this.reunionService.getReunionOficina(this.reunion.nroOficina).subscribe(
-      (result) => {
-        Object.assign(this.reuniones,result);
-      },)
-
-    this.reunionService.getReunionFecha("7", "7").subscribe(
-      (result) => {
-        Object.assign(this.reunionesGuardadas,result);
-      },
-    )
+    this.buscarxOficina(this.reuniones,this.reunion.nroOficina);
+    this.buscarxdiaMes(this.reunionesGuardadas, "7" , "7");
+    //console.log(this.reuniones);
+    //console.log(this.reunionesGuardadas);
+    
     this.sumarFiltros(this.reuniones, this.reunionesGuardadas);
 
+    console.log(this.reunionesGuardadas);
     console.log(this.reunionesGuardadas.length);
-    this.reunionesGuardadas.forEach(element => {
+    console.log(this.reunionesGuardadas[0].temaReunion);
+    
+    this.reunionesGuardadas.forEach((element:Reunion) => {
+      console.log("entra1");
       let caso1 = element.horaComienzo == this.reunion.horaComienzo;
       let caso2 = (this.reunion.horaComienzo > element.horaComienzo) && (this.reunion.horaComienzo > element.horaFinal);
       if(caso1 || caso2){
@@ -354,36 +353,46 @@ export class AltaReunionComponent implements OnInit {
 
   // ******************************** Servicios FILTRO para validaciones ********************************
 
-  buscarxEmpleado( idEmpleado: string): Array<any> {
+  buscarxEmpleado( idEmpleado: string){
     console.log(idEmpleado);
     this.reunionService.getReunionParticipante(idEmpleado).subscribe(
-      result => {
-        //console.log(result);
-        return result;
+     (result:Array<Reunion>) => {
+        result.forEach((element: any) => {
+          let reunion= new Reunion();
+          if (element.cantidad > 0) {
+            Object.assign(reunion, element);
+            this.reuniones.push(reunion);
+          }
+
+      });
       })
-      return null;
+ 
   }
 
-  buscarxOficina(nroOficina: string): Array<any> {
+  buscarxOficina( reuniones:Array<Reunion>, nroOficina: string) {
     console.log(nroOficina);
+    
+    
     this.reunionService.getReunionOficina(nroOficina).subscribe(
-      (result) => {
-        //console.log(reuniones); 
-        return result;
+      (result:Array<Reunion>) => {
+        result.forEach((element: Reunion) => {
+            reuniones.push(element);
+            //console.log(this.reuniones); 
+      });
 
       },
     )
-    return null;
   }
 
-  buscarxdiaMes( dia: string, mes: string): Array<any> {
+  buscarxdiaMes( reuniones:Array<Reunion>, dia: string, mes: string){
     this.reunionService.getReunionFecha(dia, mes).subscribe(
-      (result) => {
-        //console.log(result);
-        return result;
+      (result:Array<Reunion>) => {
+        result.forEach((element: Reunion) => {
+            reuniones.push(element);
+            //console.log(this.reunionesGuardadas);
+      });
       },
     )
-    return null;
   }
 
   /**
@@ -393,22 +402,22 @@ export class AltaReunionComponent implements OnInit {
    */
   sumarFiltros(reuniones: Array<Reunion>, reunionesFiltro: Array<Reunion>) {    
 
-    if (reunionesFiltro.length < 0) {
-      reuniones.forEach(element => {
+    if (!reunionesFiltro.length) {
+      reuniones.forEach((element:Reunion) => {
         reunionesFiltro.push(element);
       });
     }
     else {
-      reuniones.forEach(element => {
+      reuniones.forEach((element:Reunion) => {
         if (!reunionesFiltro.includes(element) ) {
           let i = reunionesFiltro.indexOf(element);
           reunionesFiltro.splice(i, 1);
         }
       });
-          reuniones = new Array<Reunion>();
+/*           reuniones = new Array<Reunion>();
           reunionesFiltro.forEach(element => {
             this.reuniones.push(element);
-          }); 
+          });  */
 
     }
   }

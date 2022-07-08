@@ -134,10 +134,6 @@ export class ReunionComponent implements OnInit {
     this.router.navigate(['reunionpdf', reunion._id]);
   }
 
-  mostrarInfo() {
-
-  }
-
   // ******************************** Control de recursos ********************************
 
   sumarRecursos(recursos: Array<Recurso>) {

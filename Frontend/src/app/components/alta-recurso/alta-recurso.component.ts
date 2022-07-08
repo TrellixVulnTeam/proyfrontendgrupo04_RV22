@@ -42,9 +42,6 @@ export class AltaRecursoComponent implements OnInit {
         this.accion=true;
         this.getRecursoId(params['id']);
         let d = document.getElementById("stockRecurso") as HTMLInputElement;
-        if(this.recurso.tipo!="Fisico")
-          d.disabled = true;
-      
       }
     }) 
 

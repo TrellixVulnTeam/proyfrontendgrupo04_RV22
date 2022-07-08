@@ -5,7 +5,7 @@
 
             <h1 [hidden]="!accion">Modificar reunion</h1>
 
-            <div class="mb-3" [hidden]="!accion">
+            <div class="mb-3" >
                 <label for="estado">Estado de la reunion</label>
                 <select class="form-select" id="estado" required [(ngModel)]="reunion.estado" name="estado">
                     <option value="Pendiente">Pendiente</option>

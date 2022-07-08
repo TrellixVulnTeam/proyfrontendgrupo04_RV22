@@ -29,9 +29,9 @@
 
 
 
-            <div class="mb-3">
+            <div class="mb-3" >
                 <label for="stockRecurso" class="form-label">Cantidad</label>
-                <input  type="number" class="form-control" id="stockRecurso" aria-describedby="stockRecurso" required [(ngModel)]="this.recurso.cantidad" name="stockRecurso" #stockRecurso="ngModel" >
+                <input  type="number" class="form-control" id="stockRecurso" aria-describedby="stockRecurso" required [(ngModel)]="this.recurso.cantidad" name="stockRecurso" #stockRecurso="ngModel" (change)="controlRecurso()">
             </div>
             <div *ngIf="stockRecurso.invalid && (stockRecurso.dirty || stockRecurso.touched)" class="alert alert-danger" >
                 <div class="row">

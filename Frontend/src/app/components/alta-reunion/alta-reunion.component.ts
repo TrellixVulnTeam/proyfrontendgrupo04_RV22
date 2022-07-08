@@ -38,10 +38,15 @@ export class AltaReunionComponent implements OnInit {
   reunionesGuardadas!: Array<Reunion>;
   reuniones!: Array<Reunion>;
   accion!: Boolean;
+  oldParticipantes: Empleado[];
+  email: Email;
+  noemail: Email;
+  invitados: any[];
+  noinvitados: any[];
+  mensaje: string;
 
 
   constructor(private reunionService: ReunionService, private empleadoService: EmpleadoService, private recursoService: RecursoService, private fb: FormBuilder, private activateRoute: ActivatedRoute, private router: Router, private emailService: EmailService) {
-
 
     this.formReunion = this.fb.group({
       temaReunion: ['', Validators.required],
@@ -65,7 +70,8 @@ export class AltaReunionComponent implements OnInit {
         this.reunion = new Reunion();
         this.reunion.estado = "Pendiente";
         this.fecha = new Date();
-       calendarioParticipante
+
+       //calendarioParticipante
       }
       else {
         this.accion = true;
@@ -121,7 +127,6 @@ export class AltaReunionComponent implements OnInit {
             Object.assign(this.recurso, element);
             this.recursos.push(this.recurso);
           }
-
         });
       }
     )
@@ -155,14 +160,18 @@ export class AltaReunionComponent implements OnInit {
     this.reunionService.postReunion(this.reunion).subscribe(
       (result) => {
         console.log("56 " + result);
-        alert("Reunion guardada");
+        Swal.fire(
+          'Good job!',
+          'Reunion guardada',
+          'success'
+        )
       },
     )
     this.router.navigate(['listarReunion']);
 
 
   }
-
+ 
   modificarReunion() {
 
     this.email.asunto = "Aviso de reunión modificada"
@@ -177,11 +186,16 @@ export class AltaReunionComponent implements OnInit {
     this.reunionService.editeReunion(this.reunion).subscribe(
       (result) => {
         console.log("" + result);
-        alert("Reunion modificada");
+        Swal.fire(
+          'Good job!',
+          'Reunion modificada',
+          'success'
+        )
       },
     )
     this.router.navigate(['listarReunion']);
   }
+ 
 
   getReunionId(id: string) {
     
@@ -234,25 +248,14 @@ export class AltaReunionComponent implements OnInit {
 
   // ******************************** Manejo de datos ********************************
 
+  controlColisionOficinas() {
 
-
-  async controlColisionOficinas() {
-
-    this.reuniones = new Array<Reunion>();
-    this.reunionesGuardadas = new Array<Reunion>();
     
-    this.buscarxOficina(this.reuniones,this.reunion.nroOficina);
-    this.buscarxdiaMes(this.reunionesGuardadas, "7" , "7");
-    //console.log(this.reuniones);
-    //console.log(this.reunionesGuardadas);
+    this.buscarxOficina(this.reunion.nroOficina);
+    this.buscarxdiaMes("7" , "7"); 
+    this.sumarFiltros();
     
-    this.sumarFiltros(this.reuniones, this.reunionesGuardadas);
-
-    console.log(this.reunionesGuardadas);
-    console.log(this.reunionesGuardadas.length);
-    console.log(this.reunionesGuardadas[0].temaReunion);
-    
-    this.reunionesGuardadas.forEach((element:Reunion) => {
+    this.reunionesGuardadas.forEach((element) => {
       console.log("entra1");
       let caso1 = element.horaComienzo == this.reunion.horaComienzo;
       let caso2 = (this.reunion.horaComienzo > element.horaComienzo) && (this.reunion.horaComienzo > element.horaFinal);
@@ -265,7 +268,7 @@ export class AltaReunionComponent implements OnInit {
       }
     });
   }
-
+  
   controlarFechayHorarioLaboral() {
 
     this.hLaboralInicio = new Date()
@@ -411,6 +414,7 @@ export class AltaReunionComponent implements OnInit {
     console.log(idEmpleado);
     this.reunionService.getReunionParticipante(idEmpleado).subscribe(
      (result:Array<Reunion>) => {
+        this.reunionesGuardadas = new Array<Reunion>();
         result.forEach((element: any) => {
           let reunion= new Reunion();
           if (element.cantidad > 0) {
@@ -418,18 +422,69 @@ export class AltaReunionComponent implements OnInit {
             this.reuniones.push(reunion);
           }
 
+        })
+      }
+    )
+  }
+
 
   mostrarFecha() {
     console.log(this.fecha);
   }
 
-  //para enviar email
-  invitados!: Array<any>;
-  mensaje!: string;
-  email!: Email;
-  noemail!: Email;
-  noinvitados!: Array<any>;
-  oldParticipantes!: Array<Empleado>;
+
+      
+  
+  buscarxOficina( nroOficina: string) {
+    console.log(nroOficina);
+    this.reunionService.getReunionOficina(nroOficina).subscribe(
+      (result) => {
+        this.reuniones = new Array<Reunion>();    
+        result.forEach((element) => {
+            let reunion = new Reunion();
+            Object.assign(reunion,element); 
+            this.reuniones.push(reunion);
+      });
+            console.log(this.reuniones); 
+      },
+    )
+  }
+
+  buscarxdiaMes( dia: string, mes: string){
+    this.reunionService.getReunionFecha(dia, mes).subscribe(
+      (result) => {
+        this.reunionesGuardadas = new Array<Reunion>();
+        result.forEach((element) => {
+            let reunion = new Reunion();
+            Object.assign(reunion,element); 
+            this.reunionesGuardadas.push(reunion);
+      });
+        console.log(this.reunionesGuardadas); 
+      },
+    )
+  }
+
+  /**
+   * Compara dos arrays y va quitando los elementos que no coincidan 
+   * @param reuniones Array que contiene la informacion
+   * @param reunionesFiltro Array que contiene el resultado
+   */
+  sumarFiltros() {    
+    
+      
+
+   //   console.log("1"+this.reuniones);
+   //   console.log("2"+this.reunionesGuardadas);
+      
+      this.reuniones.forEach(element => {
+        if (!this.reunionesGuardadas.includes(element) ) {
+          let i = this.reunionesGuardadas.indexOf(element);
+          this.reunionesGuardadas.splice(i, 1);
+        }
+      });
+  }
+
+    // ******************************** Email ********************************
   sendEmail() {
 
     this.emailService.sendEmail(this.email)
@@ -479,64 +534,12 @@ export class AltaReunionComponent implements OnInit {
     this.noemail.destinatarios = this.noinvitados.toString();
     console.log("cancelados: " + this.noinvitados.toString())
   }
-=======
-      });
-      })
- 
-  }
 
-  buscarxOficina( reuniones:Array<Reunion>, nroOficina: string) {
-    console.log(nroOficina);
-    
-    
-    this.reunionService.getReunionOficina(nroOficina).subscribe(
-      (result:Array<Reunion>) => {
-        result.forEach((element: Reunion) => {
-            reuniones.push(element);
-            //console.log(this.reuniones); 
-      });
 
-      },
-    )
-  }
-
-  buscarxdiaMes( reuniones:Array<Reunion>, dia: string, mes: string){
-    this.reunionService.getReunionFecha(dia, mes).subscribe(
-      (result:Array<Reunion>) => {
-        result.forEach((element: Reunion) => {
-            reuniones.push(element);
-            //console.log(this.reunionesGuardadas);
-      });
-      },
-    )
-  }
-
-  /**
-   * Compara dos arrays y va quitando los elementos que no coincidan 
-   * @param reuniones Array que contiene la informacion
-   * @param reunionesFiltro Array que contiene el resultado
-   */
-  sumarFiltros(reuniones: Array<Reunion>, reunionesFiltro: Array<Reunion>) {    
-
-    if (!reunionesFiltro.length) {
-      reuniones.forEach((element:Reunion) => {
-        reunionesFiltro.push(element);
-      });
-    }
-    else {
-      reuniones.forEach((element:Reunion) => {
-        if (!reunionesFiltro.includes(element) ) {
-          let i = reunionesFiltro.indexOf(element);
-          reunionesFiltro.splice(i, 1);
-        }
-      });
-/*           reuniones = new Array<Reunion>();
-          reunionesFiltro.forEach(element => {
-            this.reuniones.push(element);
-          });  */
-
-    }
-  }
 
 
 }
+
+
+
+

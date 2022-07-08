@@ -45,7 +45,7 @@
             <div class="col-6" id="izq">
                 <div class="mb-3" >
                     <label for="fechaReunion" class="form-label" >Fecha</label>
-                    <input type="date" class="form-control" id="fecha" required [ngModel]="reunion.fechaCompleta" name="fechaReunion" #fechaReunion="ngModel" >
+                    <input type="date" class="form-control" id="fecha" required [(ngModel)]="fecha" name="fechaReunion" #fechaReunion="ngModel" >
 
                 </div>
             </div>
@@ -117,7 +117,7 @@
                     </thead>
                     <tbody>
                         <tr *ngFor="let emp of empleados">
-                            <th scope="row"><input class="form-check-input" type="checkbox" role="switch" id="empleado"
+                            <th scope="row"><input class="form-check-input" type="checkbox" role="switch" [id]="emp._id"
                                     name="emp" [value]="emp._id" (change)="addRemoveEmpleado(emp,$event.target)"></th>
                             <td> <label class="form-check-label" for="empleado">{{emp.apellido}}, {{emp.nombre}}</label>
                             </td>

@@ -62,42 +62,36 @@ export class AltaReunionComponent implements OnInit {
   ngOnInit(): void {
 
     this.activateRoute.params.subscribe(params => {
-
+      this.recursosReunion = new Array<Recurso>();
+      this.participantes = new Array<Empleado>();
+      this.oldParticipantes = new Array<Empleado>();
       if (params['id'] == '0') {
         this.recursosReunion = new Array<Recurso>();
         this.participantes = new Array<Empleado>();
         this.accion = false;
         this.reunion = new Reunion();
         this.reunion.estado = "Pendiente";
-        this.fecha = new Date();
+        this.getEmpleados();
+        this.getRecursos();
+        //this.fecha = new Date();
 
        //calendarioParticipante
       }
       else {
         this.accion = true;
+        this.getEmpleados();
+        this.getRecursos();
+        this.reunion = new Reunion();
         this.getReunionId(params['id']);
-        console.log(this.reunion);
+        this.fecha = this.reunion.fechaCompleta;
+        this.marcarParticipantes();
       }
     })
-
-
-    this.recursosReunion = new Array<Recurso>();
-    this.participantes = new Array<Empleado>();
-    this.oldParticipantes = new Array<Empleado>();
-    this.reunion = new Reunion();
-    this.fecha = new Date();
-    this.getEmpleados();
-    this.getRecursos();
     //  this.getReuniones()  Para hacer comprobaciones
     this.email = new Email();
     this.noemail = new Email();
     this.invitados = new Array<any>();
     this.noinvitados = new Array<any>();
-
-    this.getEmpleados();
-    this.getRecursos();
-    //this.getReuniones()  Para hacer comprobaciones
-
   }
 
 
@@ -210,8 +204,8 @@ export class AltaReunionComponent implements OnInit {
 
 
   // ******************************** Manejo de recursos ********************************
-  //Permite gestionar ver la cantidad de recursos disponibles
-  async restarRecursos(recursos: Array<Recurso>) {
+
+  restarRecursos(recursos: Array<Recurso>) {
     recursos.forEach(element => {
       if(element.cantidad != 0){
         if (element.tipo == "Fisico") {
@@ -232,7 +226,7 @@ export class AltaReunionComponent implements OnInit {
     });
   }
 
-  //Permite gestionar ver la cantidad de recursos disponibles
+  
   sumarRecursos(recursos: Array<Recurso>) {
     recursos.forEach(element => {    
         if (element.tipo == "Fisico") {
@@ -252,10 +246,10 @@ export class AltaReunionComponent implements OnInit {
 
     
     this.buscarxOficina(this.reunion.nroOficina);
-    this.buscarxdiaMes("7" , "7"); 
+    this.buscarxdiaMes(this.reunion.dia , this.reunion.mes); 
     this.sumarFiltros();
     
-    this.reunionesGuardadas.forEach((element) => {
+   /*  this.reunionesGuardadas.forEach((element) => {
       console.log("entra1");
       let caso1 = element.horaComienzo == this.reunion.horaComienzo;
       let caso2 = (this.reunion.horaComienzo > element.horaComienzo) && (this.reunion.horaComienzo > element.horaFinal);
@@ -266,7 +260,7 @@ export class AltaReunionComponent implements OnInit {
       {
         console.log("Se puede guardar la reunion");
       }
-    });
+    }); */
   }
   
   controlarFechayHorarioLaboral() {
@@ -300,10 +294,20 @@ export class AltaReunionComponent implements OnInit {
 
 
   manejoDeDatos() {
+//Asignacion datos
+    console.log(this.fecha.getDate);    
+    this.reunion.dia = this.fecha.getDate+'';
+    this.reunion.mes = this.fecha.getMonth+'';
+    this.reunion.anio = this.fecha.getFullYear+'';
+    this.reunion.fechaCompleta = this.fecha;
+    this.reunion.participantes = this.participantes;
+    this.reunion.recursos = this.recursosReunion;
 
-    this.reunion.dia = this.fecha.getDate().toString();
-    this.reunion.mes = (this.fecha.getMonth() + 1).toString();
-    this.reunion.anio = this.fecha.getFullYear().toString();
+    this.restarRecursos(this.reunion.recursos);
+
+
+//Envio de main
+
     if (this.participantes.length != 0&& this.accion == true) {
       //respaldo de participantes 
       this.oldParticipantes = this.reunion.participantes;
@@ -313,18 +317,12 @@ export class AltaReunionComponent implements OnInit {
       //preparando para enviar cancelacion
        this.cancelarInvitacion();
     }else{this.reunion.participantes = this.participantes;}
-    this.reunion.recursos = this.recursosReunion;
-    this.reunion.fechaCompleta = this.fecha;
-    this.restarRecursos(this.reunion.recursos);
+  
     this.mensaje = this.mensaje + this.reunion.dia + "/" + this.reunion.mes + "/" + this.reunion.anio + " a horas: " + this.reunion.horaComienzo + "hasta las " + this.reunion.horaFinal + ", en la oficina: " + this.reunion.nroOficina; +". Tema a tratar: " + this.reunion.temaReunion + ".";
     this.email.mensaje = this.mensaje;
     this.email.destinatarios = this.invitados.toString();
    
-    this.reunion.dia = " a";//this.reunion.fechaCompleta.getDate().toString();
-    this.reunion.mes = " a"; //this.reunion.fechaCompleta.getMonth().toString();
-    this.reunion.anio = "a ";//this.reunion.fechaCompleta.getFullYear().toString();
-    this.reunion.participantes = this.participantes;
-    this.reunion.recursos = this.recursosReunion;
+    
 
     if(this.reunion.estado=="Pendiente")
       this.restarRecursos(this.reunion.recursos);
@@ -338,6 +336,18 @@ export class AltaReunionComponent implements OnInit {
 
 
   // ******************************** Control de los participantes ********************************
+
+  marcarParticipantes(){
+    console.log( this.reunion.participantes );
+    
+
+    this.reunion.participantes.forEach(element => {
+      
+      let cbemp = document.getElementById(element._id) as HTMLInputElement;
+      console.log(element._id);
+
+    });
+  }
 
   addRemoveEmpleado(emp: Empleado, $event: any) {
     if ($event.checked == true) {
@@ -430,10 +440,7 @@ export class AltaReunionComponent implements OnInit {
 
   mostrarFecha() {
     console.log(this.fecha);
-  }
-
-
-      
+  }  
   
   buscarxOficina( nroOficina: string) {
     console.log(nroOficina);
@@ -464,24 +471,16 @@ export class AltaReunionComponent implements OnInit {
     )
   }
 
-  /**
-   * Compara dos arrays y va quitando los elementos que no coincidan 
-   * @param reuniones Array que contiene la informacion
-   * @param reunionesFiltro Array que contiene el resultado
-   */
   sumarFiltros() {    
-    
-      
-
    //   console.log("1"+this.reuniones);
    //   console.log("2"+this.reunionesGuardadas);
       
-      this.reuniones.forEach(element => {
+     /*  this.reuniones.forEach(element => {
         if (!this.reunionesGuardadas.includes(element) ) {
           let i = this.reunionesGuardadas.indexOf(element);
           this.reunionesGuardadas.splice(i, 1);
         }
-      });
+      }); */
   }
 
     // ******************************** Email ********************************

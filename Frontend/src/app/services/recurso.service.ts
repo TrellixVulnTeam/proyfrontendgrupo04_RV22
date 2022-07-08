@@ -66,7 +66,7 @@ export class RecursoService {
     return this._http.delete(this.urlBase+"recurso/"+id,httpOptions); 
   }
 
-  getRecursoId(id:string){
+  getRecursoId(id:string):Observable<any>{
     const httpOptions = {  
       headers: new HttpHeaders({
         "Content-Type":"application/json"

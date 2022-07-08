@@ -5,18 +5,27 @@
     </div>
 
     <div class="m-3 row">
-        <div class="col-md-8">
+        <div class="col-md-12">
             <div class="row">
-                <app-grafica-barra class="col-md-6"></app-grafica-barra>
+                <div class="col-md-6">
+                    <app-grafica-barra></app-grafica-barra>
+                    <br>
+                    <app-grafica-barra-oficina></app-grafica-barra-oficina>
+                    <br>
+                    <app-grafica-barra-tiporeunion></app-grafica-barra-tiporeunion>
+                </div>
 
-                <app-grafica-torta class="col-md-6"></app-grafica-torta>
+
+
+
+                <div class="col-md-6">
+                    <app-grafica-torta></app-grafica-torta>
+                    <br>
+                    <app-grafica-torta-tipo></app-grafica-torta-tipo>
+                </div>
             </div>
         </div>
-        <div class="col-md-4">
-            <div class="row">
-                <app-sendemail></app-sendemail>
-            </div>
-        </div>
+
     </div>
 
 

@@ -8,14 +8,14 @@ import { Email } from '../models/email';
 })
 export class EmailService {
   urlbase: string = 'http://localhost:3000/api/';
-  apibase: string = 'api/send/';
+  apibase: string = 'email/send/';
   urlapi: string = this.urlbase + this.apibase;
-  type: string = '';
+  type: string = 'application/x-www-form-urlencoded';
   constructor(private readonly _http: HttpClient) { }
 
 
 
-  public addPasaje(email: Email): Observable<any> {
+  public sendEmail(email: Email): Observable<any> {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': this.type,
@@ -25,6 +25,7 @@ export class EmailService {
       .set('destinatarios', email.destinatarios)
       .set('asunto', email.asunto)
       .set('mensaje', email.mensaje);
+    console.log(email)
     const _url = this.urlapi
     return this._http.post(_url, body, httpOptions);
   }

@@ -1,11 +1,25 @@
-<p>grafica-barra works!</p>
 <div>
+    <form action="">
+
+        <div class="">
+            <label for="Reunion" class="form-label"></label>
+            <select class="form-select" aria-label="Default select example" required name="">
+                <option value="participante"></option>
+            </select>
+        </div>
+        <div class="">
+            <label for="Reunion" class="form-label"></label>
+            <select class="form-select" aria-label="Default select example" required name="">
+                <option value=""></option>
+            </select>
+        </div>
+    </form>
     <div>
         <div style="display: block">
             <canvas baseChart [data]="barChartData" [options]="barChartOptions" [plugins]="barChartPlugins"
                 [type]="barChartType" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)">
             </canvas>
         </div>
-        <button class="btn btn-primary" (click)="randomize()">Update</button>
+        <button class="btn btn-success"><i class="bi bi-arrow-repeat"></i></button>
     </div>
 </div>

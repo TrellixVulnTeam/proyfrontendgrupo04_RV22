@@ -2,12 +2,15 @@ import { Time } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Route, Router } from '@angular/router';
+import { Email } from 'src/app/models/email';
 import { Empleado } from 'src/app/models/empleado';
 import { Recurso } from 'src/app/models/recurso';
 import { Reunion } from 'src/app/models/reunion';
+import { EmailService } from 'src/app/services/email.service';
 import { EmpleadoService } from 'src/app/services/empleado.service';
 import { RecursoService } from 'src/app/services/recurso.service';
 import { ReunionService } from 'src/app/services/reunion.service';
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -35,8 +38,16 @@ export class AltaReunionComponent implements OnInit {
   reunionesGuardadas!: Array<Reunion>;
   reuniones!: Array<Reunion>;
   accion!: Boolean;
+  oldParticipantes: Empleado[];
+  email: Email;
+  noemail: Email;
+  invitados: any[];
+  noinvitados: any[];
+  mensaje: string;
 
-  constructor(private reunionService: ReunionService, private empleadoService: EmpleadoService, private recursoService: RecursoService, private fb: FormBuilder, private activateRoute: ActivatedRoute, private router: Router) {
+
+  constructor(private reunionService: ReunionService, private empleadoService: EmpleadoService, private recursoService: RecursoService, private fb: FormBuilder, private activateRoute: ActivatedRoute, private router: Router, private emailService: EmailService) {
+
 
     this.formReunion = this.fb.group({
       temaReunion: ['', Validators.required],
@@ -60,6 +71,7 @@ export class AltaReunionComponent implements OnInit {
         this.reunion = new Reunion();
         this.reunion.estado = "Pendiente";
         this.fecha = new Date();
+       //calendarioParticipante
       }
       else {
         this.accion = true;
@@ -68,11 +80,24 @@ export class AltaReunionComponent implements OnInit {
       }
     })
 
-    
+
+    this.recursosReunion = new Array<Recurso>();
+    this.participantes = new Array<Empleado>();
+    this.oldParticipantes = new Array<Empleado>();
+    this.reunion = new Reunion();
+    this.fecha = new Date();
+    this.getEmpleados();
+    this.getRecursos();
+    //  this.getReuniones()  Para hacer comprobaciones
+    this.email = new Email();
+    this.noemail = new Email();
+    this.invitados = new Array<any>();
+    this.noinvitados = new Array<any>();
 
     this.getEmpleados();
     this.getRecursos();
     //this.getReuniones()  Para hacer comprobaciones
+
   }
 
 
@@ -102,7 +127,6 @@ export class AltaReunionComponent implements OnInit {
             Object.assign(this.recurso, element);
             this.recursos.push(this.recurso);
           }
-
         });
       }
     )
@@ -122,34 +146,56 @@ export class AltaReunionComponent implements OnInit {
       },
     )
   }
-  
-  async altaReunion() {
+
+
+  altaReunion() {
+    this.email.asunto = "Aviso de nueva reunión"
+    this.mensaje = "Tienes una reunion el ";
     this.manejoDeDatos()
-    //this.controlColisionOficinas()
+    //this.controlColisionOficinas(this.reunion)
+
+    if (this.invitados.length != 0) { this.sendEmail(); }
 
     console.log(this.reunion);
     this.reunionService.postReunion(this.reunion).subscribe(
       (result) => {
         console.log("56 " + result);
-        alert("Reunion guardada");
+        Swal.fire(
+          'Good job!',
+          'Reunion guardada',
+          'success'
+        )
       },
     )
     this.router.navigate(['listarReunion']);
 
 
   }
-
+ 
   modificarReunion() {
+
+    this.email.asunto = "Aviso de reunión modificada"
+    this.mensaje = "Se modificó la reunion para el día: ";
+    this.manejoDeDatos()
+    if (this.invitados.length != 0) { this.sendEmail(); }
+    console.log(this.reunion);
+    console.log("No participan: " + this.oldParticipantes);
+    if (this.noinvitados.length != 0) { this.sendEmailnoparticipa(); }
     this.manejoDeDatos()
     console.log(this.reunion);
     this.reunionService.editeReunion(this.reunion).subscribe(
       (result) => {
         console.log("" + result);
-        alert("Reunion modificada");
+        Swal.fire(
+          'Good job!',
+          'Reunion modificada',
+          'success'
+        )
       },
     )
     this.router.navigate(['listarReunion']);
   }
+ 
 
   getReunionId(id: string) {
     
@@ -203,23 +249,15 @@ export class AltaReunionComponent implements OnInit {
   // ******************************** Manejo de datos ********************************
 
 
-  async controlColisionOficinas() {
 
-    this.reuniones = new Array<Reunion>();
-    this.reunionesGuardadas = new Array<Reunion>();
-    
-    this.buscarxOficina(this.reuniones,this.reunion.nroOficina);
-    this.buscarxdiaMes(this.reunionesGuardadas, "7" , "7");
-    //console.log(this.reuniones);
-    //console.log(this.reunionesGuardadas);
-    
-    this.sumarFiltros(this.reuniones, this.reunionesGuardadas);
+  controlColisionOficinas() {
 
-    console.log(this.reunionesGuardadas);
-    console.log(this.reunionesGuardadas.length);
-    console.log(this.reunionesGuardadas[0].temaReunion);
     
-    this.reunionesGuardadas.forEach((element:Reunion) => {
+    this.buscarxOficina(this.reunion.nroOficina);
+    this.buscarxdiaMes("7" , "7"); 
+    this.sumarFiltros();
+    
+    this.reunionesGuardadas.forEach((element) => {
       console.log("entra1");
       let caso1 = element.horaComienzo == this.reunion.horaComienzo;
       let caso2 = (this.reunion.horaComienzo > element.horaComienzo) && (this.reunion.horaComienzo > element.horaFinal);
@@ -232,7 +270,7 @@ export class AltaReunionComponent implements OnInit {
       }
     });
   }
-
+  
   controlarFechayHorarioLaboral() {
 
     this.hLaboralInicio = new Date()
@@ -265,6 +303,25 @@ export class AltaReunionComponent implements OnInit {
 
   manejoDeDatos() {
 
+    this.reunion.dia = this.fecha.getDate().toString();
+    this.reunion.mes = (this.fecha.getMonth() + 1).toString();
+    this.reunion.anio = this.fecha.getFullYear().toString();
+    if (this.participantes.length != 0&& this.accion == true) {
+      //respaldo de participantes 
+      this.oldParticipantes = this.reunion.participantes;
+      this.reunion.participantes = this.participantes;
+      //comprobando la presencia de antiguos participantes
+      this.oldParticipantes = this.oldParticipantes.filter(p => !this.participantes.includes(p));
+      //preparando para enviar cancelacion
+       this.cancelarInvitacion();
+    }else{this.reunion.participantes = this.participantes;}
+    this.reunion.recursos = this.recursosReunion;
+    this.reunion.fechaCompleta = this.fecha;
+    this.restarRecursos(this.reunion.recursos);
+    this.mensaje = this.mensaje + this.reunion.dia + "/" + this.reunion.mes + "/" + this.reunion.anio + " a horas: " + this.reunion.horaComienzo + "hasta las " + this.reunion.horaFinal + ", en la oficina: " + this.reunion.nroOficina; +". Tema a tratar: " + this.reunion.temaReunion + ".";
+    this.email.mensaje = this.mensaje;
+    this.email.destinatarios = this.invitados.toString();
+   
     this.reunion.dia = " a";//this.reunion.fechaCompleta.getDate().toString();
     this.reunion.mes = " a"; //this.reunion.fechaCompleta.getMonth().toString();
     this.reunion.anio = "a ";//this.reunion.fechaCompleta.getFullYear().toString();
@@ -296,12 +353,14 @@ export class AltaReunionComponent implements OnInit {
   addEmpleado(empleado: Empleado): void {
     if (!this.UserExists(empleado)) {
       this.participantes.push(empleado);
+      this.invitados.push(empleado.correo);
     }
   }
   removeEmpleado(empleado: Empleado): void {
     for (var _i = 0; _i < this.participantes.length; _i++) {
       if (this.participantes[_i]._id == empleado._id) {
-        this.participantes.splice(_i, 1)
+        this.participantes.splice(_i, 1);
+        this.invitados.splice(_i, 1);
       }
     }
   }
@@ -357,40 +416,44 @@ export class AltaReunionComponent implements OnInit {
     console.log(idEmpleado);
     this.reunionService.getReunionParticipante(idEmpleado).subscribe(
      (result:Array<Reunion>) => {
+        this.reunionesGuardadas = new Array<Reunion>();
         result.forEach((element: any) => {
           let reunion= new Reunion();
           if (element.cantidad > 0) {
             Object.assign(reunion, element);
             this.reuniones.push(reunion);
           }
-
-      });
-      })
- 
+        })
+      }
+    )
   }
-
-  buscarxOficina( reuniones:Array<Reunion>, nroOficina: string) {
+  
+  
+  buscarxOficina( nroOficina: string) {
     console.log(nroOficina);
-    
-    
     this.reunionService.getReunionOficina(nroOficina).subscribe(
-      (result:Array<Reunion>) => {
-        result.forEach((element: Reunion) => {
-            reuniones.push(element);
-            //console.log(this.reuniones); 
+      (result) => {
+        this.reuniones = new Array<Reunion>();    
+        result.forEach((element) => {
+            let reunion = new Reunion();
+            Object.assign(reunion,element); 
+            this.reuniones.push(reunion);
       });
-
+            console.log(this.reuniones); 
       },
     )
   }
 
-  buscarxdiaMes( reuniones:Array<Reunion>, dia: string, mes: string){
+  buscarxdiaMes( dia: string, mes: string){
     this.reunionService.getReunionFecha(dia, mes).subscribe(
-      (result:Array<Reunion>) => {
-        result.forEach((element: Reunion) => {
-            reuniones.push(element);
-            //console.log(this.reunionesGuardadas);
+      (result) => {
+        this.reunionesGuardadas = new Array<Reunion>();
+        result.forEach((element) => {
+            let reunion = new Reunion();
+            Object.assign(reunion,element); 
+            this.reunionesGuardadas.push(reunion);
       });
+        console.log(this.reunionesGuardadas); 
       },
     )
   }
@@ -400,26 +463,73 @@ export class AltaReunionComponent implements OnInit {
    * @param reuniones Array que contiene la informacion
    * @param reunionesFiltro Array que contiene el resultado
    */
-  sumarFiltros(reuniones: Array<Reunion>, reunionesFiltro: Array<Reunion>) {    
+  sumarFiltros() {    
+    
+      
 
-    if (!reunionesFiltro.length) {
-      reuniones.forEach((element:Reunion) => {
-        reunionesFiltro.push(element);
-      });
-    }
-    else {
-      reuniones.forEach((element:Reunion) => {
-        if (!reunionesFiltro.includes(element) ) {
-          let i = reunionesFiltro.indexOf(element);
-          reunionesFiltro.splice(i, 1);
+   //   console.log("1"+this.reuniones);
+   //   console.log("2"+this.reunionesGuardadas);
+      
+      this.reuniones.forEach(element => {
+        if (!this.reunionesGuardadas.includes(element) ) {
+          let i = this.reunionesGuardadas.indexOf(element);
+          this.reunionesGuardadas.splice(i, 1);
         }
       });
-/*           reuniones = new Array<Reunion>();
-          reunionesFiltro.forEach(element => {
-            this.reuniones.push(element);
-          });  */
-
-    }
   }
+
+    // ******************************** Email ********************************
+  sendEmail() {
+
+    this.emailService.sendEmail(this.email)
+      .subscribe(
+        (result) => {
+          Swal.fire({
+            title: '¡Mensaje enviado a los participantes!',
+            width: 600,
+            timer: 3000,
+            padding: '5em',
+            color: '#000000',
+            background: '#37D66C url(/assets/img/icono-sistema/enviado.gif)',
+          })
+        },
+        (error) => {
+          alert(error.msj);
+        }
+      );
+
+  }
+  sendEmailnoparticipa() {
+    this.noemail.asunto = "Invitación a reunión cancelada"
+    this.noemail.mensaje = this.mensaje + ". <strong>No tienes que asistir</strong>"
+
+    this.emailService.sendEmail(this.noemail)
+      .subscribe(
+        (result) => {
+          Swal.fire({
+            title: '¡Mensaje de cancelación enviado a los participantes!',
+            width: 600,
+            timer: 3000,
+            padding: '5em',
+            color: '#000000',
+            background: '#37D66C url(/assets/img/icono-sistema/enviado.gif)',
+          })
+        },
+        (error) => {
+          alert(error.msj);
+        }
+      );
+
+  }
+  cancelarInvitacion(): void {
+    for (var _i = 0; _i < this.oldParticipantes.length; _i++) {
+      this.noinvitados.push(this.oldParticipantes[_i].correo)
+    }
+    this.noemail.destinatarios = this.noinvitados.toString();
+    console.log("cancelados: " + this.noinvitados.toString())
+  }
+
+
+
 
 }

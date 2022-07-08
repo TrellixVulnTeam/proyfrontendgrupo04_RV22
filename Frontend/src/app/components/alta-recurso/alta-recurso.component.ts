@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Recurso } from 'src/app/models/recurso';
 import { RecursoService } from 'src/app/services/recurso.service';
+import Swal from 'sweetalert2';
+
 
 @Component({
   selector: 'app-alta-recurso',
@@ -19,7 +21,7 @@ export class AltaRecursoComponent implements OnInit {
   esconderDigital:Boolean=false;
   formRecurso: FormGroup ;
 
-  constructor(private recursoService:RecursoService,private activateRoute:ActivatedRoute,private fb:FormBuilder) { 
+  constructor(private recursoService:RecursoService,private activateRoute:ActivatedRoute,private fb:FormBuilder, private router:Router) { 
     this.formRecurso = this.fb.group({
       tipoRecurso : ['', Validators.required],
       nombreRecurso : ['', Validators.required],
@@ -34,11 +36,15 @@ export class AltaRecursoComponent implements OnInit {
       
       if(params['id'] == '0'){
         this.accion=false;
-       this.recurso= new Recurso();
+        this.recurso= new Recurso();
       }
       else{
         this.accion=true;
         this.getRecursoId(params['id']);
+        let d = document.getElementById("stockRecurso") as HTMLInputElement;
+        if(this.recurso.tipo!="Fisico")
+          d.disabled = true;
+      
       }
     }) 
 
@@ -50,18 +56,30 @@ export class AltaRecursoComponent implements OnInit {
     this.recursoService.postRecurso(this.recurso).subscribe(
       (result) => {
         console.log(result);
+        Swal.fire(
+          'Recurso guardado!',
+          '',
+          'success'
+        )
       }
     )
+    this.router.navigate(['listarRecurso']);
   }
 
   editarRecurso(){
-    this.recurso = new Recurso();
     console.log(this.recurso);
     this.recursoService.updateRecurso(this.recurso).subscribe(
       (result) => {
         console.log(result);
+        Swal.fire(
+          'Recurso modificado!',
+          '',
+          'success'
+        )
       }
     )
+    this.router.navigate(['listarRecurso']);
+
   }
 
 

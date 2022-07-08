@@ -67,7 +67,7 @@ export class ReunionService {
   }
 
     //Recuperar reuniones por fecha
-    public getReunionFecha(dia:string, mes:string){
+    public getReunionFecha(dia:string, mes:string):Observable<any>{
       const httpOptions = {
         params: {dia: dia , mes: mes},
         headers: new HttpHeaders({
@@ -82,7 +82,7 @@ export class ReunionService {
     }
   
     //Recuperar reunion por oficina
-    public getReunionOficina(nroOficina:string ){
+    public getReunionOficina(nroOficina:string ):Observable<any>{
       const httpOptions = {
         headers: new HttpHeaders({
           'Content-Type':'application/json',
@@ -93,7 +93,7 @@ export class ReunionService {
     }
   
     //Recuperar reunion por participantes
-    public getReunionParticipante(id:string){
+    public getReunionParticipante(id:string):Observable<any>{
       const httpOptions = {  
         headers: new HttpHeaders({
           'Content-Type': 'application/json'
@@ -105,7 +105,7 @@ export class ReunionService {
       return this._http.get(this.urlBase+"reunion/participante/"+id , httpOptions);
     }
   //Recuperar reunion por empleado NO presente
-    public getReunionNoParticipante(id:string){
+    public getReunionNoParticipante(id:string):Observable<any>{
       const httpOptions = {
         headers: new HttpHeaders({
           'Content-Type':'application/json',
@@ -114,7 +114,7 @@ export class ReunionService {
       return this._http.get(this.urlBase+"reunion/noparticipante/"+id , httpOptions);
     } 
 
-    public getReunionPorLegajo(legajo:string)
+    public getReunionPorLegajo(legajo:string):Observable<any>
     {
       const httpOptions = {
         headers: new HttpHeaders({

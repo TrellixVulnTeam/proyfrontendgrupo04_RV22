@@ -130,6 +130,13 @@ export class LoginService {
    var id = sessionStorage.getItem("userid");
    return id;
    }
+   
+   //metodo utilizado para devolverme el tipo de perfil del usuario
+   getRole() {
+    var perfil = sessionStorage.getItem("perfil");
+    return perfil;
+  }
+
 
 //retorna el contenido del token
 public getToken():string{
